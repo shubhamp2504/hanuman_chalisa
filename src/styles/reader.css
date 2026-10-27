@@ -575,3 +575,245 @@ body.distraction-free .site-footer {
 body.distraction-free .reader-toolbar {
   top: 12px;
 }
+
+/* ==========================================================================
+   TEMPLE SINGLE-PAGE FULL CHALISA MANUSCRIPT
+   Continuous, authentic, uninterrupted prayer book layout
+   ========================================================================== */
+.temple-manuscript {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 5vw, 48px) clamp(16px, 4vw, 40px);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.temple-shloka-head {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.temple-om-symbol {
+  font-size: 2.2rem;
+  color: var(--c-saffron);
+  line-height: 1;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.4));
+}
+
+.temple-main-title {
+  font-family: var(--font-devanagari);
+  font-size: clamp(1.8rem, 1.5rem + 1.2vw, 2.6rem);
+  font-weight: 800;
+  color: var(--text-gold);
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.temple-subtitle-author {
+  font-family: var(--font-devanagari);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.temple-decorative-divider {
+  color: var(--c-gold);
+  font-size: 0.85rem;
+  opacity: 0.6;
+  margin-top: 12px;
+  letter-spacing: 0.3em;
+}
+
+.temple-group-block {
+  margin-bottom: 28px;
+}
+
+.temple-group-title {
+  font-family: var(--font-devanagari);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--c-saffron);
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.temple-group-title::before,
+.temple-group-title::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: linear-gradient(to right, transparent, var(--border-prominent));
+}
+
+.temple-group-title::after {
+  background: linear-gradient(to left, transparent, var(--border-prominent));
+}
+
+.temple-couplets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.temple-couplet {
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  position: relative;
+}
+
+.temple-couplet:hover {
+  background: rgba(217, 181, 109, 0.06);
+  border-color: rgba(217, 181, 109, 0.2);
+}
+
+.temple-couplet.active-temple-verse {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 181, 109, 0.07) 100%);
+  border-color: var(--c-saffron);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.2);
+}
+
+.temple-lines-wrap {
+  font-family: var(--font-devanagari);
+  font-size: calc(clamp(1.15rem, 1.05rem + 0.5vw, 1.45rem) * var(--reader-scale, 1.0));
+  line-height: var(--reader-lh, 2.0);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.temple-line {
+  display: block;
+}
+
+.temple-verse-number {
+  color: var(--c-saffron);
+  font-weight: 700;
+  margin-left: 8px;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
+.temple-meaning-inline {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-subtle);
+  animation: fadeIn 0.2s ease;
+}
+
+.temple-meaning-bullet {
+  font-weight: 700;
+  color: var(--c-gold);
+  margin-right: 4px;
+}
+
+.temple-section-separator {
+  text-align: center;
+  color: var(--c-gold);
+  opacity: 0.5;
+  letter-spacing: 0.4em;
+  margin: 24px 0;
+  font-size: 0.85rem;
+}
+
+.temple-colophon-box {
+  text-align: center;
+  padding-top: 28px;
+  margin-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.temple-colophon-text {
+  font-family: var(--font-devanagari);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--c-gold);
+}
+
+.temple-slogan {
+  font-family: var(--font-devanagari);
+  font-size: 0.95rem;
+  color: var(--c-saffron);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE TWEAKS FOR READER
+   ========================================================================== */
+@media (max-width: 768px) {
+  .reader-toolbar {
+    padding: 8px 10px;
+    gap: 8px;
+    background: var(--bg-surface) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  }
+
+  .reader-toolbar-left,
+  .reader-toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .mode-toggle-btn {
+    padding: 5px 9px;
+    font-size: 0.78rem;
+  }
+
+  .reader-tool-btn {
+    padding: 5px 9px;
+    font-size: 0.78rem;
+  }
+
+  .font-mini-btn {
+    padding: 4px 7px;
+    font-size: 0.76rem;
+  }
+
+  .reader-progress-badge {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+  }
+
+  .temple-manuscript {
+    padding: 18px 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .temple-couplet {
+    padding: 10px 10px;
+  }
+
+  .temple-lines-wrap {
+    font-size: calc(1.15rem * var(--reader-scale, 1.0));
+    line-height: 1.85;
+  }
+
+  .verse-card {
+    padding: 16px 14px;
+    border-radius: var(--radius-sm);
+  }
+
+  .verse-devanagari {
+    font-size: calc(1.2rem * var(--reader-scale, 1.0));
+  }
+}
+

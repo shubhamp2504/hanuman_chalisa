@@ -267,34 +267,56 @@
           <div class="reader-toolbar-left">
             <button type="button" class="reader-tool-btn" id="btn-open-index" aria-label="Open Verse Index Drawer">
               <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-              <span>सूची (Index)</span>
+              <span>सूची</span>
             </button>
-            <span class="reader-progress-badge" id="reader-verse-counter">चौपाई १ / ४०</span>
+
+            <!-- Mode Switch: Temple Single Page (Default) vs Detailed Cards vs Single Verse -->
+            <div class="mode-toggle-group" role="radiogroup" aria-label="Reading Mode">
+              <button type="button" class="mode-toggle-btn active" id="btn-mode-temple" role="radio" aria-checked="true" title="Complete Hanuman Chalisa on one single continuous page for temple chanting">
+                🛕 अखंड पाठ
+              </button>
+              <button type="button" class="mode-toggle-btn" id="btn-mode-cards" role="radio" aria-checked="false" title="Detailed Verse-by-verse Cards">
+                कार्ड
+              </button>
+              <button type="button" class="mode-toggle-btn" id="btn-mode-focused" role="radio" aria-checked="false" title="Focus Single Verse">
+                एकाग्र
+              </button>
+            </div>
           </div>
 
           <div class="reader-toolbar-right">
-            <!-- Mode Toggle: Continuous Scroll vs Focused Single-Verse -->
-            <div class="mode-toggle-group" role="radiogroup" aria-label="Reading Mode">
-              <button type="button" class="mode-toggle-btn active" id="btn-mode-continuous" role="radio" aria-checked="true">निरंतर (Continuous)</button>
-              <button type="button" class="mode-toggle-btn" id="btn-mode-focused" role="radio" aria-checked="false">एकाग्र (Single)</button>
+            <!-- Toggle Hindi Meaning in Temple Mode -->
+            <button type="button" class="reader-tool-btn" id="btn-toggle-meaning" title="Toggle Meaning (अर्थ दिखाएं/छिपाएं)" aria-label="Toggle Meaning">
+              <span>📖 अर्थ</span>
+            </button>
+
+            <!-- Quick Font Scale buttons -->
+            <div class="font-quick-btns" title="Change Text Size">
+              <button type="button" class="font-mini-btn" id="btn-reader-font-dec" title="Smaller Font">A-</button>
+              <button type="button" class="font-mini-btn" id="btn-reader-font-inc" title="Larger Font">A+</button>
             </div>
 
             <!-- Reader Speed button -->
             <button type="button" class="reader-tool-btn" id="btn-reader-speed-toggle" title="Change Recitation Speed" aria-label="Recitation Speed">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.28-10.43zM10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>
-              <span id="reader-speed-label">1.0x गति</span>
+              <span id="reader-speed-label">1.0x</span>
             </button>
 
             <!-- Distraction-free toggle -->
             <button type="button" class="reader-tool-btn" id="btn-toggle-distraction-free" title="Distraction-Free Mode (D)" aria-label="Toggle Distraction-Free Mode">
               <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-              <span>शांत पाठ</span>
+              <span>शांत</span>
             </button>
           </div>
         </div>
 
-        <!-- Continuous Verses Container -->
-        <div class="verses-list" id="verses-list-container">
+        <!-- 1. TEMPLE SINGLE-PAGE FULL CHALISA (Default Mode) -->
+        <div class="temple-single-container" id="temple-single-page-container">
+          <!-- Rendered dynamically by temple-view.js -->
+        </div>
+
+        <!-- 2. DETAILED VERSE-BY-VERSE CARDS (Hidden in Temple Mode) -->
+        <div class="verses-list" id="verses-list-container" style="display: none;">
           <!-- Populated dynamically by JS -->
         </div>
 
@@ -625,6 +647,28 @@
       </div>
     </div>
   </div>
+
+  <!-- ====================================================================
+       MOBILE BOTTOM TAB NAVIGATION (APPLE / IOS STYLE)
+       ==================================================================== -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <button type="button" class="mobile-tab-btn active" data-nav="home" title="मुख्य पृष्ठ (Home)">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>मुख्य</span>
+    </button>
+    <button type="button" class="mobile-tab-btn" data-nav="reader" title="चालीसा पाठ (Reader)">
+      <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+      <span>चालीसा</span>
+    </button>
+    <button type="button" class="mobile-tab-btn" data-nav="sadhana" title="साधना एवं जपमाला (Sadhana)">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span>साधना</span>
+    </button>
+    <button type="button" class="mobile-tab-btn" data-nav="wisdom" title="ज्ञान दर्शन (Wisdom)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
+      <span>ज्ञान</span>
+    </button>
+  </nav>
 
   <!-- Main ES Module Script -->
   <script type="module" src="/src/main.js"></script>

@@ -8,6 +8,7 @@ import { WISDOM_STORIES, VIRTUES } from './content/wisdom-data.js';
 import { storage } from './services/storage-service.js';
 import { audioService } from './services/audio-service.js';
 import { createVerseCardHTML } from './components/verse-card.js';
+import { renderTempleSinglePageHTML } from './components/temple-view.js';
 import { AudioDock } from './components/audio-dock.js';
 import { PetalsCanvas } from './components/petals-canvas.js';
 import { ICONS } from './utils/icons.js';
@@ -15,7 +16,8 @@ import { ICONS } from './utils/icons.js';
 class HanumanChalisaApp {
   constructor() {
     this.currentView = 'home';
-    this.readingMode = 'continuous'; // 'continuous' or 'focused'
+    this.readingMode = 'temple'; // 'temple' (default continuous manuscript), 'cards', or 'focused'
+    this.showMeaningInTemple = false;
     this.focusedVerseIndex = 0;
     this.petalsCanvas = null;
     this.audioDock = null;
@@ -28,6 +30,7 @@ class HanumanChalisaApp {
     this.initSettings();
 
     // 2. Render content
+    this.renderTempleView();
     this.renderVersesList();
     this.renderIndexDrawer();
     this.renderWisdom();
@@ -251,8 +254,8 @@ class HanumanChalisaApp {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Update active nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
+    // Update active nav links and mobile bottom tabs
+    document.querySelectorAll('.nav-link, .mobile-tab-btn').forEach(link => {
       link.classList.toggle('active', link.getAttribute('data-nav') === viewName);
     });
 
@@ -368,6 +371,22 @@ class HanumanChalisaApp {
   // =========================================================================
   // LIVING CHALISA READER
   // =========================================================================
+  renderTempleView() {
+    const container = document.getElementById('temple-single-page-container');
+    if (!container) return;
+
+    container.innerHTML = renderTempleSinglePageHTML(this.showMeaningInTemple);
+
+    // Clicking on any couplet starts reciting from that verse
+    container.querySelectorAll('.temple-couplet').forEach(couplet => {
+      couplet.addEventListener('click', () => {
+        const index = parseInt(couplet.getAttribute('data-temple-index'), 10);
+        audioService.jumpToVerse(index);
+        audioService.play();
+      });
+    });
+  }
+
   renderVersesList() {
     const container = document.getElementById('verses-list-container');
     if (!container) return;
@@ -382,60 +401,105 @@ class HanumanChalisaApp {
   }
 
   bindReaderEvents() {
-    const container = document.getElementById('verses-list-container');
-    if (!container) return;
+    const cardsContainer = document.getElementById('verses-list-container');
+    if (cardsContainer) {
+      // Delegated actions on Verse Cards
+      cardsContainer.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-action]');
+        if (!target) return;
 
-    // Delegated actions on Verse Cards
-    container.addEventListener('click', (e) => {
-      const target = e.target.closest('[data-action]');
-      if (!target) return;
+        const action = target.getAttribute('data-action');
 
-      const action = target.getAttribute('data-action');
+        if (action === 'toggle-word-by-word') {
+          const grid = target.nextElementSibling;
+          const isOpen = grid.classList.toggle('open');
+          target.classList.toggle('open', isOpen);
+          target.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
 
-      if (action === 'toggle-word-by-word') {
-        const grid = target.nextElementSibling;
-        const isOpen = grid.classList.toggle('open');
-        target.classList.toggle('open', isOpen);
-        target.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      }
+        if (action === 'bookmark') {
+          const verseId = target.getAttribute('data-verse-id');
+          const isBookmarked = storage.toggleBookmark(verseId);
+          target.classList.toggle('bookmarked', isBookmarked);
+          target.innerHTML = isBookmarked ? ICONS.heart : ICONS.heartOutline;
+          this.updateIndexBookmarks();
+        }
 
-      if (action === 'bookmark') {
-        const verseId = target.getAttribute('data-verse-id');
-        const isBookmarked = storage.toggleBookmark(verseId);
-        target.classList.toggle('bookmarked', isBookmarked);
-        target.innerHTML = isBookmarked ? ICONS.heart : ICONS.heartOutline;
-        this.updateIndexBookmarks();
-      }
+        if (action === 'play-verse') {
+          const index = parseInt(target.getAttribute('data-verse-index'), 10);
+          audioService.jumpToVerse(index);
+          audioService.play();
+        }
+      });
+    }
 
-      if (action === 'play-verse') {
-        const index = parseInt(target.getAttribute('data-verse-index'), 10);
-        audioService.jumpToVerse(index);
-        audioService.play();
-      }
-    });
-
-    // Mode Toggle (Continuous vs Focused)
-    const btnContinuous = document.getElementById('btn-mode-continuous');
+    // Reading Mode Switches: Temple Single Page vs Cards vs Focused Single
+    const btnTemple = document.getElementById('btn-mode-temple');
+    const btnCards = document.getElementById('btn-mode-cards');
     const btnFocused = document.getElementById('btn-mode-focused');
-    const continuousList = document.getElementById('verses-list-container');
+    const templeSingleContainer = document.getElementById('temple-single-page-container');
+    const versesCardsContainer = document.getElementById('verses-list-container');
     const focusedContainer = document.getElementById('focused-single-container');
 
-    if (btnContinuous && btnFocused) {
-      btnContinuous.addEventListener('click', () => {
-        this.readingMode = 'continuous';
-        btnContinuous.classList.add('active');
-        btnFocused.classList.remove('active');
-        continuousList.style.display = 'flex';
-        focusedContainer.style.display = 'none';
-      });
+    const setMode = (mode) => {
+      this.readingMode = mode;
+      if (btnTemple) {
+        btnTemple.classList.toggle('active', mode === 'temple');
+        btnTemple.setAttribute('aria-checked', mode === 'temple' ? 'true' : 'false');
+      }
+      if (btnCards) {
+        btnCards.classList.toggle('active', mode === 'cards');
+        btnCards.setAttribute('aria-checked', mode === 'cards' ? 'true' : 'false');
+      }
+      if (btnFocused) {
+        btnFocused.classList.toggle('active', mode === 'focused');
+        btnFocused.setAttribute('aria-checked', mode === 'focused' ? 'true' : 'false');
+      }
 
-      btnFocused.addEventListener('click', () => {
-        this.readingMode = 'focused';
-        btnFocused.classList.add('active');
-        btnContinuous.classList.remove('active');
-        continuousList.style.display = 'none';
-        focusedContainer.style.display = 'block';
+      if (templeSingleContainer) templeSingleContainer.style.display = (mode === 'temple' ? 'block' : 'none');
+      if (versesCardsContainer) versesCardsContainer.style.display = (mode === 'cards' ? 'flex' : 'none');
+      if (focusedContainer) focusedContainer.style.display = (mode === 'focused' ? 'block' : 'none');
+
+      if (mode === 'focused') {
         this.renderFocusedVerse(this.focusedVerseIndex);
+      }
+    };
+
+    if (btnTemple) btnTemple.addEventListener('click', () => setMode('temple'));
+    if (btnCards) btnCards.addEventListener('click', () => setMode('cards'));
+    if (btnFocused) btnFocused.addEventListener('click', () => setMode('focused'));
+
+    // Toggle Hindi Meaning in Temple Single Page Mode
+    const btnMeaning = document.getElementById('btn-toggle-meaning');
+    if (btnMeaning) {
+      btnMeaning.addEventListener('click', () => {
+        this.showMeaningInTemple = !this.showMeaningInTemple;
+        btnMeaning.classList.toggle('active', this.showMeaningInTemple);
+        document.querySelectorAll('.temple-meaning-inline').forEach(el => {
+          el.style.display = this.showMeaningInTemple ? 'block' : 'none';
+        });
+      });
+    }
+
+    // Quick Font Scale buttons (A- / A+)
+    const btnFontDec = document.getElementById('btn-reader-font-dec');
+    const btnFontInc = document.getElementById('btn-reader-font-inc');
+
+    if (btnFontDec) {
+      btnFontDec.addEventListener('click', () => {
+        const cur = storage.getFontScale();
+        const next = Math.max(0.85, Math.round((cur - 0.1) * 100) / 100);
+        storage.setFontScale(next);
+        this._updateFontButtons(next);
+      });
+    }
+
+    if (btnFontInc) {
+      btnFontInc.addEventListener('click', () => {
+        const cur = storage.getFontScale();
+        const next = Math.min(1.4, Math.round((cur + 0.1) * 100) / 100);
+        storage.setFontScale(next);
+        this._updateFontButtons(next);
       });
     }
 
@@ -571,6 +635,13 @@ class HanumanChalisaApp {
 
     if (this.readingMode === 'focused') {
       this.renderFocusedVerse(index);
+    } else if (this.readingMode === 'temple') {
+      document.querySelectorAll('.temple-couplet').forEach(c => c.classList.remove('active-temple-verse'));
+      const couplet = document.getElementById(`temple-couplet-${index}`);
+      if (couplet) {
+        couplet.classList.add('active-temple-verse');
+        couplet.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     } else {
       const verse = CHALISA_DATA[index];
       const card = document.getElementById(`verse-card-${verse.id}`);
@@ -603,7 +674,17 @@ class HanumanChalisaApp {
         this.renderFocusedVerse(index);
       }
 
-      // 4. Update Continuous scroll highlight & auto-scroll
+      // 4. Update Temple Single-Page highlight & auto-scroll
+      document.querySelectorAll('.temple-couplet').forEach(c => c.classList.remove('active-temple-verse'));
+      const templeCouplet = document.getElementById(`temple-couplet-${index}`);
+      if (templeCouplet) {
+        templeCouplet.classList.add('active-temple-verse');
+        if (this.currentView === 'reader' && this.readingMode === 'temple' && audioService.audioSyncEnabled) {
+          templeCouplet.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      // 5. Update Cards scroll highlight & auto-scroll
       if (audioService.audioSyncEnabled) {
         document.querySelectorAll('.verse-card').forEach(card => {
           card.classList.remove('active-recitation', 'upcoming-recitation');
@@ -612,7 +693,7 @@ class HanumanChalisaApp {
         const activeCard = document.getElementById(`verse-card-${verse.id}`);
         if (activeCard) {
           activeCard.classList.add('active-recitation');
-          if (this.currentView === 'reader') {
+          if (this.currentView === 'reader' && this.readingMode === 'cards') {
             activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         }
