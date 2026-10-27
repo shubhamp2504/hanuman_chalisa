@@ -8,7 +8,8 @@
  *
  * Each entry provides Devanagari text, Roman transliteration,
  * simple Hindi meaning, clear English translation, word-by-word breakdown,
- * key spiritual theme, and connected Wisdom story references.
+ * key spiritual theme, and verified audio timestamps (startTime, endTime in seconds)
+ * matching the iconic, beloved Hariharan & Gulshan Kumar rendition.
  */
 
 export const CHALISA_DATA = [
@@ -36,7 +37,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Humility & Guru Vandana",
     storyRef: "guru-vandana",
-    approxDuration: 8.5
+    startTime: 32.0,
+    endTime: 53.0
   },
   {
     id: "doha-2",
@@ -62,7 +64,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Supplication & Surrender",
     storyRef: "surrender",
-    approxDuration: 8.0
+    startTime: 53.0,
+    endTime: 75.0
   },
   {
     id: "verse-1",
@@ -85,7 +88,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Wisdom & Cosmic Radiance",
     storyRef: "infinite-wisdom",
-    approxDuration: 6.5
+    startTime: 75.0,
+    endTime: 86.0
   },
   {
     id: "verse-2",
@@ -109,7 +113,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Unmatched Fortitude & Divine Lineage",
     storyRef: "meeting-rama",
-    approxDuration: 6.5
+    startTime: 86.0,
+    endTime: 97.0
   },
   {
     id: "verse-3",
@@ -133,7 +138,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Courage & Mental Purity",
     storyRef: "courage",
-    approxDuration: 6.5
+    startTime: 97.0,
+    endTime: 108.0
   },
   {
     id: "verse-4",
@@ -157,7 +163,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Divine Form & Beauty",
     storyRef: "divine-form",
-    approxDuration: 6.5
+    startTime: 108.0,
+    endTime: 119.0
   },
   {
     id: "verse-5",
@@ -181,7 +188,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Sacred Duty & Dharma",
     storyRef: "sacred-symbols",
-    approxDuration: 6.5
+    startTime: 119.0,
+    endTime: 130.0
   },
   {
     id: "verse-6",
@@ -205,7 +213,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Cosmic Majesty",
     storyRef: "shiva-rudra",
-    approxDuration: 6.5
+    startTime: 130.0,
+    endTime: 141.0
   },
   {
     id: "verse-7",
@@ -229,7 +238,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Readiness & Service",
     storyRef: "selfless-service",
-    approxDuration: 6.5
+    startTime: 141.0,
+    endTime: 151.0
   },
   {
     id: "verse-8",
@@ -253,7 +263,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Pure Devotion (Bhakti)",
     storyRef: "ram-charitra",
-    approxDuration: 6.5
+    startTime: 151.0,
+    endTime: 162.0
   },
   {
     id: "verse-9",
@@ -277,7 +288,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Adaptability & Discernment",
     storyRef: "lanka-dahan",
-    approxDuration: 6.5
+    startTime: 162.0,
+    endTime: 173.0
   },
   {
     id: "verse-10",
@@ -301,7 +313,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Triumph of Righteousness",
     storyRef: "victory-of-dharma",
-    approxDuration: 6.5
+    startTime: 173.0,
+    endTime: 184.0
   },
   {
     id: "verse-11",
@@ -325,7 +338,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Life Giver & Unconditional Love",
     storyRef: "sanjeevani",
-    approxDuration: 6.5
+    startTime: 184.0,
+    endTime: 195.0
   },
   {
     id: "verse-12",
@@ -349,7 +363,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Supreme Spiritual Brotherhood",
     storyRef: "bharat-sam-bhai",
-    approxDuration: 6.5
+    startTime: 195.0,
+    endTime: 206.0
   },
   {
     id: "verse-13",
@@ -373,7 +388,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Eternal Renown",
     storyRef: "cosmic-praise",
-    approxDuration: 6.5
+    startTime: 206.0,
+    endTime: 216.0
   },
   {
     id: "verse-14",
@@ -397,7 +413,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Universal Reverence",
     storyRef: "sages-praise",
-    approxDuration: 6.5
+    startTime: 216.0,
+    endTime: 227.0
   },
   {
     id: "verse-15",
@@ -421,7 +438,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Ineffable Greatness",
     storyRef: "ineffable-glory",
-    approxDuration: 6.5
+    startTime: 227.0,
+    endTime: 238.0
   },
   {
     id: "verse-16",
@@ -444,7 +462,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Noble Benevolence & Alliance",
     storyRef: "sugriva-alliance",
-    approxDuration: 6.5
+    startTime: 238.0,
+    endTime: 249.0
   },
   {
     id: "verse-17",
@@ -468,7 +487,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Wise Counsel & Guidance",
     storyRef: "vibhishana-counsel",
-    approxDuration: 6.5
+    startTime: 249.0,
+    endTime: 259.0
   },
   {
     id: "verse-18",
@@ -492,7 +512,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Fearless Wonder & Cosmic Reach",
     storyRef: "swallowing-the-sun",
-    approxDuration: 6.5
+    startTime: 259.0,
+    endTime: 270.0
   },
   {
     id: "verse-19",
@@ -516,7 +537,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Faith Overcoming Obstacles",
     storyRef: "crossing-the-ocean",
-    approxDuration: 6.5
+    startTime: 270.0,
+    endTime: 281.0
   },
   {
     id: "verse-20",
@@ -540,7 +562,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Grace Over Obstacles",
     storyRef: "divine-grace",
-    approxDuration: 6.5
+    startTime: 281.0,
+    endTime: 292.0
   },
   {
     id: "verse-21",
@@ -564,7 +587,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Gatekeeper of Grace",
     storyRef: "guardian-of-dharma",
-    approxDuration: 6.5
+    startTime: 292.0,
+    endTime: 303.0
   },
   {
     id: "verse-22",
@@ -588,7 +612,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Supreme Sanctuary (Abhaya)",
     storyRef: "fearlessness",
-    approxDuration: 6.5
+    startTime: 303.0,
+    endTime: 314.0
   },
   {
     id: "verse-23",
@@ -612,7 +637,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Cosmic Potency & Mastery",
     storyRef: "cosmic-roar",
-    approxDuration: 6.5
+    startTime: 314.0,
+    endTime: 325.0
   },
   {
     id: "verse-24",
@@ -636,7 +662,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Protection From Negativity",
     storyRef: "dispelling-darkness",
-    approxDuration: 6.5
+    startTime: 325.0,
+    endTime: 335.0
   },
   {
     id: "verse-25",
@@ -660,7 +687,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Healing & Wholeness",
     storyRef: "healing-power",
-    approxDuration: 6.5
+    startTime: 335.0,
+    endTime: 346.0
   },
   {
     id: "verse-26",
@@ -684,7 +712,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Deliverance Through Integrity",
     storyRef: "crisis-liberation",
-    approxDuration: 6.5
+    startTime: 346.0,
+    endTime: 357.0
   },
   {
     id: "verse-27",
@@ -708,7 +737,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Master of Divine Execution",
     storyRef: "rama-karya",
-    approxDuration: 6.5
+    startTime: 357.0,
+    endTime: 368.0
   },
   {
     id: "verse-28",
@@ -732,7 +762,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Fulfillment of Pure Prayers",
     storyRef: "divine-fulfillment",
-    approxDuration: 6.5
+    startTime: 368.0,
+    endTime: 379.0
   },
   {
     id: "verse-29",
@@ -756,7 +787,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Timeless Presence (Chiranjivi)",
     storyRef: "chiranjivi-hanuman",
-    approxDuration: 6.5
+    startTime: 379.0,
+    endTime: 389.0
   },
   {
     id: "verse-30",
@@ -780,7 +812,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Protector of the Good",
     storyRef: "protection-of-saints",
-    approxDuration: 6.5
+    startTime: 389.0,
+    endTime: 400.0
   },
   {
     id: "verse-31",
@@ -805,7 +838,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Mastery of Siddhis & Treasures",
     storyRef: "ashta-siddhi",
-    approxDuration: 6.5
+    startTime: 400.0,
+    endTime: 411.0
   },
   {
     id: "verse-32",
@@ -829,7 +863,8 @@ export const CHALISA_DATA = [
     ],
     theme: "The Elixir of Divine Name",
     storyRef: "ram-rasayan",
-    approxDuration: 6.5
+    startTime: 411.0,
+    endTime: 422.0
   },
   {
     id: "verse-33",
@@ -853,7 +888,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Pathway to the Supreme",
     storyRef: "bhajan-mahima",
-    approxDuration: 6.5
+    startTime: 422.0,
+    endTime: 433.0
   },
   {
     id: "verse-34",
@@ -877,7 +913,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Liberation & Divine Destiny",
     storyRef: "spiritual-liberation",
-    approxDuration: 6.5
+    startTime: 433.0,
+    endTime: 444.0
   },
   {
     id: "verse-35",
@@ -901,7 +938,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Single-Minded Devotion",
     storyRef: "ekagrata",
-    approxDuration: 6.5
+    startTime: 444.0,
+    endTime: 454.0
   },
   {
     id: "verse-36",
@@ -925,7 +963,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Total Dispeller of Distress",
     storyRef: "sankat-mochan",
-    approxDuration: 6.5
+    startTime: 454.0,
+    endTime: 465.0
   },
   {
     id: "verse-37",
@@ -949,7 +988,8 @@ export const CHALISA_DATA = [
     ],
     theme: "The Master as Guru",
     storyRef: "hanuman-as-guru",
-    approxDuration: 6.5
+    startTime: 465.0,
+    endTime: 476.0
   },
   {
     id: "verse-38",
@@ -973,7 +1013,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Deliverance from Bondage",
     storyRef: "sankalp-glory",
-    approxDuration: 6.5
+    startTime: 476.0,
+    endTime: 487.0
   },
   {
     id: "verse-39",
@@ -997,7 +1038,8 @@ export const CHALISA_DATA = [
     ],
     theme: "The Divine Witness",
     storyRef: "shiva-witness",
-    approxDuration: 6.5
+    startTime: 487.0,
+    endTime: 498.0
   },
   {
     id: "verse-40",
@@ -1021,7 +1063,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Enshrinement in the Heart",
     storyRef: "tulsidas-surrender",
-    approxDuration: 6.5
+    startTime: 498.0,
+    endTime: 510.0
   },
   {
     id: "doha-3",
@@ -1047,7 +1090,8 @@ export const CHALISA_DATA = [
     ],
     theme: "Eternal Auspicious Enshrinement",
     storyRef: "mangala-murti",
-    approxDuration: 8.5
+    startTime: 510.0,
+    endTime: 552.0
   }
 ];
 

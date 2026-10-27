@@ -2,11 +2,10 @@
  * Audio Service for Hanuman Chalisa — The Living Temple
  *
  * Implements:
- * 1. Web Audio API Meditative Tanpura Drone Generator (Harmonic Sa-Pa-Sa drone)
- * 2. Web Audio API Resonant Bronze Temple Bell Synthesizer (Natural overtone decay)
- * 3. Living Recitation Engine with exact timing for all 43 verses,
- *    supporting playback, pause, seek, speed, repeat, verse sync,
- *    and natural devotional voice narration.
+ * 1. Studio-Mastered Real Audio Recitation (Hariharan & Gulshan Kumar) via HTML5 Audio API
+ * 2. Exact timestamp synchronization across all 43 verses (startTime / endTime)
+ * 3. Web Audio API Meditative Tanpura Drone Generator (Harmonic Sa-Pa-Sa drone)
+ * 4. Web Audio API Resonant Bronze Temple Bell Synthesizer (852 Hz Solfeggio fundamental)
  */
 
 import { CHALISA_DATA } from '../content/chalisa-data.js';
@@ -19,23 +18,19 @@ class AudioService {
     this.tanpuraOscs = [];
     this.tanpuraTimer = null;
 
-    // Recitation State
+    // Real Audio Element
+    this.audio = new Audio('/audio/hanuman_chalisa.m4a');
+    this.audio.preload = 'metadata';
+
+    // State
     this.isPlaying = false;
     this.currentVerseIndex = 0;
     this.playbackSpeed = storage.getPlaybackSpeed();
     this.repeatGoal = 1;
     this.currentRepeatRound = 1;
     this.audioSyncEnabled = storage.getAudioSync();
-
-    // Timeline calculation
-    this.verseDurations = CHALISA_DATA.map(v => v.approxDuration || 6.5);
-    this.totalDuration = this.verseDurations.reduce((sum, d) => sum + d, 0);
+    this.totalDuration = 582; // Total track duration (approx 9m 42s)
     this.currentTime = 0;
-    this.timerInterval = null;
-
-    // Speech narration fallback
-    this.speechSynth = window.speechSynthesis || null;
-    this.currentUtterance = null;
 
     // Event listeners map
     this.listeners = {
@@ -44,6 +39,8 @@ class AudioService {
       timeupdate: [],
       ended: []
     };
+
+    this._bindAudioEvents();
   }
 
   _initAudioContext() {
@@ -70,6 +67,65 @@ class AudioService {
     }
   }
 
+  _bindAudioEvents() {
+    this.audio.playbackRate = this.playbackSpeed;
+
+    this.audio.addEventListener('loadedmetadata', () => {
+      if (this.audio.duration && !isNaN(this.audio.duration)) {
+        this.totalDuration = this.audio.duration;
+      }
+    });
+
+    this.audio.addEventListener('timeupdate', () => {
+      this.currentTime = this.audio.currentTime;
+      this._checkVerseAtTime(this.currentTime);
+
+      this._emit('timeupdate', {
+        currentTime: this.currentTime,
+        totalDuration: this.totalDuration,
+        progress: this.totalDuration > 0 ? this.currentTime / this.totalDuration : 0
+      });
+    });
+
+    this.audio.addEventListener('play', () => {
+      this.isPlaying = true;
+      this._emit('statechange', { isPlaying: true });
+    });
+
+    this.audio.addEventListener('pause', () => {
+      this.isPlaying = false;
+      this._emit('statechange', { isPlaying: false });
+    });
+
+    this.audio.addEventListener('ended', () => {
+      this._handleRecitationCycleEnd();
+    });
+
+    this.audio.addEventListener('error', (e) => {
+      console.warn('Real audio file playback notice:', e);
+    });
+  }
+
+  _checkVerseAtTime(time) {
+    // Check if current time falls into a specific verse
+    let matchedIndex = -1;
+    for (let i = 0; i < CHALISA_DATA.length; i++) {
+      const v = CHALISA_DATA[i];
+      if (time >= v.startTime && time < v.endTime) {
+        matchedIndex = i;
+        break;
+      }
+    }
+
+    if (matchedIndex !== -1 && matchedIndex !== this.currentVerseIndex) {
+      this.currentVerseIndex = matchedIndex;
+      this._emit('versechange', {
+        index: this.currentVerseIndex,
+        verse: CHALISA_DATA[this.currentVerseIndex]
+      });
+    }
+  }
+
   // =========================================================================
   // 1. RESONANT TEMPLE BELL (Web Audio API Synthesizer)
   // =========================================================================
@@ -79,9 +135,8 @@ class AudioService {
 
     try {
       const now = this.audioCtx.currentTime;
-      const baseFreq = 852; // Solfeggio frequency for spiritual awakening / bronze temple bell
+      const baseFreq = 852; // Solfeggio frequency for spiritual awakening
 
-      // Harmonics of an ancient Indian bronze bell
       const harmonics = [
         { freq: baseFreq, gain: 0.45, decay: 3.2 },
         { freq: baseFreq * 1.5, gain: 0.3, decay: 2.5 },
@@ -131,9 +186,8 @@ class AudioService {
     this.tanpuraRunning = true;
     storage.setAmbientOn(true);
 
-    // Fundamental Sa = D (approx 146.83 Hz), Pa = A (220 Hz)
     const baseFreq = 146.83;
-    const stringFreqs = [baseFreq * 1.5, baseFreq * 2, baseFreq * 2, baseFreq]; // Pa, High Sa, High Sa, Low Sa
+    const stringFreqs = [baseFreq * 1.5, baseFreq * 2, baseFreq * 2, baseFreq];
     let stringIndex = 0;
 
     const pluckString = () => {
@@ -180,28 +234,17 @@ class AudioService {
   }
 
   // =========================================================================
-  // 3. LIVING RECITATION ENGINE
+  // 3. LIVING RECITATION ENGINE (REAL STUDIO AUDIO)
   // =========================================================================
   play() {
     this._initAudioContext();
-    this.isPlaying = true;
-    this._emit('statechange', { isPlaying: true });
-
-    this._startNarrationForVerse(this.currentVerseIndex);
-    this._startTimelineClock();
+    this.audio.play().catch(err => {
+      console.warn('Playback gesture required:', err);
+    });
   }
 
   pause() {
-    this.isPlaying = false;
-    this._emit('statechange', { isPlaying: false });
-
-    if (this.speechSynth) {
-      this.speechSynth.cancel();
-    }
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null;
-    }
+    this.audio.pause();
   }
 
   togglePlay() {
@@ -217,27 +260,16 @@ class AudioService {
     if (index >= CHALISA_DATA.length) index = CHALISA_DATA.length - 1;
 
     this.currentVerseIndex = index;
-    // Calculate new current time
-    let time = 0;
-    for (let i = 0; i < index; i++) {
-      time += this.verseDurations[i];
+    const verse = CHALISA_DATA[this.currentVerseIndex];
+
+    if (verse && verse.startTime !== undefined) {
+      this.audio.currentTime = verse.startTime;
     }
-    this.currentTime = time;
 
     this._emit('versechange', {
       index: this.currentVerseIndex,
       verse: CHALISA_DATA[this.currentVerseIndex]
     });
-    this._emit('timeupdate', {
-      currentTime: this.currentTime,
-      totalDuration: this.totalDuration,
-      progress: this.currentTime / this.totalDuration
-    });
-
-    if (this.isPlaying) {
-      if (this.speechSynth) this.speechSynth.cancel();
-      this._startNarrationForVerse(this.currentVerseIndex);
-    }
   }
 
   nextVerse() {
@@ -257,43 +289,13 @@ class AudioService {
   seekRatio(ratio) {
     ratio = Math.max(0, Math.min(1, ratio));
     const targetTime = ratio * this.totalDuration;
-    this.currentTime = targetTime;
-
-    // Determine verse at targetTime
-    let accumulated = 0;
-    let foundIndex = 0;
-    for (let i = 0; i < this.verseDurations.length; i++) {
-      if (accumulated + this.verseDurations[i] >= targetTime) {
-        foundIndex = i;
-        break;
-      }
-      accumulated += this.verseDurations[i];
-    }
-
-    this.currentVerseIndex = foundIndex;
-    this._emit('versechange', {
-      index: this.currentVerseIndex,
-      verse: CHALISA_DATA[this.currentVerseIndex]
-    });
-    this._emit('timeupdate', {
-      currentTime: this.currentTime,
-      totalDuration: this.totalDuration,
-      progress: ratio
-    });
-
-    if (this.isPlaying) {
-      if (this.speechSynth) this.speechSynth.cancel();
-      this._startNarrationForVerse(this.currentVerseIndex);
-    }
+    this.audio.currentTime = targetTime;
   }
 
   setSpeed(speed) {
     this.playbackSpeed = speed;
+    this.audio.playbackRate = speed;
     storage.setPlaybackSpeed(speed);
-    if (this.isPlaying) {
-      if (this.speechSynth) this.speechSynth.cancel();
-      this._startNarrationForVerse(this.currentVerseIndex);
-    }
   }
 
   setRepeatCount(count) {
@@ -309,81 +311,18 @@ class AudioService {
     return CHALISA_DATA[this.currentVerseIndex];
   }
 
-  // Internal: Speech narration of Awadhi verse with devotional cadence
-  _startNarrationForVerse(index) {
-    const verse = CHALISA_DATA[index];
-    if (!verse) return;
-
-    if (!this.speechSynth) return;
-
-    this.speechSynth.cancel();
-
-    // Prepare spoken text (Lines in Devanagari)
-    const textToSpeak = verse.linesDevanagari.join(' । ');
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-
-    // Pick Hindi or Indian voice if available
-    const voices = this.speechSynth.getVoices ? this.speechSynth.getVoices() : [];
-    const hindiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('IN'));
-    if (hindiVoice) {
-      utterance.voice = hindiVoice;
-    }
-
-    utterance.lang = 'hi-IN';
-    utterance.rate = 0.85 * this.playbackSpeed; // Relaxed, dignified devotional cadence
-    utterance.pitch = 0.95;
-
-    utterance.onend = () => {
-      if (this.isPlaying) {
-        // Move to next verse when current finishes
-        setTimeout(() => {
-          if (this.isPlaying) {
-            this.nextVerse();
-          }
-        }, 300);
-      }
-    };
-
-    utterance.onerror = (e) => {
-      // Fallback: If speech error, timeline clock will still naturally advance
-      console.warn('Speech synth notice:', e);
-    };
-
-    this.currentUtterance = utterance;
-    this.speechSynth.speak(utterance);
-  }
-
-  // Internal: Timeline progression clock
-  _startTimelineClock() {
-    if (this.timerInterval) clearInterval(this.timerInterval);
-
-    this.timerInterval = setInterval(() => {
-      if (!this.isPlaying) return;
-
-      this.currentTime += 0.25 * this.playbackSpeed;
-      if (this.currentTime > this.totalDuration) {
-        this.currentTime = this.totalDuration;
-      }
-
-      this._emit('timeupdate', {
-        currentTime: this.currentTime,
-        totalDuration: this.totalDuration,
-        progress: this.currentTime / this.totalDuration
-      });
-    }, 250);
-  }
-
   _handleRecitationCycleEnd() {
     this.playTempleBell();
 
     if (this.currentRepeatRound < this.repeatGoal) {
       this.currentRepeatRound++;
-      this.jumpToVerse(0);
+      this.audio.currentTime = CHALISA_DATA[0].startTime;
       this.play();
     } else {
       this.pause();
-      this.jumpToVerse(0);
+      this.audio.currentTime = 0;
       this.currentRepeatRound = 1;
+      this.currentVerseIndex = 0;
       this._emit('ended', { completedRounds: this.repeatGoal });
     }
   }

@@ -53,6 +53,12 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Allow media audio to stream directly from network with native Range header support
+  if (event.request.url.includes('/audio/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   // Cache-first strategy for app assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
