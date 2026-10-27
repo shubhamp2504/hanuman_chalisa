@@ -9,7 +9,6 @@ import { storage } from './services/storage-service.js';
 import { audioService } from './services/audio-service.js';
 import { createVerseCardHTML } from './components/verse-card.js';
 import { AudioDock } from './components/audio-dock.js';
-import { DiyaCanvas } from './components/diya-canvas.js';
 import { PetalsCanvas } from './components/petals-canvas.js';
 import { ICONS } from './utils/icons.js';
 
@@ -18,8 +17,6 @@ class HanumanChalisaApp {
     this.currentView = 'home';
     this.readingMode = 'continuous'; // 'continuous' or 'focused'
     this.focusedVerseIndex = 0;
-    this.homeDiya = null;
-    this.altarDiya = null;
     this.petalsCanvas = null;
     this.audioDock = null;
 
@@ -43,8 +40,8 @@ class HanumanChalisaApp {
       this.audioDock = new AudioDock(dockContainer);
     }
 
-    // 4. Initialize Interactive Diyas
-    this.initDiyas();
+    // 4. Initialize Credits & Copyright Modal
+    this.bindCreditsModal();
 
     // 5. Setup Event Listeners & Router
     this.bindNavigation();
@@ -635,26 +632,51 @@ class HanumanChalisaApp {
   }
 
   // =========================================================================
-  // INTERACTIVE CANVAS DIYAS
+  // CREDITS & COPYRIGHT MODAL
   // =========================================================================
-  initDiyas() {
-    // 1. Home Diya (Size 80)
-    const homeCanvas = document.getElementById('home-diya-canvas');
-    const homeTrigger = document.getElementById('btn-home-diya-trigger');
-    if (homeCanvas) {
-      this.homeDiya = new DiyaCanvas(homeCanvas, { size: 80, isLit: true });
-    }
-    if (homeTrigger && this.homeDiya) {
-      homeTrigger.addEventListener('click', () => {
-        this.homeDiya.lightUp();
-      });
-    }
+  bindCreditsModal() {
+    const dialog = document.getElementById('credits-modal-dialog');
+    const backdrop = document.getElementById('credits-modal-backdrop');
+    const closeBtn = document.getElementById('btn-close-credits');
 
-    // 2. Altar Diya (Size 220)
-    const altarCanvas = document.getElementById('altar-diya-canvas');
-    if (altarCanvas) {
-      this.altarDiya = new DiyaCanvas(altarCanvas, { size: 220, isLit: true });
-    }
+    const openModal = () => {
+      if (dialog && backdrop) {
+        dialog.classList.add('open');
+        backdrop.classList.add('open');
+        dialog.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    const closeModal = () => {
+      if (dialog && backdrop) {
+        dialog.classList.remove('open');
+        backdrop.classList.remove('open');
+        dialog.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    };
+
+    // Trigger buttons
+    const triggerIds = ['btn-header-credits', 'btn-open-credits', 'btn-settings-credits'];
+    triggerIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal();
+        });
+      }
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dialog && dialog.classList.contains('open')) {
+        closeModal();
+      }
+    });
   }
 
   // =========================================================================

@@ -54,6 +54,12 @@
 
     <!-- Header Actions -->
     <div class="header-actions">
+      <!-- Credits & Copyright Button -->
+      <button type="button" class="action-btn" id="btn-header-credits" title="Credits & Copyright Attribution" aria-label="Credits & Copyright">
+        <svg viewBox="0 0 24 24"><path d="M11.88 9.14c-1.39 0-2.3.93-2.3 2.86 0 1.95.91 2.86 2.3 2.86 1.05 0 1.83-.55 2.06-1.52h1.66c-.32 1.84-1.87 2.83-3.72 2.83-2.52 0-4.04-1.74-4.04-4.17 0-2.45 1.52-4.17 4.04-4.17 1.84 0 3.39.99 3.72 2.83h-1.66c-.23-.97-1.01-1.52-2.06-1.52zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        <span class="desktop-only-label">आभार</span>
+      </button>
+
       <!-- Temple Bell Chime -->
       <button type="button" class="action-btn" id="btn-header-bell" title="Ring Sacred Temple Bell (घंटी)" aria-label="Ring Temple Bell">
         <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
@@ -132,6 +138,13 @@
         <button type="button" class="lang-pill-btn" data-lang-val="translit">Roman</button>
       </div>
     </div>
+
+    <div class="settings-group settings-credits-group">
+      <button type="button" class="settings-credits-btn" id="btn-settings-credits">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M11.88 9.14c-1.39 0-2.3.93-2.3 2.86 0 1.95.91 2.86 2.3 2.86 1.05 0 1.83-.55 2.06-1.52h1.66c-.32 1.84-1.87 2.83-3.72 2.83-2.52 0-4.04-1.74-4.04-4.17 0-2.45 1.52-4.17 4.04-4.17 1.84 0 3.39.99 3.72 2.83h-1.66c-.23-.97-1.01-1.52-2.06-1.52zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        <span>आभार एवं सर्वाधिकार (Credits & Rights)</span>
+      </button>
+    </div>
   </div>
 
   <!-- Main View Container -->
@@ -142,7 +155,7 @@
          ==================================================================== -->
     <section class="page-view active-view" id="view-home" aria-label="The Threshold — Home">
       
-      <!-- Hero Threshold -->
+      <!-- Hero Threshold (Apple-style Serene Simplicity) -->
       <div class="hero-threshold">
         <div class="hero-art-container">
           <img src="/assets/hanuman_darshan.jpg" alt="Lord Hanuman in the sacred sanctum sanctorum" class="hero-art-img" loading="eager" />
@@ -154,68 +167,41 @@
         <div class="hero-text-content">
           <span class="sacred-badge">
             <span class="om-symbol">ॐ</span>
-            <span>गोस्वामी तुलसीदास कृत • अवधी भाषा</span>
+            <span>गोस्वामी तुलसीदास कृत • अवधी भाषा • Public Domain</span>
           </span>
           <h1 class="hero-title">
             श्री हनुमान चालीसा
             <span class="hero-title-highlight">The Living Temple</span>
           </h1>
+          <p class="hero-tagline-awadhi">
+            ॥ श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ॥
+          </p>
           <p class="hero-subtitle">
-            एक पावन, शांत एवं सुगम डिजिटल मंदिर—जहाँ आप श्री हनुमान चालीसा का पाठ कर सकते हैं, श्रवण कर सकते हैं और उसके दिव्य अर्थ व आध्यात्मिक रहस्यों को समझ सकते हैं।
+            A serene, beautifully crafted digital sanctuary. Recite certified Awadhi verses, listen to authentic soulful recitation, and explore timeless Ramayana wisdom.
           </p>
 
-          <!-- 3 Primary One-Tap Actions -->
-          <div class="hero-cta-grid">
-            <div class="hero-cta-card cta-listen" id="btn-hero-listen" role="button" tabindex="0">
-              <div class="cta-icon-wrap">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <span class="cta-title-hindi">श्रवण करें (Listen)</span>
-              <span class="cta-title-english">1-Tap Recitation</span>
-              <span class="cta-desc">तुरंत संपूर्ण चालीसा पाठ प्रारंभ करें</span>
-            </div>
+          <!-- Apple-style Primary Action Buttons -->
+          <div class="hero-actions-row">
+            <button type="button" class="apple-btn-primary" id="btn-hero-listen">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <span>श्रवण करें (Listen Now)</span>
+            </button>
 
-            <div class="hero-cta-card cta-read" id="btn-hero-read" role="button" tabindex="0">
-              <div class="cta-icon-wrap">
-                <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-              </div>
-              <span class="cta-title-hindi">पाठ करें (Read)</span>
-              <span class="cta-title-english">Sacred Reader</span>
-              <span class="cta-desc">शुद्ध देवनागरी व शब्दार्थ सहित पाठ</span>
-            </div>
+            <button type="button" class="apple-btn-secondary" id="btn-hero-read">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+              <span>पाठ करें (Read Chalisa)</span>
+            </button>
 
-            <div class="hero-cta-card cta-understand" id="btn-hero-understand" role="button" tabindex="0">
-              <div class="cta-icon-wrap">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
-              </div>
-              <span class="cta-title-hindi">अर्थ समझें (Wisdom)</span>
-              <span class="cta-title-english">Wisdom Explorer</span>
-              <span class="cta-desc">रामायण कथाएं व सद्गुण अन्वेषण</span>
-            </div>
+            <button type="button" class="apple-btn-ghost" id="btn-hero-understand">
+              <span>ज्ञान दर्शन (Wisdom) →</span>
+            </button>
           </div>
         </div>
-      </div>
-
-      <!-- Interactive Virtual Diya Strip -->
-      <div class="home-diya-strip">
-        <div class="diya-strip-content">
-          <div class="diya-widget-box" id="home-diya-widget" title="Click to light the virtual diya">
-            <canvas id="home-diya-canvas" width="80" height="80"></canvas>
-          </div>
-          <div class="diya-strip-text">
-            <h3>हृदय में भक्ति का दीप प्रज्वलित करें</h3>
-            <p>शांत मन से एक संकल्प लें और आंतरिक प्रकाश की ज्योति जगाएं।</p>
-          </div>
-        </div>
-        <button type="button" class="btn-light-diya" id="btn-home-diya-trigger">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2c-.6 1.7-2 3.5-2 5 0 1.7 1.3 3 3 3s3-1.3 3-3c0-1.5-1.4-3.3-2-5h-2zm-8 12c0 4.4 3.6 8 8 8s8-3.6 8-8h-16zm2 2h12c-.5 2.8-3 5-6 5s-5.5-2.2-6-5z"/></svg>
-          <span>दीप जलाएं (Light Diya)</span>
-        </button>
       </div>
 
       <!-- Daily Verse Showcase Card -->
       <div class="daily-verse-card" id="daily-verse-card">
-        <span class="daily-verse-badge">आज का पावन विचार (Verse of Reflection)</span>
+        <span class="daily-verse-badge">आज का पावन विचार • Verse of Reflection</span>
         <div class="daily-verse-devanagari" id="daily-verse-text">
           बुद्धिहीन तनु जानिके सुमिरौ पवन-कुमार ।<br />
           बल बुधि बिद्या देहु मोहिं हरहु कलेस बिकार ॥
@@ -229,7 +215,7 @@
         </p>
         <div class="daily-verse-actions">
           <button type="button" class="btn-secondary" id="btn-daily-read-more">
-            <span>संपूर्ण चालीसा पढ़ें (Read Full)</span>
+            <span>संपूर्ण चालीसा पढ़ें (Read Full Chalisa)</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
           </button>
         </div>
@@ -237,34 +223,34 @@
 
       <!-- Three Pillars of The Living Temple -->
       <div class="section-header-block">
-        <span class="section-tag">पवित्र अनुभव</span>
+        <span class="section-tag">पवित्र अनुभव • Pure Experience</span>
         <h2 class="section-main-heading">प्रत्येक साधक के लिए सुलभ</h2>
-        <p class="section-subtext">चाहे आप पहली बार पढ़ रहे हों या नित्य नियम से—यह मंदिर आपकी साधना को सरल और समृद्ध बनाता है।</p>
+        <p class="section-subtext">चाहे आप पहली बार पढ़ रहे हों या नित्य नियम से—यह मंदिर आपकी साधना को सरल, शांत और समृद्ध बनाता है।</p>
       </div>
 
       <div class="features-three-grid">
-        <div class="feature-pill-card">
+        <div class="feature-pill-card" role="button" tabindex="0" data-nav="reader">
           <div class="feature-icon-circle">
             <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
           </div>
-          <h4>सजीव सस्वर पाठ (Living Recitation)</h4>
-          <p>ऑडियो पाठ के साथ-साथ वर्तमान चौपाई स्वर्ण आभा में प्रकाशित होती है। आप किसी भी चौपाई पर क्लिक करके तुरंत वहीं से सुन सकते हैं।</p>
+          <h4>सजीव सस्वर पाठ • Living Recitation</h4>
+          <p>ऑडियो पाठ के साथ वर्तमान चौपाई स्वर्ण आभा में प्रकाशित होती है। ६-स्तरीय गति नियंत्रण (0.75x से 1.5x) व तंबूरा धुन सहित।</p>
         </div>
 
-        <div class="feature-pill-card">
+        <div class="feature-pill-card" role="button" tabindex="0" data-nav="sadhana">
           <div class="feature-icon-circle">
             <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           </div>
-          <h4>निजी साधना एवं संकल्प (Sankalp)</h4>
-          <p>१०८ मनकों की डिजिटल जपमाला, १ से १०८ पाठ का संकल्प, और शांत निजी डायरी—बिना किसी प्रतिस्पर्धा या तनाव के।</p>
+          <h4>निजी साधना • Japamala & Sankalp</h4>
+          <p>१०८ मनकों की शांत डिजिटल जपमाला, १ से १०८ पाठ का संकल्प, और पूर्णतः निजी ऑफ़लाइन चिंतन डायरी बिना किसी तनाव के।</p>
         </div>
 
-        <div class="feature-pill-card">
+        <div class="feature-pill-card" role="button" tabindex="0" data-nav="wisdom">
           <div class="feature-icon-circle">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
           </div>
-          <h4>पूर्णतः ऑफलाइन एवं सुलभ (PWA)</h4>
-          <p>इंटरनेट के बिना भी संपूर्ण प्रमाणित पाठ, अर्थ, शब्दार्थ और फॉन्ट स्केलिंग सुचारु रूप से उपलब्ध रहते हैं।</p>
+          <h4>ज्ञान अन्वेषण • Wisdom Explorer</h4>
+          <p>हनुमान जी के ५ दिव्य सद्गुण, ६ प्रेरक रामायण प्रसंग, और प्रत्येक चौपाई का शब्द-दर-शब्द प्रामाणिक अर्थ।</p>
         </div>
       </div>
 
@@ -382,21 +368,6 @@
               <span>घंटी ध्वनि (Bell)</span>
             </button>
           </div>
-        </div>
-
-        <!-- Virtual Deepam Altar -->
-        <div class="altar-diya-card">
-          <h3 style="font-family: var(--font-devanagari); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 6px;">
-            पवित्र दीप वेदी (Sacred Deepam)
-          </h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-            वेदी पर स्पर्श करके दिव्य दीप प्रज्वलित करें।
-          </p>
-          <div class="diya-canvas-container" id="altar-diya-container">
-            <canvas id="altar-diya-canvas" width="220" height="220"></canvas>
-          </div>
-          <span class="diya-status-text" id="altar-diya-status">दीप प्रज्वलित है • मंगलम भवतु</span>
-          <span class="diya-hint">दीप पर क्लिक करने से ज्योति का विस्तार व घंटी नाद होता है</span>
         </div>
 
         <!-- Private Devotional Reflections Journal -->
@@ -537,26 +508,123 @@
     </div>
   </div>
 
-  <!-- Site Footer -->
+  <!-- ====================================================================
+       APPLE-STYLE LEGAL & ATTRIBUTION FOOTER (COPYRIGHT PREVENTION)
+       ==================================================================== -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-top-row">
-        <span class="footer-brand">॥ श्री हनुमते नमः ॥</span>
-        <div class="footer-links">
-          <a href="#view-home" class="footer-link" data-nav="home">मुख्य पृष्ठ (Home)</a>
-          <a href="#view-reader" class="footer-link" data-nav="reader">चालीसा पाठ (Reader)</a>
-          <a href="#view-sadhana" class="footer-link" data-nav="sadhana">संकल्प साधना (Practice)</a>
-          <a href="#view-wisdom" class="footer-link" data-nav="wisdom">ज्ञान दर्शन (Wisdom)</a>
+      <div class="footer-legal-grid">
+        <div class="legal-col legal-col-brand">
+          <span class="legal-brand">श्री हनुमान चालीसा</span>
+          <p class="legal-text">
+            भक्ति, समता और आत्म-शांति का पावन डिजिटल मंदिर। अवधी भाषा के प्रामाणिक पदों और उच्च कोटि के सस्वर श्रवण का संगम।
+          </p>
+          <span class="legal-badge-pill">॥ संकटमोचन कृपा निधान ॥</span>
+        </div>
+
+        <div class="legal-col">
+          <h4 class="legal-heading">पावन मूल रचना • Sacred Text</h4>
+          <p class="legal-text">
+            रचयिता: <strong>महाकवि गोस्वामी तुलसीदास</strong> (१६वीं शताब्दी, अवधी)। समस्त ४० चौपाइयां एवं दोहे सनातन सांस्कृतिक धरोहर हैं और वैश्विक स्तर पर <strong>Public Domain (सार्वजनिक अधिकार)</strong> में सुरक्षित हैं।
+          </p>
+        </div>
+
+        <div class="legal-col">
+          <h4 class="legal-heading">ध्वनि मुद्रण सर्वाधिकार • Audio Rights</h4>
+          <p class="legal-text">
+            गायक: <strong>श्री हरिहरन (Hariharan)</strong> • संगीत: <strong>ललित सेन - चंदर</strong>
+            <br />
+            मूल ध्वनि मुद्रण सर्वाधिकार: <strong>© Super Cassettes Industries Pvt. Ltd. (T-Series / Gulshan Kumar)</strong>.
+            <br />
+            यह ऑडियो गैर-व्यावसायिक व्यक्तिगत साधना एवं धार्मिक अध्ययन (Fair Use) हेतु संदर्भित है।
+          </p>
+        </div>
+
+        <div class="legal-col">
+          <h4 class="legal-heading">टीका एवं संदर्भ • References</h4>
+          <p class="legal-text">
+            शब्दार्थ एवं आध्यात्मिक विश्लेषण <strong>गीताप्रेस, गोरखपुर (कल्याण: श्री हनुमद-अंक)</strong> तथा पूज्य आर्ष संतों के पावन प्रवचनों से संकलित एवं प्रमाणित हैं।
+          </p>
         </div>
       </div>
+
       <div class="footer-bottom-row">
-        <p class="spiritual-quote">
-          "संकट कटै मिटै सब पीरा । जो सुमिरै हनुमत बलबीरा ॥"
-        </p>
-        <p>A pure, inclusive, ad-free and open devotional offering for all devotees.</p>
+        <div class="footer-copyright-line">
+          <span>© 2026 The Living Temple. Non-Commercial Devotional Sanctuary. 100% Free & Ad-Free.</span>
+          <span class="footer-separator">•</span>
+          <button type="button" class="footer-credits-trigger" id="btn-open-credits">आभार एवं सर्वाधिकार (Full Legal Credits & Rights)</button>
+        </div>
+        <div class="footer-nav-links">
+          <a href="#view-home" class="footer-link" data-nav="home">मुख्य पृष्ठ</a>
+          <a href="#view-reader" class="footer-link" data-nav="reader">चालीसा पाठ</a>
+          <a href="#view-sadhana" class="footer-link" data-nav="sadhana">साधना</a>
+          <a href="#view-wisdom" class="footer-link" data-nav="wisdom">ज्ञान दर्शन</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- ====================================================================
+       CREDITS & COPYRIGHT MODAL (LEGAL & ATTRIBUTION)
+       ==================================================================== -->
+  <div class="credits-modal-backdrop" id="credits-modal-backdrop"></div>
+  <div class="credits-modal-dialog" id="credits-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="credits-modal-title" aria-hidden="true">
+    <div class="credits-modal-header">
+      <div class="credits-header-left">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="var(--c-saffron)"><path d="M11.88 9.14c-1.39 0-2.3.93-2.3 2.86 0 1.95.91 2.86 2.3 2.86 1.05 0 1.83-.55 2.06-1.52h1.66c-.32 1.84-1.87 2.83-3.72 2.83-2.52 0-4.04-1.74-4.04-4.17 0-2.45 1.52-4.17 4.04-4.17 1.84 0 3.39.99 3.72 2.83h-1.66c-.23-.97-1.01-1.52-2.06-1.52zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        <h3 id="credits-modal-title">आभार, सर्वाधिकार एवं श्रेय (Credits & Copyright)</h3>
+      </div>
+      <button type="button" class="close-credits-btn" id="btn-close-credits" aria-label="Close Credits Modal">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+
+    <div class="credits-modal-body">
+      <!-- Section 1: Sacred Text -->
+      <div class="credit-card">
+        <span class="credit-tag">सार्वजनिक अधिकार • Public Domain</span>
+        <h4>पावन मूल स्तोत्र (Sacred Hymn & Verses)</h4>
+        <p>
+          श्री हनुमान चालीसा की पावन रचना १६वीं शताब्दी के महान संत-कवि <strong>गोस्वामी तुलसीदास जी महाराज</strong> द्वारा अवधी भाषा में की गई थी। समस्त २ प्रारंभिक दोहे, ४० चौपाइयां एवं १ समापन दोहा सनातन सांस्कृतिक वाङ्मय का अभिन्न अंग हैं और वैधानिक रूप से <strong>Public Domain (सार्वजनिक अधिकार)</strong> में सुरक्षित हैं।
+        </p>
+      </div>
+
+      <!-- Section 2: Audio Copyright & Attribution -->
+      <div class="credit-card highlight-card">
+        <span class="credit-tag audio-tag">संगीत एवं ध्वनि मुद्रण श्रेय • Master Sound Recording</span>
+        <h4>श्रव्य पाठ एवं गायन (Audio Recitation)</h4>
+        <p>
+          इस डिजिटल मंदिर में सस्वर पाठ का दिव्य गायन <strong>श्री हरिहरन (Hariharan)</strong> जी द्वारा किया गया है, संगीत संयोजन <strong>ललित सेन एवं चंदर (Lalit Sen & Chander)</strong> द्वारा रचित है, तथा मूल ध्वनि मुद्रण का निर्माण व प्रकाशन <strong>श्री गुलशन कुमार जी / सुपर कैसेट्स इंडस्ट्रीज प्रा. लि. (T-Series)</strong> द्वारा किया गया था।
+        </p>
+        <div class="legal-badge-box">
+          <p>
+            <strong>सर्वाधिकार सूचना (Copyright Notice):</strong> समस्त ध्वनि मुद्रण (Sound Recording), संगीत संरचना और मास्टर राइट्स उनके मूल स्वामियों <strong>© Super Cassettes Industries Pvt. Ltd. (T-Series)</strong> के पास पूर्णतः सुरक्षित हैं।
+          </p>
+          <p style="margin-top: 8px;">
+            <strong>गैर-व्यावसायिक नीति (Non-Commercial Devotional Fair Use):</strong> यह सेवा १००% गैर-व्यावसायिक, विज्ञापन-मुक्त एवं निःशुल्क है। इसका एकमात्र उद्देश्य भक्तों को शुद्ध उच्चारण, प्रामाणिक पाठ व शब्दार्थ सुलभ कराना है (Indian Copyright Act, 1957 Section 52 / Fair Dealing for Devotional & Educational Meditation)। इस मंच पर कोई मुद्रीकरण या वाणिज्यिक लाभ नहीं है।
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 3: Classical Commentary & Translations -->
+      <div class="credit-card">
+        <span class="credit-tag">टीका एवं संदर्भ • References</span>
+        <h4>शब्दार्थ एवं आध्यात्मिक व्याख्या (Commentary & Meaning)</h4>
+        <p>
+          चालीसा के प्रत्येक पद का सरल हिन्दी अर्थ, आंग्ल अनुवाद (English translation), तथा शब्द-दर-शब्द व्याकरण <strong>गीताप्रेस, गोरखपुर</strong> द्वारा प्रकाशित <em>श्री हनुमद-अंक (कल्याण)</em>, स्वामी रामसुखदास जी की व्याख्याओं, तथा आर्ष संतों के पावन प्रवचनों से संकलित एवं प्रमाणित हैं।
+        </p>
+      </div>
+
+      <!-- Section 4: Open Source Devotion & Takedown -->
+      <div class="credit-card">
+        <span class="credit-tag">संपर्क एवं नीति • Contact & Policy</span>
+        <h4>कॉपीराइट निवारण व संपर्क (DMCA / Takedown Policy)</h4>
+        <p>
+          यदि आप किसी सामग्री के वैधानिक कॉपीराइट स्वामी हैं और इस गैर-व्यावसायिक सेवा में किसी संशोधन या निष्कासन का अनुरोध करना चाहते हैं, तो कृपया हमारे सार्वजनिक गिटहब भंडार (<a href="https://github.com/shubhamp2504/hanuman_chalisa" target="_blank" rel="noopener noreferrer" style="color: var(--c-saffron); text-decoration: underline;">GitHub Repository</a>) पर संपर्क करें। आपके अनुरोध का तत्काल सम्मान किया जाएगा।
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- Main ES Module Script -->
   <script type="module" src="/src/main.js"></script>
