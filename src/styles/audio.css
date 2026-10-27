@@ -1,0 +1,292 @@
+/* ==========================================================================
+   HANUMAN CHALISA — THE LIVING RECITATION & AUDIO DOCK
+   Docked Audio Player, Scrubber, Speed, Repeat & Ambient Controls
+   ========================================================================== */
+
+.audio-dock-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--audio-dock-height);
+  background: var(--bg-surface-translucent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-prominent);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(16px, 4vw, 36px);
+  transition: transform var(--transition-normal);
+}
+
+/* Audio Scrubber Bar (Top of Dock) */
+.audio-timeline-track {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: height 0.15s ease;
+}
+
+.audio-timeline-track:hover {
+  height: 10px;
+  top: -8px;
+}
+
+.audio-timeline-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 100%);
+  position: relative;
+  transition: width 0.1s linear;
+}
+
+.audio-timeline-thumb {
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid var(--c-saffron);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.audio-timeline-track:hover .audio-timeline-thumb {
+  opacity: 1;
+}
+
+/* Inner Dock Layout */
+.audio-dock-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Left: Active Verse / Track Info */
+.audio-track-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+.audio-track-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--c-gold);
+}
+
+.audio-track-badge.playing {
+  border-color: var(--c-saffron);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+
+.audio-track-badge svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.audio-track-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.audio-track-title {
+  font-family: var(--font-devanagari);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.audio-track-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Center: Playback Transport Controls */
+.audio-transport-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.transport-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.transport-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface-elevated);
+}
+
+.transport-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.transport-btn-primary {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-saffron) 0%, var(--c-gold) 100%);
+  color: var(--c-charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+  transition: all var(--transition-fast);
+}
+
+.transport-btn-primary:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6);
+}
+
+.transport-btn-primary svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.time-display {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  min-width: 80px;
+}
+
+/* Right: Sync, Speed, Repeat, Ambient & Volume */
+.audio-dock-extras {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dock-pill-btn {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all var(--transition-fast);
+}
+
+.dock-pill-btn:hover {
+  border-color: var(--c-gold);
+  color: var(--text-primary);
+}
+
+.dock-pill-btn.active {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: var(--c-saffron);
+  color: var(--c-saffron);
+}
+
+.dock-pill-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Ambient Tanpura / Bell Toggle Button */
+.btn-ambient-sound {
+  background: linear-gradient(135deg, rgba(217, 181, 109, 0.15) 0%, rgba(157, 80, 53, 0.15) 100%);
+  border-color: var(--c-gold);
+}
+
+.btn-ambient-sound.active {
+  background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-saffron) 100%);
+  color: var(--c-charcoal);
+  border-color: var(--c-saffron);
+}
+
+/* Speed Selector Menu */
+.speed-dropdown {
+  position: relative;
+}
+
+.speed-select-btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+/* Responsive Audio Dock */
+@media (max-width: 768px) {
+  .audio-dock-container {
+    height: 74px;
+    padding: 0 12px;
+  }
+
+  .audio-track-info {
+    min-width: 0;
+    max-width: 130px;
+  }
+
+  .audio-track-sub,
+  .audio-track-badge {
+    display: none;
+  }
+
+  .time-display {
+    display: none;
+  }
+
+  .audio-dock-extras .dock-pill-btn:not(.btn-ambient-sound):not(.btn-sync-toggle) {
+    display: none;
+  }
+
+  .transport-btn-primary {
+    width: 44px;
+    height: 44px;
+  }
+}

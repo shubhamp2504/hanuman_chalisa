@@ -1,0 +1,332 @@
+/* ==========================================================================
+   HANUMAN CHALISA — SANKALP & SADHANA (DEVOTIONAL PRACTICE)
+   Digital Japamala, Goal Selection, Virtual Diya & Private Reflections
+   ========================================================================== */
+
+.sadhana-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Header & Intro */
+.sadhana-hero-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-prominent);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 40px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sadhana-hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 50%, var(--c-terracotta) 100%);
+}
+
+.sadhana-hero-title {
+  font-family: var(--font-devanagari);
+  font-size: var(--text-3xl);
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.sadhana-hero-desc {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+
+/* Sankalp Goal Selector */
+.sankalp-selector-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 20px auto 0;
+  max-width: 620px;
+}
+
+.sankalp-box-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-gold);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.sankalp-pills-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sankalp-pill {
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.sankalp-pill:hover {
+  border-color: var(--c-gold);
+  color: var(--text-primary);
+}
+
+.sankalp-pill.active {
+  background: linear-gradient(135deg, var(--c-saffron) 0%, var(--c-gold) 100%);
+  color: var(--c-charcoal);
+  border-color: var(--c-saffron);
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* ==========================================================================
+   DIGITAL JAPAMALA (108 CHANTING COUNTER)
+   ========================================================================== */
+.japamala-board {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px clamp(16px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.japamala-counter-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.japamala-number {
+  font-family: var(--font-sans);
+  font-size: clamp(3.5rem, 3rem + 2vw, 5rem);
+  font-weight: 800;
+  color: var(--c-gold-glow);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.japamala-target {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Tap Bead Button */
+.japamala-tap-btn {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FBBF24 0%, #D97706 60%, #9D5035 100%);
+  border: 4px solid var(--c-gold);
+  color: #14100F;
+  font-family: var(--font-devanagari);
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.45), inset 0 -4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.japamala-tap-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.japamala-tap-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+.japamala-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Progress Ring Bar */
+.japamala-progress-bar-wrap {
+  width: min(340px, 90%);
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.japamala-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 100%);
+  transition: width 0.2s ease;
+}
+
+/* ==========================================================================
+   VIRTUAL DIYA & SACRED ALTAR
+   ========================================================================== */
+.altar-diya-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px clamp(16px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.diya-canvas-container {
+  width: 260px;
+  height: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.diya-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.diya-status-text {
+  font-family: var(--font-devanagari);
+  font-size: 1.1rem;
+  color: var(--text-gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.diya-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   DEVOTIONAL REFLECTION JOURNAL (PRIVATE & OFFLINE)
+   ========================================================================== */
+.journal-section-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px clamp(16px, 4vw, 36px);
+}
+
+.journal-section-card h3 {
+  font-family: var(--font-devanagari);
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.journal-textarea {
+  width: 100%;
+  min-height: 110px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.journal-textarea:focus {
+  outline: none;
+  border-color: var(--c-gold);
+  box-shadow: 0 0 10px rgba(217, 181, 109, 0.2);
+}
+
+.journal-submit-btn {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  background: var(--c-saffron);
+  color: var(--c-charcoal);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+}
+
+.journal-submit-btn:hover {
+  background: var(--c-gold);
+  transform: translateY(-2px);
+}
+
+.journal-entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.journal-entry-item {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.journal-entry-date {
+  font-size: 0.75rem;
+  color: var(--c-gold);
+  font-weight: 600;
+}
+
+.journal-entry-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}

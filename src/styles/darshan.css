@@ -1,0 +1,176 @@
+/* ==========================================================================
+   HANUMAN CHALISA — DARSHAN MODE
+   Immersive Fullscreen Temple Sanctum with Floating Petals & Ambient Glow
+   ========================================================================== */
+
+.darshan-overlay-view {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #080605;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(16px, 3vw, 32px);
+  overflow: hidden;
+  user-select: none;
+}
+
+.darshan-overlay-view.active {
+  display: flex;
+}
+
+/* Background Temple Backdrop */
+.darshan-backdrop-layer {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, rgba(33, 22, 18, 0.4) 0%, rgba(10, 8, 8, 0.95) 100%), url('/assets/hanuman_darshan.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.85) contrast(1.05);
+  transform: scale(1.02);
+  transition: transform 10s ease;
+  z-index: 1;
+}
+
+.darshan-overlay-view.active .darshan-backdrop-layer {
+  transform: scale(1.06);
+}
+
+/* Canvas Layer for Floating Petals and Diya Glow */
+.darshan-petals-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Top Discreet Exit Bar */
+.darshan-top-bar {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: var(--max-content-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.darshan-title-badge {
+  font-family: var(--font-devanagari);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-gold-glow);
+  background: rgba(20, 16, 15, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--c-gold);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.btn-exit-darshan {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  background: rgba(20, 16, 15, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-prominent);
+  color: #F5EBDD;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-exit-darshan:hover {
+  background: var(--c-saffron);
+  color: var(--c-charcoal);
+  border-color: var(--c-saffron);
+  transform: scale(1.05);
+}
+
+.btn-exit-darshan svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Central Devotional Verse Display */
+.darshan-center-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  padding: 24px;
+  background: rgba(20, 16, 15, 0.65);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(217, 181, 109, 0.4);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.2);
+}
+
+.darshan-verse-hindi {
+  font-family: var(--font-devanagari);
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 2.2rem);
+  font-weight: 800;
+  color: #FFF4E3;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.darshan-verse-translit {
+  font-family: var(--font-roman-verse);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.2rem);
+  color: var(--c-gold-glow);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.darshan-verse-eng {
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
+  color: #E2D3C4;
+  line-height: 1.5;
+}
+
+/* Minimal Bottom Controls in Darshan Mode */
+.darshan-bottom-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(20, 16, 15, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-prominent);
+}
+
+.darshan-control-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-gold-glow);
+  transition: all var(--transition-fast);
+}
+
+.darshan-control-btn:hover {
+  background: var(--c-saffron);
+  color: var(--c-charcoal);
+  transform: scale(1.1);
+}
+
+.darshan-control-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
