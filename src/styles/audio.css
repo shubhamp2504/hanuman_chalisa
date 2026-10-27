@@ -245,19 +245,64 @@
   border-color: var(--c-saffron);
 }
 
-/* Speed Selector Menu */
+/* Speed Selector Menu & Popover */
 .speed-dropdown {
   position: relative;
 }
 
-.speed-select-btn {
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 4px 8px;
+.speed-menu-popover {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-prominent);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  box-shadow: var(--shadow-lg);
+  display: none;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 160px;
+  z-index: 120;
+  animation: fadeIn 0.15s ease;
+}
+
+.speed-menu-popover.open {
+  display: flex;
+}
+
+.speed-opt-btn {
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.speed-opt-btn:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.speed-opt-btn.active {
+  background: var(--c-saffron);
+  color: var(--c-charcoal);
+  font-weight: 700;
+}
+
+.btn-speed-toggle {
+  font-weight: 700;
+  border-color: rgba(217, 181, 109, 0.4);
+}
+
+.btn-speed-toggle:hover {
+  border-color: var(--c-saffron);
+  color: var(--c-saffron);
 }
 
 /* Responsive Audio Dock */
@@ -269,7 +314,7 @@
 
   .audio-track-info {
     min-width: 0;
-    max-width: 130px;
+    max-width: 110px;
   }
 
   .audio-track-sub,
@@ -281,7 +326,9 @@
     display: none;
   }
 
-  .audio-dock-extras .dock-pill-btn:not(.btn-ambient-sound):not(.btn-sync-toggle) {
+  /* Keep Speed and Sync buttons visible on mobile; hide repeat/ambient if needed */
+  .audio-dock-extras .btn-ambient-sound,
+  .audio-dock-extras .btn-repeat-toggle {
     display: none;
   }
 

@@ -1,6 +1,6 @@
 /**
  * Audio Dock Component
- * Fixed bottom player dock for Living Recitation and Meditative Soundscape.
+ * Fixed bottom player dock for Living Recitation, Speed Control, and Meditative Soundscape.
  */
 
 import { ICONS } from '../utils/icons.js';
@@ -13,8 +13,14 @@ export class AudioDock {
     this.isDraggingScrubber = false;
     this.repeatCounts = [1, 3, 7, 11, 21, 108];
     this.repeatIndex = 0;
-    this.speeds = [0.75, 1.0, 1.25];
-    this.speedIndex = 1;
+    this.speeds = [
+      { val: 0.75, label: '0.75x', desc: 'धीमा (Slow)' },
+      { val: 0.85, label: '0.85x', desc: 'सहज (Calm)' },
+      { val: 1.0, label: '1.0x', desc: 'सामान्य (Normal)' },
+      { val: 1.15, label: '1.15x', desc: 'मध्यम (Moderate)' },
+      { val: 1.25, label: '1.25x', desc: 'शीघ्र (Fast)' },
+      { val: 1.5, label: '1.5x', desc: 'द्रुत (Swift)' }
+    ];
 
     this.render();
     this.bindEvents();
@@ -23,6 +29,14 @@ export class AudioDock {
 
   render() {
     const currentVerse = audioService.getCurrentVerse();
+    const currentSpeed = audioService.playbackSpeed || 1.0;
+
+    const speedOptionsHTML = this.speeds.map(s => `
+      <button type="button" class="speed-opt-btn ${s.val === currentSpeed ? 'active' : ''}" data-speed="${s.val}">
+        <span>${s.label}</span>
+        <small style="opacity: 0.75; font-size: 0.75rem;">${s.desc}</small>
+      </button>
+    `).join('');
 
     this.container.innerHTML = `
       <div class="audio-timeline-track" id="audio-timeline-track" title="Click to seek recitation">
@@ -54,7 +68,7 @@ export class AudioDock {
           <button type="button" class="transport-btn" id="btn-audio-next" title="Next Verse (Right Arrow)" aria-label="Next Verse">
             ${ICONS.next}
           </button>
-          <span class="time-display" id="audio-time-display">0:00 / 4:30</span>
+          <span class="time-display" id="audio-time-display">0:00 / 9:42</span>
         </div>
 
         <!-- Right: Extras (Speed, Repeat, Ambient, Sync) -->
@@ -64,11 +78,18 @@ export class AudioDock {
             <span>Sync</span>
           </button>
 
-          <button type="button" class="dock-pill-btn" id="btn-speed-toggle" title="Playback Speed" aria-label="Playback Speed">
-            <span id="speed-label">1.0x</span>
-          </button>
+          <!-- Speed Control Dropdown & Popover -->
+          <div class="speed-dropdown" id="speed-dropdown-wrapper">
+            <button type="button" class="dock-pill-btn btn-speed-toggle" id="btn-speed-toggle" title="Change Audio Speed" aria-label="Change Audio Speed" aria-expanded="false">
+              ${ICONS.speed}
+              <span id="speed-label">${currentSpeed}x</span>
+            </button>
+            <div class="speed-menu-popover" id="speed-menu-popover" role="menu" aria-label="Playback Speed Options">
+              ${speedOptionsHTML}
+            </div>
+          </div>
 
-          <button type="button" class="dock-pill-btn" id="btn-repeat-toggle" title="Sankalp Chanting Repeat Count" aria-label="Repeat Count">
+          <button type="button" class="dock-pill-btn btn-repeat-toggle" id="btn-repeat-toggle" title="Sankalp Chanting Repeat Count" aria-label="Repeat Count">
             ${ICONS.replay}
             <span id="repeat-label">1x</span>
           </button>
@@ -89,6 +110,7 @@ export class AudioDock {
     const ambientBtn = this.container.querySelector('#btn-ambient-toggle');
     const syncBtn = this.container.querySelector('#btn-sync-toggle');
     const speedBtn = this.container.querySelector('#btn-speed-toggle');
+    const speedPopover = this.container.querySelector('#speed-menu-popover');
     const repeatBtn = this.container.querySelector('#btn-repeat-toggle');
     const track = this.container.querySelector('#audio-timeline-track');
 
@@ -115,11 +137,35 @@ export class AudioDock {
       syncBtn.classList.toggle('active', newState);
     });
 
-    speedBtn.addEventListener('click', () => {
-      this.speedIndex = (this.speedIndex + 1) % this.speeds.length;
-      const speed = this.speeds[this.speedIndex];
-      audioService.setSpeed(speed);
-      this.container.querySelector('#speed-label').textContent = `${speed}x`;
+    // Speed Popover Toggle
+    speedBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = speedPopover.classList.toggle('open');
+      speedBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close speed popover when clicking anywhere else
+    document.addEventListener('click', (e) => {
+      if (!speedPopover.contains(e.target) && e.target !== speedBtn) {
+        speedPopover.classList.remove('open');
+        speedBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Speed option selection
+    speedPopover.addEventListener('click', (e) => {
+      const optBtn = e.target.closest('[data-speed]');
+      if (!optBtn) return;
+
+      const speedVal = parseFloat(optBtn.getAttribute('data-speed'));
+      audioService.setSpeed(speedVal);
+
+      speedPopover.querySelectorAll('.speed-opt-btn').forEach(btn => btn.classList.remove('active'));
+      optBtn.classList.add('active');
+
+      this.container.querySelector('#speed-label').textContent = `${speedVal}x`;
+      speedPopover.classList.remove('open');
+      speedBtn.setAttribute('aria-expanded', 'false');
     });
 
     repeatBtn.addEventListener('click', () => {
@@ -147,6 +193,8 @@ export class AudioDock {
     const fillEl = this.container.querySelector('#audio-timeline-fill');
     const timeEl = this.container.querySelector('#audio-time-display');
     const badge = this.container.querySelector('#audio-badge');
+    const speedLabel = this.container.querySelector('#speed-label');
+    const speedPopover = this.container.querySelector('#speed-menu-popover');
 
     audioService.on('statechange', ({ isPlaying }) => {
       playBtn.innerHTML = isPlaying ? ICONS.pause : ICONS.play;
@@ -161,6 +209,15 @@ export class AudioDock {
     audioService.on('timeupdate', ({ currentTime, totalDuration, progress }) => {
       fillEl.style.width = `${progress * 100}%`;
       timeEl.textContent = `${audioService.formatTime(currentTime)} / ${audioService.formatTime(totalDuration)}`;
+    });
+
+    audioService.on('speedchange', ({ speed }) => {
+      if (speedLabel) speedLabel.textContent = `${speed}x`;
+      if (speedPopover) {
+        speedPopover.querySelectorAll('.speed-opt-btn').forEach(btn => {
+          btn.classList.toggle('active', parseFloat(btn.getAttribute('data-speed')) === speed);
+        });
+      }
     });
   }
 }

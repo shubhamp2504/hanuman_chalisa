@@ -425,6 +425,32 @@ button {
   font-weight: 700;
 }
 
+/* Speed Selector Pills in Settings Menu */
+.speed-pill-btn {
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.speed-pill-btn:hover {
+  border-color: var(--c-gold);
+  color: var(--text-primary);
+}
+
+.speed-pill-btn.active {
+  background: var(--c-saffron);
+  color: var(--c-charcoal);
+  font-weight: 700;
+  border-color: var(--c-saffron);
+}
+
 /* ==========================================================================
    APP CONTENT CONTAINER
    ========================================================================== */

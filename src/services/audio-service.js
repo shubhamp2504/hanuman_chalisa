@@ -89,6 +89,7 @@ class AudioService {
 
     this.audio.addEventListener('play', () => {
       this.isPlaying = true;
+      this.audio.playbackRate = this.playbackSpeed;
       this._emit('statechange', { isPlaying: true });
     });
 
@@ -296,6 +297,7 @@ class AudioService {
     this.playbackSpeed = speed;
     this.audio.playbackRate = speed;
     storage.setPlaybackSpeed(speed);
+    this._emit('speedchange', { speed });
   }
 
   setRepeatCount(count) {

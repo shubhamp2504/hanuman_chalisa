@@ -112,6 +112,18 @@
     </div>
 
     <div class="settings-group">
+      <span class="settings-label">पाठ गति (Recitation Speed)</span>
+      <div class="speed-pill-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+        <button type="button" class="speed-pill-btn" data-speed-val="0.75">0.75x (धीमा)</button>
+        <button type="button" class="speed-pill-btn" data-speed-val="0.85">0.85x (सहज)</button>
+        <button type="button" class="speed-pill-btn active" data-speed-val="1.0">1.0x (सामान्य)</button>
+        <button type="button" class="speed-pill-btn" data-speed-val="1.15">1.15x (मध्यम)</button>
+        <button type="button" class="speed-pill-btn" data-speed-val="1.25">1.25x (शीघ्र)</button>
+        <button type="button" class="speed-pill-btn" data-speed-val="1.5">1.5x (द्रुत)</button>
+      </div>
+    </div>
+
+    <div class="settings-group">
       <span class="settings-label">भाषा प्राथमिकता (Language View)</span>
       <div class="lang-pill-row">
         <button type="button" class="lang-pill-btn active" data-lang-val="all">समस्त (All)</button>
@@ -280,6 +292,12 @@
               <button type="button" class="mode-toggle-btn active" id="btn-mode-continuous" role="radio" aria-checked="true">निरंतर (Continuous)</button>
               <button type="button" class="mode-toggle-btn" id="btn-mode-focused" role="radio" aria-checked="false">एकाग्र (Single)</button>
             </div>
+
+            <!-- Reader Speed button -->
+            <button type="button" class="reader-tool-btn" id="btn-reader-speed-toggle" title="Change Recitation Speed" aria-label="Recitation Speed">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.28-10.43zM10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>
+              <span id="reader-speed-label">1.0x गति</span>
+            </button>
 
             <!-- Distraction-free toggle -->
             <button type="button" class="reader-tool-btn" id="btn-toggle-distraction-free" title="Distraction-Free Mode (D)" aria-label="Toggle Distraction-Free Mode">

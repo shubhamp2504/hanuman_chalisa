@@ -119,6 +119,44 @@ class HanumanChalisaApp {
         this.applyLanguageFilter(lang);
       });
     });
+
+    // Speed Control in Settings Menu
+    const currentSpeed = audioService.playbackSpeed || 1.0;
+    this._updateSpeedButtons(currentSpeed);
+
+    document.querySelectorAll('[data-speed-val]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const speed = parseFloat(btn.getAttribute('data-speed-val'));
+        audioService.setSpeed(speed);
+      });
+    });
+
+    // Reader Toolbar Speed Button
+    const readerSpeedBtn = document.getElementById('btn-reader-speed-toggle');
+    const readerSpeedLabel = document.getElementById('reader-speed-label');
+    const speedsList = [0.75, 0.85, 1.0, 1.15, 1.25, 1.5];
+
+    if (readerSpeedBtn) {
+      readerSpeedBtn.addEventListener('click', () => {
+        const cur = audioService.playbackSpeed || 1.0;
+        const curIdx = speedsList.indexOf(cur);
+        const nextSpeed = speedsList[(curIdx + 1) % speedsList.length];
+        audioService.setSpeed(nextSpeed);
+      });
+    }
+
+    audioService.on('speedchange', ({ speed }) => {
+      this._updateSpeedButtons(speed);
+      if (readerSpeedLabel) {
+        readerSpeedLabel.textContent = `${speed}x गति`;
+      }
+    });
+  }
+
+  _updateSpeedButtons(activeSpeed) {
+    document.querySelectorAll('[data-speed-val]').forEach(btn => {
+      btn.classList.toggle('active', parseFloat(btn.getAttribute('data-speed-val')) === activeSpeed);
+    });
   }
 
   _updateThemeButtons(activeTheme) {
