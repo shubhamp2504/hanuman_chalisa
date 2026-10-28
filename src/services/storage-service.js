@@ -16,7 +16,9 @@ const STORAGE_KEYS = {
   BOOKMARKS: 'hc_bookmarks',
   JAPAMALA_COUNT: 'hc_japamala_count',
   JOURNAL: 'hc_journal_entries',
-  SESSIONS: 'hc_sadhana_sessions'
+  SESSIONS: 'hc_sadhana_sessions',
+  AKHAND_LOOP: 'hc_akhand_loop',
+  REPEAT_GOAL: 'hc_repeat_goal'
 };
 
 const DB_NAME = 'HanumanChalisaDB';
@@ -71,6 +73,22 @@ class StorageService {
 
   setSankalpGoal(goal) {
     localStorage.setItem(STORAGE_KEYS.SANKALP_GOAL, goal.toString());
+  }
+
+  getRepeatGoal() {
+    return parseInt(localStorage.getItem(STORAGE_KEYS.REPEAT_GOAL) || '1', 10);
+  }
+
+  setRepeatGoal(goal) {
+    localStorage.setItem(STORAGE_KEYS.REPEAT_GOAL, goal.toString());
+  }
+
+  getAkhandLoop() {
+    return localStorage.getItem(STORAGE_KEYS.AKHAND_LOOP) === 'true';
+  }
+
+  setAkhandLoop(enabled) {
+    localStorage.setItem(STORAGE_KEYS.AKHAND_LOOP, enabled ? 'true' : 'false');
   }
 
   getAudioSync() {

@@ -1,6 +1,6 @@
 /**
  * Audio Dock Component
- * Fixed bottom player dock for Living Recitation, Speed Control, and Meditative Soundscape.
+ * Fixed bottom player dock for Living Recitation, Speed Control, Akhand Path Loop, and Meditative Soundscape.
  */
 
 import { ICONS } from '../utils/icons.js';
@@ -11,8 +11,14 @@ export class AudioDock {
   constructor(containerElement) {
     this.container = containerElement;
     this.isDraggingScrubber = false;
-    this.repeatCounts = [1, 3, 7, 11, 21, 108];
-    this.repeatIndex = 0;
+    this.repeatOptions = [
+      { val: 1, devanagari: '१', name: '१ पाठ', desc: 'एकल पाठ' },
+      { val: 3, devanagari: '३', name: '३ पाठ', desc: 'त्रिकाल शांति' },
+      { val: 7, devanagari: '७', name: '७ पाठ', desc: 'संकट मुक्ति' },
+      { val: 11, devanagari: '११', name: '११ पाठ', desc: 'मंगलवार विशेष' },
+      { val: 21, devanagari: '२१', name: '२१ पाठ', desc: 'मनोकामना' },
+      { val: 108, devanagari: '१०८', name: '१०८ पाठ', desc: 'महासंकल्प' }
+    ];
     this.speeds = [
       { val: 0.75, label: '0.75x', desc: 'धीमा (Slow)' },
       { val: 0.85, label: '0.85x', desc: 'सहज (Calm)' },
@@ -30,6 +36,8 @@ export class AudioDock {
   render() {
     const currentVerse = audioService.getCurrentVerse();
     const currentSpeed = audioService.playbackSpeed || 1.0;
+    const isAkhand = audioService.isAkhandLoop;
+    const currentRepeat = audioService.repeatGoal || 1;
 
     const speedOptionsHTML = this.speeds.map(s => `
       <button type="button" class="speed-opt-btn ${s.val === currentSpeed ? 'active' : ''}" data-speed="${s.val}">
@@ -37,6 +45,19 @@ export class AudioDock {
         <small style="opacity: 0.75; font-size: 0.75rem;">${s.desc}</small>
       </button>
     `).join('');
+
+    const repeatOptionsHTML = this.repeatOptions.map(r => `
+      <button type="button" class="repeat-opt-btn ${(!isAkhand && r.val === currentRepeat) ? 'active' : ''}" data-repeat="${r.val}">
+        <span class="repeat-opt-badge">${r.devanagari}</span>
+        <span class="repeat-opt-name">${r.name}</span>
+        <small class="repeat-opt-desc">${r.desc}</small>
+      </button>
+    `).join('');
+
+    let repeatLabelText = `${currentRepeat}x`;
+    if (isAkhand) {
+      repeatLabelText = '∞ अखंड';
+    }
 
     this.container.innerHTML = `
       <div class="audio-timeline-track" id="audio-timeline-track" title="Click to seek recitation">
@@ -52,7 +73,12 @@ export class AudioDock {
             ${ICONS.om}
           </div>
           <div class="audio-track-details">
-            <span class="audio-track-title" id="audio-track-title">${currentVerse.titleDevanagari}</span>
+            <div class="audio-track-title-row" style="display: flex; align-items: center; gap: 6px;">
+              <span class="audio-track-title" id="audio-track-title">${currentVerse.titleDevanagari}</span>
+              <span class="akhand-round-badge ${isAkhand ? 'akhand-infinite' : ''}" id="akhand-round-badge" style="${(isAkhand || currentRepeat > 1) ? 'display: inline-flex;' : 'display: none;'}">
+                ${isAkhand ? `अखंड चक्र ${audioService.currentRepeatRound} (∞)` : `चक्र ${audioService.currentRepeatRound} / ${currentRepeat}`}
+              </span>
+            </div>
             <span class="audio-track-sub" id="audio-track-sub">${currentVerse.linesDevanagari[0]}</span>
           </div>
         </div>
@@ -71,7 +97,7 @@ export class AudioDock {
           <span class="time-display" id="audio-time-display">0:00 / 9:42</span>
         </div>
 
-        <!-- Right: Extras (Speed, Repeat, Ambient, Sync) -->
+        <!-- Right: Extras (Speed, Akhand Loop, Ambient, Sync) -->
         <div class="audio-dock-extras">
           <button type="button" class="dock-pill-btn btn-sync-toggle active" id="btn-sync-toggle" title="Toggle Verse Highlighting Sync" aria-label="Toggle Verse Sync">
             ${ICONS.sync}
@@ -89,10 +115,30 @@ export class AudioDock {
             </div>
           </div>
 
-          <button type="button" class="dock-pill-btn btn-repeat-toggle" id="btn-repeat-toggle" title="Sankalp Chanting Repeat Count" aria-label="Repeat Count">
-            ${ICONS.replay}
-            <span id="repeat-label">1x</span>
-          </button>
+          <!-- Akhand Path Loop & Repeat Dropdown -->
+          <div class="repeat-dropdown" id="repeat-dropdown-wrapper">
+            <button type="button" class="dock-pill-btn btn-repeat-toggle ${isAkhand ? 'active-akhand' : ''}" id="btn-repeat-toggle" title="Akhand Path Loop & Sankalp (अखंड पाठ व जप संकल्प)" aria-label="Repeat Count" aria-expanded="false">
+              ${ICONS.replay}
+              <span id="repeat-label">${repeatLabelText}</span>
+            </button>
+            <div class="repeat-menu-popover" id="repeat-menu-popover" role="menu" aria-label="Akhand Path Loop Options">
+              <div class="repeat-popover-header">
+                <span>🚩 अखंड पाठ लूप एवं संकल्प</span>
+              </div>
+              <div class="repeat-opts-grid">
+                ${repeatOptionsHTML}
+              </div>
+              <div class="repeat-akhand-row">
+                <button type="button" class="repeat-akhand-btn ${isAkhand ? 'active' : ''}" id="btn-akhand-infinite" data-repeat="0">
+                  <span class="akhand-infinity-icon">∞</span>
+                  <div class="akhand-btn-text">
+                    <strong>अखंड पाठ लूप (Non-Stop Loop)</strong>
+                    <small>अनवरत निरंतर श्रवण व पाठ (कभी न रुकने वाला)</small>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
 
           <button type="button" class="dock-pill-btn btn-ambient-sound" id="btn-ambient-toggle" title="Toggle Meditative Tanpura Drone" aria-label="Toggle Tanpura Drone">
             ${ICONS.tanpura}
@@ -112,6 +158,7 @@ export class AudioDock {
     const speedBtn = this.container.querySelector('#btn-speed-toggle');
     const speedPopover = this.container.querySelector('#speed-menu-popover');
     const repeatBtn = this.container.querySelector('#btn-repeat-toggle');
+    const repeatPopover = this.container.querySelector('#repeat-menu-popover');
     const track = this.container.querySelector('#audio-timeline-track');
 
     playBtn.addEventListener('click', () => {
@@ -140,15 +187,30 @@ export class AudioDock {
     // Speed Popover Toggle
     speedBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+      repeatPopover.classList.remove('open');
+      repeatBtn.setAttribute('aria-expanded', 'false');
       const isOpen = speedPopover.classList.toggle('open');
       speedBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
-    // Close speed popover when clicking anywhere else
+    // Repeat / Akhand Loop Popover Toggle
+    repeatBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      speedPopover.classList.remove('open');
+      speedBtn.setAttribute('aria-expanded', 'false');
+      const isOpen = repeatPopover.classList.toggle('open');
+      repeatBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close popovers when clicking outside
     document.addEventListener('click', (e) => {
       if (!speedPopover.contains(e.target) && e.target !== speedBtn) {
         speedPopover.classList.remove('open');
         speedBtn.setAttribute('aria-expanded', 'false');
+      }
+      if (!repeatPopover.contains(e.target) && e.target !== repeatBtn) {
+        repeatPopover.classList.remove('open');
+        repeatBtn.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -168,11 +230,16 @@ export class AudioDock {
       speedBtn.setAttribute('aria-expanded', 'false');
     });
 
-    repeatBtn.addEventListener('click', () => {
-      this.repeatIndex = (this.repeatIndex + 1) % this.repeatCounts.length;
-      const count = this.repeatCounts[this.repeatIndex];
-      audioService.setRepeatCount(count);
-      this.container.querySelector('#repeat-label').textContent = `${count}x`;
+    // Repeat / Akhand Loop selection
+    repeatPopover.addEventListener('click', (e) => {
+      const optBtn = e.target.closest('[data-repeat]');
+      if (!optBtn) return;
+
+      const repeatVal = parseInt(optBtn.getAttribute('data-repeat'), 10);
+      audioService.setRepeatCount(repeatVal);
+
+      repeatPopover.classList.remove('open');
+      repeatBtn.setAttribute('aria-expanded', 'false');
     });
 
     // Timeline Scrubber Click & Drag
@@ -195,6 +262,10 @@ export class AudioDock {
     const badge = this.container.querySelector('#audio-badge');
     const speedLabel = this.container.querySelector('#speed-label');
     const speedPopover = this.container.querySelector('#speed-menu-popover');
+    const repeatLabel = this.container.querySelector('#repeat-label');
+    const repeatBtn = this.container.querySelector('#btn-repeat-toggle');
+    const repeatPopover = this.container.querySelector('#repeat-menu-popover');
+    const akhandBadge = this.container.querySelector('#akhand-round-badge');
 
     audioService.on('statechange', ({ isPlaying }) => {
       playBtn.innerHTML = isPlaying ? ICONS.pause : ICONS.play;
@@ -217,6 +288,62 @@ export class AudioDock {
         speedPopover.querySelectorAll('.speed-opt-btn').forEach(btn => {
           btn.classList.toggle('active', parseFloat(btn.getAttribute('data-speed')) === speed);
         });
+      }
+    });
+
+    const updateLoopUI = ({ repeatGoal, isAkhandLoop, currentRound }) => {
+      if (repeatLabel) {
+        repeatLabel.textContent = isAkhandLoop ? '∞ अखंड' : `${repeatGoal}x`;
+      }
+      if (repeatBtn) {
+        repeatBtn.classList.toggle('active-akhand', isAkhandLoop);
+        repeatBtn.classList.toggle('active', repeatGoal > 1 || isAkhandLoop);
+      }
+
+      // Update popover active buttons
+      if (repeatPopover) {
+        repeatPopover.querySelectorAll('.repeat-opt-btn').forEach(btn => {
+          const val = parseInt(btn.getAttribute('data-repeat'), 10);
+          btn.classList.toggle('active', !isAkhandLoop && val === repeatGoal);
+        });
+        const akhandBtn = repeatPopover.querySelector('#btn-akhand-infinite');
+        if (akhandBtn) akhandBtn.classList.toggle('active', isAkhandLoop);
+      }
+
+      // Update Akhand Round Badge
+      if (akhandBadge) {
+        if (isAkhandLoop) {
+          akhandBadge.style.display = 'inline-flex';
+          akhandBadge.classList.add('akhand-infinite');
+          akhandBadge.textContent = `अखंड चक्र ${currentRound} (∞)`;
+        } else if (repeatGoal > 1) {
+          akhandBadge.style.display = 'inline-flex';
+          akhandBadge.classList.remove('akhand-infinite');
+          akhandBadge.textContent = `चक्र ${currentRound} / ${repeatGoal}`;
+        } else {
+          akhandBadge.style.display = 'none';
+        }
+      }
+    };
+
+    audioService.on('loopmodechange', updateLoopUI);
+
+    audioService.on('roundchange', ({ round, total, isAkhand }) => {
+      if (akhandBadge) {
+        akhandBadge.style.display = 'inline-flex';
+        if (isAkhand) {
+          akhandBadge.classList.add('akhand-infinite');
+          akhandBadge.textContent = `अखंड चक्र ${round} (∞)`;
+        } else {
+          akhandBadge.classList.remove('akhand-infinite');
+          akhandBadge.textContent = `चक्र ${round} / ${total}`;
+        }
+      }
+    });
+
+    audioService.on('ended', () => {
+      if (akhandBadge) {
+        akhandBadge.style.display = 'none';
       }
     });
   }

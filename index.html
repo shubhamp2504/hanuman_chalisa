@@ -130,6 +130,21 @@
     </div>
 
     <div class="settings-group">
+      <span class="settings-label">🚩 अखंड पाठ लूप एवं संकल्प (Akhand Loop)</span>
+      <div class="akhand-loop-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+        <button type="button" class="speed-pill-btn active" data-loop-val="1">१ पाठ (1x)</button>
+        <button type="button" class="speed-pill-btn" data-loop-val="3">३ पाठ (3x)</button>
+        <button type="button" class="speed-pill-btn" data-loop-val="7">७ पाठ (7x)</button>
+        <button type="button" class="speed-pill-btn" data-loop-val="11">११ पाठ (11x)</button>
+        <button type="button" class="speed-pill-btn" data-loop-val="21">२१ पाठ (21x)</button>
+        <button type="button" class="speed-pill-btn" data-loop-val="108">१०८ पाठ (108x)</button>
+      </div>
+      <button type="button" class="speed-pill-btn akhand-infinite-pill-btn" data-loop-val="0" style="margin-top: 6px; width: 100%; border-color: var(--c-gold); color: var(--c-gold); font-weight: 700;">
+        <span>∞ अखंड अनवरत लूप (Non-Stop Loop)</span>
+      </button>
+    </div>
+
+    <div class="settings-group">
       <span class="settings-label">भाषा प्राथमिकता (Language View)</span>
       <div class="lang-pill-row">
         <button type="button" class="lang-pill-btn active" data-lang-val="all">समस्त (All)</button>
@@ -295,6 +310,11 @@
               <button type="button" class="font-mini-btn" id="btn-reader-font-dec" title="Smaller Font">A-</button>
               <button type="button" class="font-mini-btn" id="btn-reader-font-inc" title="Larger Font">A+</button>
             </div>
+
+            <!-- Akhand Path Loop Button in Reader Toolbar -->
+            <button type="button" class="reader-tool-btn" id="btn-reader-akhand-loop" title="Akhand Path Loop & Sankalp (अखंड पाठ लूप)" aria-label="Akhand Path Loop">
+              <span id="reader-akhand-label">🚩 १ पाठ</span>
+            </button>
 
             <!-- Reader Speed button -->
             <button type="button" class="reader-tool-btn" id="btn-reader-speed-toggle" title="Change Recitation Speed" aria-label="Recitation Speed">
@@ -644,6 +664,36 @@
         <p>
           यदि आप किसी सामग्री के वैधानिक कॉपीराइट स्वामी हैं और इस गैर-व्यावसायिक सेवा में किसी संशोधन या निष्कासन का अनुरोध करना चाहते हैं, तो कृपया हमारे सार्वजनिक गिटहब भंडार (<a href="https://github.com/shubhamp2504/hanuman_chalisa" target="_blank" rel="noopener noreferrer" style="color: var(--c-saffron); text-decoration: underline;">GitHub Repository</a>) पर संपर्क करें। आपके अनुरोध का तत्काल सम्मान किया जाएगा।
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       SANKALP COMPLETION CELEBRATION MODAL (VIRAL WHATSAPP SHARE)
+       ==================================================================== -->
+  <div class="sankalp-complete-modal" id="sankalp-complete-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="sankalp-complete-backdrop" id="sankalp-complete-backdrop"></div>
+    <div class="sankalp-complete-card">
+      <div class="sankalp-icon-glow">🚩</div>
+      <h3 class="sankalp-modal-title">॥ पावन संकल्प पूर्ण ॥</h3>
+      <p class="sankalp-mangal-shloka">
+        ॥ पवनतनय संकट हरन मंगल मूरति रूप ।<br/>राम लखन सीता सहित हृदय बसहु सुर भूप ॥
+      </p>
+      <div class="sankalp-badge-box">
+        <span class="sankalp-badge-label">संपन्न अखंड पाठ</span>
+        <span class="sankalp-badge-num" id="sankalp-completed-rounds-num">११ पाठ</span>
+      </div>
+      <p class="sankalp-blessing-text">
+        श्री हनुमान जी की अनन्य कृपा से आपका संकल्प सफलतापूर्वक पूर्ण हुआ। अपने परिवार एवं मित्रों के साथ यह मंगलमय आशीर्वाद साझा करें।
+      </p>
+      <div class="sankalp-modal-actions">
+        <button type="button" class="btn-sankalp-share" id="btn-share-sankalp-whatsapp">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+          <span>WhatsApp पर आशीर्वाद साझा करें</span>
+        </button>
+        <button type="button" class="btn-sankalp-close" id="btn-close-sankalp-modal">
+          प्रणाम एवं बंद करें
+        </button>
       </div>
     </div>
   </div>

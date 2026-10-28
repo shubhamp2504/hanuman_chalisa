@@ -26,7 +26,8 @@ class AudioService {
     this.isPlaying = false;
     this.currentVerseIndex = 0;
     this.playbackSpeed = storage.getPlaybackSpeed();
-    this.repeatGoal = 1;
+    this.repeatGoal = storage.getRepeatGoal ? storage.getRepeatGoal() : 1;
+    this.isAkhandLoop = storage.getAkhandLoop ? storage.getAkhandLoop() : false;
     this.currentRepeatRound = 1;
     this.audioSyncEnabled = storage.getAudioSync();
     this.totalDuration = 582; // Total track duration (approx 9m 42s)
@@ -37,7 +38,9 @@ class AudioService {
       versechange: [],
       statechange: [],
       timeupdate: [],
-      ended: []
+      ended: [],
+      roundchange: [],
+      loopmodechange: []
     };
 
     this._bindAudioEvents();
@@ -301,7 +304,37 @@ class AudioService {
   }
 
   setRepeatCount(count) {
-    this.repeatGoal = count;
+    if (count === 0 || count === 'infinity' || count === Infinity) {
+      this.isAkhandLoop = true;
+      this.repeatGoal = 0;
+    } else {
+      this.isAkhandLoop = false;
+      this.repeatGoal = count;
+    }
+    storage.setRepeatGoal(this.repeatGoal);
+    storage.setAkhandLoop(this.isAkhandLoop);
+    this._emit('loopmodechange', {
+      repeatGoal: this.repeatGoal,
+      isAkhandLoop: this.isAkhandLoop,
+      currentRound: this.currentRepeatRound
+    });
+  }
+
+  toggleAkhandLoop() {
+    this.isAkhandLoop = !this.isAkhandLoop;
+    if (this.isAkhandLoop) {
+      this.repeatGoal = 0;
+    } else {
+      this.repeatGoal = 1;
+    }
+    storage.setRepeatGoal(this.repeatGoal);
+    storage.setAkhandLoop(this.isAkhandLoop);
+    this._emit('loopmodechange', {
+      repeatGoal: this.repeatGoal,
+      isAkhandLoop: this.isAkhandLoop,
+      currentRound: this.currentRepeatRound
+    });
+    return this.isAkhandLoop;
   }
 
   setAudioSync(enabled) {
@@ -316,16 +349,40 @@ class AudioService {
   _handleRecitationCycleEnd() {
     this.playTempleBell();
 
-    if (this.currentRepeatRound < this.repeatGoal) {
+    const shouldContinue = this.isAkhandLoop || (this.currentRepeatRound < this.repeatGoal);
+
+    if (shouldContinue) {
+      const prevRound = this.currentRepeatRound;
       this.currentRepeatRound++;
-      this.audio.currentTime = CHALISA_DATA[0].startTime;
-      this.play();
+
+      this._emit('roundchange', {
+        round: this.currentRepeatRound,
+        total: this.repeatGoal,
+        isAkhand: this.isAkhandLoop,
+        completedRound: prevRound
+      });
+
+      // Rewind to opening Doha 1
+      this.currentVerseIndex = 0;
+      const firstVerse = CHALISA_DATA[0];
+      this.audio.currentTime = (firstVerse && firstVerse.startTime !== undefined) ? firstVerse.startTime : 0;
+
+      this._emit('versechange', {
+        index: 0,
+        verse: CHALISA_DATA[0]
+      });
+
+      // Seamlessly resume playback
+      setTimeout(() => {
+        this.play();
+      }, 400);
     } else {
       this.pause();
       this.audio.currentTime = 0;
+      const completed = this.currentRepeatRound;
       this.currentRepeatRound = 1;
       this.currentVerseIndex = 0;
-      this._emit('ended', { completedRounds: this.repeatGoal });
+      this._emit('ended', { completedRounds: completed });
     }
   }
 

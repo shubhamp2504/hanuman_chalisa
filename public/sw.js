@@ -3,11 +3,11 @@
  * Caches core app shell, fonts, assets, and offline text.
  */
 
-const CACHE_NAME = 'hanuman-chalisa-v2';
+const CACHE_NAME = 'hanuman-chalisa-v3';
 
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
+  'index.html',
   '/manifest.webmanifest',
   '/favicon.svg',
   '/assets/hanuman_darshan.jpg',
@@ -17,6 +17,7 @@ const STATIC_ASSETS = [
   '/src/services/storage-service.js',
   '/src/services/audio-service.js',
   '/src/components/verse-card.js',
+  '/src/components/temple-view.js',
   '/src/components/audio-dock.js',
   '/src/components/petals-canvas.js',
   '/src/utils/icons.js',

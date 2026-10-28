@@ -45,6 +45,7 @@ class HanumanChalisaApp {
 
     // 4. Initialize Credits & Copyright Modal
     this.bindCreditsModal();
+    this.bindSankalpModal();
 
     // 5. Setup Event Listeners & Router
     this.bindNavigation();
@@ -151,6 +152,61 @@ class HanumanChalisaApp {
         readerSpeedLabel.textContent = `${speed}x गति`;
       }
     });
+
+    // Akhand Path Loop Controls in Settings Menu
+    const initialLoopVal = audioService.isAkhandLoop ? 0 : (audioService.repeatGoal || 1);
+    this._updateLoopButtons(initialLoopVal);
+
+    document.querySelectorAll('[data-loop-val]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = parseInt(btn.getAttribute('data-loop-val'), 10);
+        audioService.setRepeatCount(val);
+      });
+    });
+
+    // Reader Toolbar Akhand Loop Button
+    const readerAkhandBtn = document.getElementById('btn-reader-akhand-loop');
+    const loopCycle = [1, 3, 7, 11, 21, 108, 0]; // 0 is infinite
+    if (readerAkhandBtn) {
+      readerAkhandBtn.addEventListener('click', () => {
+        const cur = audioService.isAkhandLoop ? 0 : (audioService.repeatGoal || 1);
+        const curIdx = loopCycle.indexOf(cur);
+        const nextVal = loopCycle[(curIdx + 1) % loopCycle.length];
+        audioService.setRepeatCount(nextVal);
+      });
+    }
+
+    this._updateReaderAkhandButton(audioService.repeatGoal, audioService.isAkhandLoop);
+
+    audioService.on('loopmodechange', ({ repeatGoal, isAkhandLoop }) => {
+      const activeVal = isAkhandLoop ? 0 : repeatGoal;
+      this._updateLoopButtons(activeVal);
+      this._updateReaderAkhandButton(repeatGoal, isAkhandLoop);
+    });
+  }
+
+  _updateLoopButtons(activeVal) {
+    document.querySelectorAll('[data-loop-val]').forEach(btn => {
+      const val = parseInt(btn.getAttribute('data-loop-val'), 10);
+      btn.classList.toggle('active', val === activeVal);
+    });
+  }
+
+  _updateReaderAkhandButton(repeatGoal, isAkhandLoop) {
+    const readerAkhandBtn = document.getElementById('btn-reader-akhand-loop');
+    const readerAkhandLabel = document.getElementById('reader-akhand-label');
+    if (!readerAkhandBtn || !readerAkhandLabel) return;
+
+    if (isAkhandLoop) {
+      readerAkhandBtn.className = 'reader-tool-btn active-infinite';
+      readerAkhandLabel.textContent = '🚩 ∞ अखंड लूप';
+    } else if (repeatGoal > 1) {
+      readerAkhandBtn.className = 'reader-tool-btn active';
+      readerAkhandLabel.textContent = `🚩 ${repeatGoal} पाठ लूप`;
+    } else {
+      readerAkhandBtn.className = 'reader-tool-btn';
+      readerAkhandLabel.textContent = '🚩 १ पाठ';
+    }
   }
 
   _updateSpeedButtons(activeSpeed) {
@@ -756,6 +812,59 @@ class HanumanChalisaApp {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && dialog && dialog.classList.contains('open')) {
         closeModal();
+      }
+    });
+  }
+
+  // =========================================================================
+  // SANKALP COMPLETION CELEBRATION MODAL (VIRAL WHATSAPP SHARING)
+  // =========================================================================
+  bindSankalpModal() {
+    const modal = document.getElementById('sankalp-complete-modal');
+    const backdrop = document.getElementById('sankalp-complete-backdrop');
+    const closeBtn = document.getElementById('btn-close-sankalp-modal');
+    const shareBtn = document.getElementById('btn-share-sankalp-whatsapp');
+    const roundsDisplay = document.getElementById('sankalp-completed-rounds-num');
+
+    let lastCompletedRounds = 1;
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        const text = encodeURIComponent(`🚩 जय श्री राम! मैंने आज श्री हनुमान चालीसा के ${lastCompletedRounds} पावन पाठ का अखंड संकल्प पूर्ण किया।\n\nआप भी संपूर्ण चालीसा पाठ, अखंड लूप एवं पावन दर्शन का लाभ लें:\nhttps://hanuman-chalisa-ten.vercel.app/`);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+      });
+    }
+
+    // Trigger celebration when anusthan / sankalp rounds complete
+    audioService.on('ended', ({ completedRounds }) => {
+      if (completedRounds && completedRounds > 1) {
+        lastCompletedRounds = completedRounds;
+        if (roundsDisplay) {
+          roundsDisplay.textContent = `${completedRounds} पाठ`;
+        }
+        if (modal) {
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          audioService.playTempleBell();
+        }
       }
     });
   }

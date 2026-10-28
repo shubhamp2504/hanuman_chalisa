@@ -305,23 +305,191 @@
   color: var(--c-saffron);
 }
 
+/* ==========================================================================
+   REPEAT / AKHAND PATH LOOP DROPDOWN & POPOVER
+   ========================================================================== */
+.repeat-dropdown {
+  position: relative;
+}
+
+.btn-repeat-toggle.active-akhand {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.25) 100%);
+  border-color: var(--c-gold);
+  color: var(--c-gold-glow);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.repeat-menu-popover {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-prominent);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+  z-index: 120;
+  animation: fadeIn 0.15s ease;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.repeat-menu-popover.open {
+  display: flex;
+}
+
+.repeat-popover-header {
+  font-family: var(--font-devanagari);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--c-gold);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.repeat-opts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.repeat-opt-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.repeat-opt-btn:hover {
+  border-color: var(--c-gold);
+  background: var(--bg-surface-translucent);
+}
+
+.repeat-opt-btn.active {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: var(--c-saffron);
+}
+
+.repeat-opt-badge {
+  font-family: var(--font-devanagari);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--c-saffron);
+}
+
+.repeat-opt-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.repeat-opt-desc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+/* Akhand Infinite Button */
+.repeat-akhand-row {
+  margin-top: 4px;
+}
+
+.repeat-akhand-btn {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 181, 109, 0.12) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all var(--transition-fast);
+  text-align: left;
+  cursor: pointer;
+}
+
+.repeat-akhand-btn:hover,
+.repeat-akhand-btn.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.28) 0%, rgba(217, 181, 109, 0.28) 100%);
+  border-color: var(--c-saffron);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
+}
+
+.akhand-infinity-icon {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--c-saffron);
+  line-height: 1;
+}
+
+.akhand-btn-text strong {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--c-gold);
+}
+
+.akhand-btn-text small {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Akhand Round Badge on Audio Track Info */
+.akhand-round-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid var(--c-saffron);
+  color: var(--c-saffron);
+  animation: pulseGold 2s infinite ease-in-out;
+  white-space: nowrap;
+}
+
+.akhand-round-badge.akhand-infinite {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.25) 100%);
+  border-color: var(--c-gold);
+  color: var(--c-gold);
+}
+
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
 /* Responsive Audio Dock */
 @media (max-width: 768px) {
   .audio-dock-container {
     bottom: 60px !important;
     height: 60px;
-    padding: 0 10px;
+    padding: 0 8px;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
   }
 
   .audio-track-info {
     min-width: 0;
-    max-width: 100px;
+    max-width: 90px;
   }
 
   .audio-track-title {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
   }
 
   .audio-track-sub,
@@ -333,19 +501,36 @@
     display: none;
   }
 
-  /* Keep Speed and Sync buttons visible on mobile */
-  .audio-dock-extras .btn-ambient-sound,
-  .audio-dock-extras .btn-repeat-toggle {
+  .audio-dock-extras {
+    gap: 5px;
+  }
+
+  .dock-pill-btn {
+    padding: 3px 7px;
+    font-size: 0.72rem;
+  }
+
+  /* On mobile: keep Speed, Repeat/Akhand Loop, and Sync visible */
+  .audio-dock-extras .btn-ambient-sound {
     display: none;
   }
 
+  .audio-dock-extras .btn-repeat-toggle {
+    display: inline-flex;
+  }
+
+  .repeat-menu-popover {
+    right: -30px;
+    min-width: 230px;
+  }
+
   .transport-btn-primary {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 
   .transport-btn {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 }
