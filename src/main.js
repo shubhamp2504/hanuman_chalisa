@@ -54,8 +54,9 @@ class HanumanChalisaApp {
     this.bindKeyboardShortcuts();
     this.subscribeRecitationSync();
 
-    // 6. Register PWA Service Worker
+    // 6. Register PWA Service Worker & Install Prompts
     this.registerServiceWorker();
+    this.initPWAInstall();
 
     console.log('🕉️ Hanuman Chalisa — The Living Temple Initialized');
   }
@@ -1082,6 +1083,84 @@ class HanumanChalisaApp {
         console.warn('PWA ServiceWorker registration notice:', err);
       });
     }
+  }
+
+  // =========================================================================
+  // NATIVE PWA INSTALL BANNER & PROMPTS
+  // =========================================================================
+  initPWAInstall() {
+    let deferredInstallPrompt = null;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    const banner = document.getElementById('pwa-install-banner');
+    const headerBtn = document.getElementById('btn-header-install');
+    const installActionBtn = document.getElementById('btn-pwa-install-action');
+    const dismissBtn = document.getElementById('btn-pwa-dismiss');
+    const iosModal = document.getElementById('ios-install-modal');
+    const iosDoneBtn = document.getElementById('btn-ios-done');
+    const iosBackdrop = document.getElementById('ios-install-backdrop');
+
+    // If not in standalone app mode, make header button and banner accessible
+    if (!isStandalone) {
+      if (headerBtn) headerBtn.style.display = 'inline-flex';
+
+      const isDismissed = sessionStorage.getItem('hc_pwa_dismissed');
+      if (!isDismissed && banner) {
+        setTimeout(() => {
+          banner.style.display = 'flex';
+        }, 2000);
+      }
+    }
+
+    // Android & Chrome beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (headerBtn) headerBtn.style.display = 'inline-flex';
+    });
+
+    const triggerInstall = async () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if (outcome === 'accepted') {
+          if (banner) banner.style.display = 'none';
+          if (headerBtn) headerBtn.style.display = 'none';
+        }
+        deferredInstallPrompt = null;
+      } else if (iosModal) {
+        iosModal.classList.add('open');
+        iosModal.setAttribute('aria-hidden', 'false');
+      }
+    };
+
+    if (installActionBtn) installActionBtn.addEventListener('click', triggerInstall);
+    if (headerBtn) headerBtn.addEventListener('click', triggerInstall);
+
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        if (banner) banner.style.display = 'none';
+        sessionStorage.setItem('hc_pwa_dismissed', 'true');
+      });
+    }
+
+    const closeIOS = () => {
+      if (iosModal) {
+        iosModal.classList.remove('open');
+        iosModal.setAttribute('aria-hidden', 'true');
+      }
+    };
+
+    if (iosDoneBtn) iosDoneBtn.addEventListener('click', closeIOS);
+    if (iosBackdrop) iosBackdrop.addEventListener('click', closeIOS);
+
+    window.addEventListener('appinstalled', () => {
+      console.log('Hanuman Chalisa PWA successfully installed on home screen');
+      if (banner) banner.style.display = 'none';
+      if (headerBtn) headerBtn.style.display = 'none';
+      audioService.playTempleBell();
+    });
   }
 }
 

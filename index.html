@@ -10,6 +10,10 @@
   <!-- PWA & Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="हनुमान चालीसा" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
 
   <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,6 +73,12 @@
       <button type="button" class="action-btn darshan-pulse-btn" id="btn-header-darshan" title="Enter Immersive Darshan Mode" aria-label="Darshan Mode">
         <svg viewBox="0 0 24 24"><path d="M12 2c-.6 1.7-2 3.5-2 5 0 1.7 1.3 3 3 3s3-1.3 3-3c0-1.5-1.4-3.3-2-5h-2zm-8 12c0 4.4 3.6 8 8 8s8-3.6 8-8h-16zm2 2h12c-.5 2.8-3 5-6 5s-5.5-2.2-6-5z"/></svg>
         <span>दर्शन (Darshan)</span>
+      </button>
+
+      <!-- Install App Button (Header) -->
+      <button type="button" class="action-btn btn-header-install" id="btn-header-install" title="Install App on Phone / Desktop (ऐप इंस्टॉल करें)" aria-label="Install App" style="display: none;">
+        <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        <span class="desktop-only-label">ऐप</span>
       </button>
 
       <!-- Settings Dropdown Toggle -->
@@ -695,6 +705,61 @@
           प्रणाम एवं बंद करें
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       NATIVE PWA INSTALL BANNER & IOS INSTALL GUIDE
+       ==================================================================== -->
+  <aside class="pwa-install-banner" id="pwa-install-banner" aria-label="Install App" style="display: none;">
+    <div class="pwa-banner-art">
+      <img src="/favicon.svg" alt="Shri Hanuman Chalisa Icon" class="pwa-banner-icon" />
+    </div>
+    <div class="pwa-banner-content">
+      <div class="pwa-banner-title">
+        <span>श्री हनुमान चालीसा ऐप</span>
+        <span class="pwa-badge">ऑफलाइन</span>
+      </div>
+      <p class="pwa-banner-desc">इंटरनेट के बिना कहीं भी पढ़ने व सुनने के लिए अपने फोन में इंस्टॉल करें।</p>
+    </div>
+    <div class="pwa-banner-actions">
+      <button type="button" class="btn-pwa-install" id="btn-pwa-install-action">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        <span>इंस्टॉल करें</span>
+      </button>
+      <button type="button" class="btn-pwa-dismiss" id="btn-pwa-dismiss" aria-label="Dismiss banner" title="बाद में">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- iOS Safari Install Instructions Sheet -->
+  <div class="ios-install-modal" id="ios-install-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="ios-install-backdrop" id="ios-install-backdrop"></div>
+    <div class="ios-install-sheet">
+      <div class="ios-sheet-handle"></div>
+      <div class="ios-sheet-header">
+        <img src="/favicon.svg" alt="App Icon" class="ios-app-icon" />
+        <div>
+          <h4>iPhone पर ऐप कैसे जोड़ें?</h4>
+          <p>बिना ऐप स्टोर के सीधे होम स्क्रीन पर स्थापित करें</p>
+        </div>
+      </div>
+      <div class="ios-steps-list">
+        <div class="ios-step-item">
+          <span class="ios-step-num">१</span>
+          <div class="ios-step-text">
+            सफारी (Safari) ब्राउज़र में नीचे दिए गए <strong>Share बटन ( <svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align: -2px;" fill="currentColor"><path d="M16 5l-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z"/></svg> )</strong> पर टैप करें।
+          </div>
+        </div>
+        <div class="ios-step-item">
+          <span class="ios-step-num">२</span>
+          <div class="ios-step-text">
+            नीचे स्क्रॉल करके <strong>"Add to Home Screen (होम स्क्रीन पर जोड़ें)"</strong> विकल्प चुनें।
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn-ios-done" id="btn-ios-done">समझ गए (Done)</button>
     </div>
   </div>
 
