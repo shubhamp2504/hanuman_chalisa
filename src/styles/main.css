@@ -28,12 +28,14 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -43,7 +45,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--border-prominent);
   border-radius: var(--radius-full);
-  border: 2px solid var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -52,8 +53,8 @@ body {
 
 /* Accessible Focus States */
 :focus-visible {
-  outline: 3px solid var(--c-gold);
-  outline-offset: 3px;
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
 
@@ -62,7 +63,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   color: var(--text-gold);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -82,70 +84,85 @@ button {
   color: inherit;
 }
 
+button:focus-visible {
+  outline: 2px solid var(--c-gold);
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
-   TOP TEMPLE BANNER & HEADER
+   TOP TEMPLE BANNER
    ========================================================================== */
 .temple-top-strip {
   background: linear-gradient(90deg, #9E1B1B 0%, #B84E0C 50%, #9E1B1B 100%);
   color: #FFF2D6;
   text-align: center;
   font-family: var(--font-devanagari);
-  font-size: var(--text-sm);
-  padding: 6px 16px;
-  letter-spacing: 0.08em;
+  font-size: var(--text-xs);
+  padding: 5px 16px;
+  letter-spacing: 0.06em;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
+  gap: 10px;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.35);
   z-index: 100;
 }
 
 .temple-top-strip .om-symbol {
-  font-size: 1.25em;
+  font-size: 1.1em;
   color: #FBBF24;
 }
 
+/* ==========================================================================
+   STICKY SITE HEADER
+   ========================================================================== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 90;
   height: var(--header-height);
   background: var(--bg-surface-translucent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 clamp(16px, 4vw, 36px);
+  gap: 12px;
   transition: all var(--transition-fast);
 }
 
 .brand-lockup {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .brand-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--c-midnight) 0%, var(--c-charcoal) 100%);
   border: 1px solid var(--c-gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.brand-lockup:hover .brand-icon {
+  transform: scale(1.04);
 }
 
 .brand-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   fill: var(--c-saffron);
 }
 
@@ -156,18 +173,18 @@ button {
 
 .brand-title {
   font-family: var(--font-devanagari);
-  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.35rem);
+  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem);
   font-weight: 700;
   color: var(--text-primary);
   line-height: 1.1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .brand-subtitle {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--c-gold);
   font-weight: 600;
 }
@@ -176,38 +193,38 @@ button {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  font-size: 0.95rem;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
   border: 1px solid transparent;
+  position: relative;
 }
 
 .nav-link:hover {
   color: var(--text-primary);
   background: var(--bg-surface-elevated);
-  border-color: var(--border-subtle);
 }
 
 .nav-link.active {
   color: var(--c-saffron);
   background: var(--bg-surface-elevated);
-  border-color: var(--border-prominent);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+  border-color: var(--border-subtle);
+  font-weight: 600;
 }
 
 .nav-link svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
 
@@ -215,13 +232,14 @@ button {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .action-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -236,12 +254,15 @@ button {
   background: var(--bg-surface-elevated);
   color: var(--c-saffron);
   border-color: var(--border-prominent);
-  transform: translateY(-1px);
+}
+
+.action-btn:active {
+  transform: scale(0.94);
 }
 
 .action-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
 }
 
@@ -252,24 +273,30 @@ button {
 }
 
 .darshan-pulse-btn {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 181, 109, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 181, 109, 0.08) 100%);
   border-color: var(--c-gold);
   color: var(--c-gold-glow);
   font-weight: 600;
   padding: 0 14px;
   width: auto;
+  height: 38px;
   gap: 6px;
   border-radius: var(--radius-full);
+  font-size: 0.82rem;
 }
 
 .darshan-pulse-btn:hover {
   background: linear-gradient(135deg, var(--c-saffron) 0%, var(--c-gold) 100%);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.35);
 }
 
-/* Mobile Menu Button */
+.darshan-pulse-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
 .mobile-menu-btn {
   display: none;
 }
@@ -279,14 +306,14 @@ button {
    ========================================================================== */
 .settings-menu {
   position: absolute;
-  top: calc(var(--header-height) + 8px);
+  top: calc(var(--header-height) + 6px);
   right: clamp(16px, 4vw, 36px);
-  width: min(360px, 92vw);
+  width: min(340px, 92vw);
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-prominent);
   border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: var(--shadow-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-xl);
   z-index: 100;
   display: none;
   animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -302,7 +329,7 @@ button {
 }
 
 .settings-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .settings-group:last-child {
@@ -310,11 +337,11 @@ button {
 }
 
 .settings-label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 8px;
   display: block;
 }
@@ -322,16 +349,16 @@ button {
 .theme-pill-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .theme-pill-btn {
-  padding: 8px 12px;
-  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   background: var(--bg-surface);
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   text-align: left;
   display: flex;
@@ -370,18 +397,19 @@ button {
   justify-content: space-between;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 4px;
+  border-radius: var(--radius-sm);
+  padding: 3px;
 }
 
 .font-size-btn {
   flex: 1;
-  padding: 8px 0;
+  padding: 7px 0;
   text-align: center;
-  font-size: 0.9rem;
-  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
   transition: all var(--transition-fast);
+  font-weight: 600;
 }
 
 .font-size-btn:hover {
@@ -397,20 +425,20 @@ button {
 /* Language Selector Pills */
 .lang-pill-row {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 4px;
+  border-radius: var(--radius-sm);
+  padding: 3px;
 }
 
 .lang-pill-btn {
   flex: 1;
   padding: 6px 4px;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   color: var(--text-secondary);
   transition: all var(--transition-fast);
 }
@@ -425,13 +453,13 @@ button {
   font-weight: 700;
 }
 
-/* Speed Selector Pills in Settings Menu */
+/* Speed Selector Pills */
 .speed-pill-btn {
-  padding: 8px 6px;
+  padding: 7px 4px;
   text-align: center;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -467,7 +495,7 @@ button {
   width: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
-  padding: clamp(16px, 3vw, 36px) clamp(16px, 4vw, 32px) 120px;
+  padding: clamp(20px, 3vw, 36px) clamp(16px, 4vw, 32px) 120px;
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -488,7 +516,7 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 4vw, 48px);
   align-items: center;
-  margin-bottom: clamp(36px, 5vw, 64px);
+  margin-bottom: clamp(40px, 5vw, 64px);
   position: relative;
 }
 
@@ -496,9 +524,9 @@ button {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 2px solid var(--c-gold);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(245, 158, 11, 0.2);
-  aspect-ratio: 16 / 10;
+  border: 1px solid var(--border-prominent);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
   background: var(--c-midnight);
 }
 
@@ -507,11 +535,11 @@ button {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.8s ease;
 }
 
 .hero-art-container:hover .hero-art-img {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .hero-art-overlay {
@@ -520,53 +548,52 @@ button {
   background: linear-gradient(180deg, transparent 40%, rgba(20, 16, 15, 0.85) 100%);
   display: flex;
   align-items: flex-end;
-  padding: 20px;
+  padding: 18px;
 }
 
 .hero-greeting-pill {
   font-family: var(--font-devanagari);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   background: rgba(33, 22, 18, 0.85);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--c-gold);
-  padding: 6px 14px;
+  padding: 5px 14px;
   border-radius: var(--radius-full);
   color: var(--c-gold-glow);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .hero-text-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .sacred-badge {
   font-family: var(--font-devanagari);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--c-saffron);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .hero-title {
   font-family: var(--font-devanagari);
-  font-size: var(--text-4xl);
+  font-size: var(--text-3xl);
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1.15;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title-highlight {
   color: var(--c-saffron);
   display: block;
-  font-size: 0.65em;
+  font-size: 0.55em;
   font-weight: 500;
   letter-spacing: 0.04em;
   opacity: 0.9;
@@ -579,57 +606,60 @@ button {
   color: var(--c-gold);
   font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: 1.5;
 }
 
 .hero-subtitle {
   font-size: var(--text-base);
   color: var(--text-secondary);
   line-height: 1.65;
-  max-width: 540px;
+  max-width: 520px;
 }
 
-/* Apple-style Primary Action Buttons */
+/* Hero Action Buttons */
 .hero-actions-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .apple-btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: linear-gradient(135deg, var(--c-saffron) 0%, var(--c-gold) 100%);
   color: #1a120c;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  padding: 12px 24px;
+  padding: 11px 22px;
   border-radius: var(--radius-full);
-  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
   transition: all var(--transition-fast);
   cursor: pointer;
   border: none;
 }
 
 .apple-btn-primary:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+}
+
+.apple-btn-primary:active {
+  transform: translateY(0);
 }
 
 .apple-btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: var(--bg-surface-translucent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  gap: 8px;
+  background: var(--bg-surface);
   color: var(--text-primary);
   border: 1px solid var(--border-prominent);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 12px 22px;
+  padding: 11px 20px;
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
   cursor: pointer;
@@ -639,15 +669,15 @@ button {
   background: var(--bg-surface-elevated);
   border-color: var(--c-gold);
   color: var(--c-saffron);
-  transform: scale(1.02);
+  transform: translateY(-1px);
 }
 
 .apple-btn-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 12px 18px;
+  padding: 11px 16px;
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 600;
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
@@ -658,23 +688,18 @@ button {
   color: var(--c-saffron);
 }
 
-/* Feature cards in Apple style */
-.features-three-grid .feature-pill-card {
-  cursor: pointer;
-}
-
-/* Home Section Layout */
+/* Section Headers */
 .section-header-block {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .section-tag {
   font-family: var(--font-devanagari);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--c-saffron);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 6px;
   display: inline-block;
@@ -687,60 +712,72 @@ button {
 }
 
 .section-subtext {
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--text-muted);
-  max-width: 600px;
+  max-width: 560px;
   margin: 6px auto 0;
 }
 
 /* Daily Verse Showcase Card */
 .daily-verse-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-prominent);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: clamp(24px, 4vw, 40px);
-  box-shadow: var(--shadow-md);
+  padding: clamp(24px, 4vw, 36px);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 48px;
   position: relative;
   text-align: center;
+  overflow: hidden;
+}
+
+.daily-verse-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 50%, var(--c-terracotta) 100%);
 }
 
 .daily-verse-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 14px;
+  padding: 4px 12px;
   border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.12);
   border: 1px solid var(--c-saffron);
   color: var(--c-saffron);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 18px;
 }
 
 .daily-verse-devanagari {
   font-family: var(--font-devanagari);
-  font-size: clamp(1.4rem, 1.25rem + 1vw, 2.1rem);
+  font-size: clamp(1.3rem, 1.2rem + 0.8vw, 1.9rem);
   color: var(--text-primary);
   font-weight: 700;
   line-height: 1.6;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .daily-verse-translit {
   font-family: var(--font-roman-verse);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--c-gold);
   font-style: italic;
   margin-bottom: 16px;
 }
 
 .daily-verse-meaning {
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--text-secondary);
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto 24px;
   line-height: 1.7;
 }
@@ -749,7 +786,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .btn-secondary {
@@ -762,46 +799,54 @@ button {
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   transition: all var(--transition-fast);
 }
 
 .btn-secondary:hover {
   border-color: var(--c-gold);
   color: var(--c-saffron);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+
+.btn-secondary svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
 }
 
 /* Three Pillars Feature Grid */
 .features-three-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 
 .feature-pill-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   transition: all var(--transition-normal);
+  cursor: pointer;
 }
 
 .feature-pill-card:hover {
   background: var(--bg-surface-elevated);
   border-color: var(--border-prominent);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .feature-icon-circle {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   color: var(--c-saffron);
   display: flex;
   align-items: center;
@@ -809,19 +854,19 @@ button {
 }
 
 .feature-icon-circle svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   fill: currentColor;
 }
 
 .feature-pill-card h4 {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--text-primary);
   font-family: var(--font-devanagari);
 }
 
 .feature-pill-card p {
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
   line-height: 1.5;
 }
@@ -831,7 +876,7 @@ button {
    ========================================================================== */
 .settings-credits-group {
   border-top: 1px solid var(--border-subtle);
-  padding-top: 12px;
+  padding-top: 14px;
   margin-top: 8px;
 }
 
@@ -845,7 +890,7 @@ button {
   background: var(--bg-surface);
   border: 1px solid var(--border-prominent);
   color: var(--c-gold);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
@@ -859,12 +904,12 @@ button {
 }
 
 /* ==========================================================================
-   APPLE-STYLE LEGAL & ATTRIBUTION FOOTER
+   FOOTER
    ========================================================================== */
 .site-footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
-  padding: 50px clamp(16px, 4vw, 36px) 120px;
+  padding: 48px clamp(16px, 4vw, 36px) 120px;
   color: var(--text-muted);
   font-size: 0.82rem;
   line-height: 1.6;
@@ -875,7 +920,7 @@ button {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 28px;
 }
 
 .footer-legal-grid {
@@ -891,19 +936,19 @@ button {
 }
 
 .legal-col-brand {
-  gap: 12px;
+  gap: 10px;
 }
 
 .legal-brand {
   font-family: var(--font-devanagari);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-gold);
 }
 
 .legal-badge-pill {
   font-family: var(--font-devanagari);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--c-saffron);
   border: 1px solid rgba(245, 158, 11, 0.3);
   padding: 3px 10px;
@@ -913,7 +958,7 @@ button {
 }
 
 .legal-heading {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -922,7 +967,7 @@ button {
 }
 
 .legal-text {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   line-height: 1.55;
 }
@@ -938,8 +983,8 @@ button {
   flex-wrap: wrap;
   gap: 14px;
   border-top: 1px solid var(--border-subtle);
-  padding-top: 24px;
-  font-size: 0.8rem;
+  padding-top: 22px;
+  font-size: 0.78rem;
 }
 
 .footer-copyright-line {
@@ -962,7 +1007,7 @@ button {
   background: none;
   border: none;
   padding: 0;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .footer-credits-trigger:hover {
@@ -990,9 +1035,9 @@ button {
 .credits-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 150;
   opacity: 0;
   pointer-events: none;
@@ -1009,12 +1054,12 @@ button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -46%) scale(0.96);
-  width: min(720px, calc(100% - 32px));
+  width: min(680px, calc(100% - 32px));
   max-height: 85vh;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-prominent);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   z-index: 160;
   display: flex;
   flex-direction: column;
@@ -1031,7 +1076,7 @@ button {
 }
 
 .credits-modal-header {
-  padding: 20px 24px;
+  padding: 18px 22px;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -1047,15 +1092,15 @@ button {
 
 .credits-header-left h3 {
   font-family: var(--font-devanagari);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .close-credits-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1072,11 +1117,11 @@ button {
 }
 
 .credits-modal-body {
-  padding: 24px;
+  padding: 22px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .credit-card {
@@ -1090,12 +1135,12 @@ button {
 }
 
 .credit-card.highlight-card {
-  border-color: rgba(245, 158, 11, 0.4);
-  background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border-color: rgba(245, 158, 11, 0.35);
+  background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(245, 158, 11, 0.04) 100%);
 }
 
 .credit-tag {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1108,12 +1153,12 @@ button {
 
 .credit-card h4 {
   font-family: var(--font-devanagari);
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text-primary);
 }
 
 .credit-card p {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -1128,7 +1173,7 @@ button {
   padding: 10px 14px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   margin-top: 6px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
@@ -1138,11 +1183,12 @@ button {
 @media (max-width: 900px) {
   .hero-threshold {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
   }
 
   .hero-art-container {
-    max-height: 380px;
+    max-height: 340px;
+    aspect-ratio: 16 / 9;
   }
 
   .features-three-grid {
@@ -1155,23 +1201,23 @@ button {
 }
 
 /* ==========================================================================
-   MOBILE BOTTOM NAVIGATION (APPLE / IOS STYLE)
+   MOBILE BOTTOM NAVIGATION
    ========================================================================== */
 .mobile-bottom-nav {
   display: none;
 }
 
 @media (max-width: 768px) {
-  /* Clean, compact header on mobile */
   .site-header {
-    height: 56px;
-    padding: 0 14px;
+    height: 54px;
+    padding: 0 12px;
+    gap: 8px;
   }
 
   .brand-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-sm);
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-xs);
   }
 
   .brand-icon svg {
@@ -1180,11 +1226,11 @@ button {
   }
 
   .brand-title {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
   }
 
   .brand-subtitle {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 
   .desktop-nav,
@@ -1193,22 +1239,17 @@ button {
     display: none !important;
   }
 
-  /* Page view clearance: 160px bottom padding so audio dock + bottom nav never block text */
   .page-view {
-    padding-top: 14px;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-bottom: 160px !important;
+    padding: 14px 12px 160px;
   }
 
-  /* Fixed Mobile Bottom Tab Bar */
   .mobile-bottom-nav {
     display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 58px;
     background: var(--bg-surface-translucent);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -1216,9 +1257,9 @@ button {
     z-index: 105;
     align-items: center;
     justify-content: space-around;
-    padding: 0 6px;
+    padding: 0 4px;
     padding-bottom: env(safe-area-inset-bottom, 0px);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.3);
   }
 
   .mobile-tab-btn {
@@ -1226,11 +1267,11 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 2px;
     flex: 1;
     height: 100%;
     color: var(--text-muted);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
     font-family: var(--font-devanagari);
     background: none;
@@ -1251,23 +1292,22 @@ button {
   }
 
   .mobile-tab-btn.active svg {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+    transform: scale(1.12);
   }
 
   .hero-threshold {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
     margin-bottom: 28px;
   }
 
   .hero-art-container {
-    max-height: 260px;
+    max-height: 240px;
     aspect-ratio: 16 / 9;
   }
 
   .hero-title {
-    font-size: clamp(1.8rem, 1.6rem + 1vw, 2.3rem);
+    font-size: clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
   }
 
   .hero-actions-row {
@@ -1281,7 +1321,7 @@ button {
   .apple-btn-ghost {
     width: 100%;
     justify-content: center;
-    padding: 12px 16px;
+    padding: 11px 16px;
   }
 
   .features-three-grid {
@@ -1302,7 +1342,7 @@ button {
 }
 
 /* ==========================================================================
-   SANKALP COMPLETION CELEBRATION MODAL (VIRAL WHATSAPP SHARING)
+   SANKALP COMPLETION CELEBRATION MODAL
    ========================================================================== */
 .sankalp-complete-modal {
   position: fixed;
@@ -1326,21 +1366,21 @@ button {
   position: absolute;
   inset: 0;
   background: rgba(10, 8, 7, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .sankalp-complete-card {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 460px;
+  max-width: 440px;
   background: linear-gradient(145deg, var(--bg-surface-elevated) 0%, rgba(35, 24, 18, 0.98) 100%);
   border: 2px solid var(--c-gold);
   border-radius: var(--radius-xl);
   padding: 28px 24px;
   text-align: center;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(245, 158, 11, 0.25);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(245, 158, 11, 0.2);
   animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1350,26 +1390,25 @@ button {
 }
 
 .sankalp-icon-glow {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
   animation: pulseGold 2s infinite ease-in-out;
 }
 
 .sankalp-modal-title {
   font-family: var(--font-devanagari);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--c-gold-glow);
   margin-bottom: 10px;
-  text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
 }
 
 .sankalp-mangal-shloka {
   font-family: var(--font-devanagari);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.6;
   color: var(--c-saffron);
-  background: rgba(245, 158, 11, 0.1);
+  background: rgba(245, 158, 11, 0.08);
   border: 1px dashed rgba(245, 158, 11, 0.3);
   border-radius: var(--radius-md);
   padding: 10px 14px;
@@ -1388,7 +1427,7 @@ button {
 }
 
 .sankalp-badge-label {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1396,13 +1435,13 @@ button {
 
 .sankalp-badge-num {
   font-family: var(--font-devanagari);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--c-gold);
 }
 
 .sankalp-blessing-text {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   line-height: 1.55;
   color: var(--text-secondary);
   margin-bottom: 22px;
@@ -1419,21 +1458,21 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 20px;
+  padding: 12px 20px;
   background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #ffffff;
   border-radius: var(--radius-full);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
   transition: all var(--transition-fast);
   cursor: pointer;
   border: none;
 }
 
 .btn-sankalp-share:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
 }
 
 .btn-sankalp-close {
@@ -1442,7 +1481,7 @@ button {
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   transition: all var(--transition-fast);
   cursor: pointer;
@@ -1455,24 +1494,36 @@ button {
 }
 
 /* ==========================================================================
-   NATIVE PWA INSTALL BANNER & PROMPTS
+   PWA INSTALL BANNER
    ========================================================================== */
 .btn-header-install {
   color: var(--c-saffron);
-  border-color: rgba(245, 158, 11, 0.4);
+  border-color: rgba(245, 158, 11, 0.35);
+  width: auto;
+  padding: 0 12px;
+  height: 38px;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
 }
 
 .btn-header-install:hover {
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.12);
   border-color: var(--c-saffron);
   color: var(--c-gold-glow);
+}
+
+.btn-header-install svg {
+  width: 16px;
+  height: 16px;
 }
 
 .pwa-install-banner {
   position: fixed;
   bottom: 84px;
   right: 20px;
-  max-width: 420px;
+  max-width: 400px;
   width: calc(100% - 40px);
   background: rgba(24, 18, 14, 0.96);
   backdrop-filter: blur(24px) saturate(180%);
@@ -1483,20 +1534,14 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.2);
+  box-shadow: var(--shadow-lg);
   z-index: 108;
   animation: slideUpBanner 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideUpBanner {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .pwa-banner-art {
@@ -1504,11 +1549,10 @@ button {
 }
 
 .pwa-banner-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
   object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .pwa-banner-content {
@@ -1521,13 +1565,13 @@ button {
   align-items: center;
   gap: 6px;
   font-family: var(--font-devanagari);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: var(--c-gold);
 }
 
 .pwa-badge {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   padding: 1px 6px;
   border-radius: var(--radius-full);
@@ -1538,7 +1582,7 @@ button {
 }
 
 .pwa-banner-desc {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
   line-height: 1.35;
   margin-top: 2px;
@@ -1563,18 +1607,18 @@ button {
   background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-saffron) 100%);
   color: var(--c-charcoal);
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
   transition: all var(--transition-fast);
   white-space: nowrap;
 }
 
 .btn-pwa-install:hover {
   transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.45);
 }
 
 .btn-pwa-dismiss {
@@ -1617,7 +1661,7 @@ button {
 .ios-install-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -1631,7 +1675,7 @@ button {
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: 20px 20px 28px 20px;
   border-top: 2px solid var(--c-gold);
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: var(--shadow-xl);
   animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1641,46 +1685,46 @@ button {
 }
 
 .ios-sheet-handle {
-  width: 40px;
+  width: 36px;
   height: 4px;
   background: var(--border-prominent);
   border-radius: var(--radius-full);
-  margin: 0 auto 16px auto;
+  margin: 0 auto 14px auto;
 }
 
 .ios-sheet-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 14px;
 }
 
 .ios-app-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
   object-fit: cover;
 }
 
 .ios-sheet-header h4 {
   font-family: var(--font-devanagari);
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--c-gold);
   margin-bottom: 2px;
 }
 
 .ios-sheet-header p {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
 }
 
 .ios-steps-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
 .ios-step-item {
@@ -1701,7 +1745,7 @@ button {
   color: var(--c-charcoal);
   font-family: var(--font-devanagari);
   font-weight: 800;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1709,7 +1753,7 @@ button {
 }
 
 .ios-step-text {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   color: var(--text-secondary);
 }
@@ -1725,7 +1769,7 @@ button {
   border: 1px solid var(--c-gold);
   color: var(--c-gold);
   border-radius: var(--radius-full);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -1736,12 +1780,12 @@ button {
   color: var(--c-charcoal);
 }
 
-/* Mobile responsive placement for PWA banner */
+/* Mobile responsive PWA banner */
 @media (max-width: 768px) {
   .pwa-install-banner {
-    bottom: 125px !important;
-    left: 12px !important;
-    right: 12px !important;
+    bottom: 120px !important;
+    left: 10px !important;
+    right: 10px !important;
     width: auto;
     max-width: none;
     padding: 10px 12px;
@@ -1749,12 +1793,12 @@ button {
   }
 
   .pwa-banner-icon {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 
   .pwa-banner-title {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
 
   .pwa-banner-desc {
@@ -1763,6 +1807,6 @@ button {
 
   .btn-pwa-install {
     padding: 6px 12px;
-    font-size: 0.75rem;
+    font-size: 0.74rem;
   }
 }

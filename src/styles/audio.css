@@ -1,6 +1,5 @@
 /* ==========================================================================
    HANUMAN CHALISA — THE LIVING RECITATION & AUDIO DOCK
-   Docked Audio Player, Scrubber, Speed, Repeat & Ambient Controls
    ========================================================================== */
 
 .audio-dock-container {
@@ -10,10 +9,10 @@
   right: 0;
   height: var(--audio-dock-height);
   background: var(--bg-surface-translucent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border-prominent);
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
   z-index: 80;
   display: flex;
   flex-direction: column;
@@ -22,21 +21,21 @@
   transition: transform var(--transition-normal);
 }
 
-/* Audio Scrubber Bar (Top of Dock) */
+/* Audio Scrubber Bar */
 .audio-timeline-track {
   position: absolute;
-  top: -4px;
+  top: -3px;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 4px;
   background: var(--bg-secondary);
   cursor: pointer;
   transition: height 0.15s ease;
 }
 
 .audio-timeline-track:hover {
-  height: 10px;
-  top: -8px;
+  height: 8px;
+  top: -7px;
 }
 
 .audio-timeline-fill {
@@ -52,12 +51,12 @@
   right: -6px;
   top: 50%;
   transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 2px solid var(--c-saffron);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -71,25 +70,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   max-width: var(--max-content-width);
   margin: 0 auto;
   width: 100%;
 }
 
-/* Left: Active Verse / Track Info */
+/* Left: Track Info */
 .audio-track-info {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-width: 200px;
-  max-width: 320px;
+  gap: 10px;
+  min-width: 180px;
+  max-width: 300px;
 }
 
 .audio-track-badge {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   display: flex;
@@ -97,16 +96,17 @@
   justify-content: center;
   flex-shrink: 0;
   color: var(--c-gold);
+  transition: all var(--transition-fast);
 }
 
 .audio-track-badge.playing {
   border-color: var(--c-saffron);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
 }
 
 .audio-track-badge svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   fill: currentColor;
 }
 
@@ -116,9 +116,15 @@
   overflow: hidden;
 }
 
+.audio-track-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .audio-track-title {
   font-family: var(--font-devanagari);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--text-primary);
   white-space: nowrap;
@@ -127,23 +133,23 @@
 }
 
 .audio-track-sub {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Center: Playback Transport Controls */
+/* Center: Transport Controls */
 .audio-transport-controls {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .transport-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -157,6 +163,10 @@
   background: var(--bg-surface-elevated);
 }
 
+.transport-btn:active {
+  transform: scale(0.92);
+}
+
 .transport-btn svg {
   width: 18px;
   height: 18px;
@@ -164,42 +174,47 @@
 }
 
 .transport-btn-primary {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--c-saffron) 0%, var(--c-gold) 100%);
   color: var(--c-charcoal);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 3px 14px rgba(245, 158, 11, 0.35);
   transition: all var(--transition-fast);
 }
 
 .transport-btn-primary:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6);
+  transform: scale(1.06);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.5);
+}
+
+.transport-btn-primary:active {
+  transform: scale(0.96);
 }
 
 .transport-btn-primary svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   fill: currentColor;
 }
 
 .time-display {
   font-family: var(--font-sans);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
-  min-width: 80px;
+  min-width: 76px;
+  font-weight: 600;
 }
 
-/* Right: Sync, Speed, Repeat, Ambient & Volume */
+/* Right: Extras */
 .audio-dock-extras {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .dock-pill-btn {
@@ -208,12 +223,13 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   transition: all var(--transition-fast);
+  height: 30px;
 }
 
 .dock-pill-btn:hover {
@@ -222,7 +238,7 @@
 }
 
 .dock-pill-btn.active {
-  background: rgba(245, 158, 11, 0.18);
+  background: rgba(245, 158, 11, 0.15);
   border-color: var(--c-saffron);
   color: var(--c-saffron);
 }
@@ -233,9 +249,8 @@
   fill: currentColor;
 }
 
-/* Ambient Tanpura / Bell Toggle Button */
 .btn-ambient-sound {
-  background: linear-gradient(135deg, rgba(217, 181, 109, 0.15) 0%, rgba(157, 80, 53, 0.15) 100%);
+  background: linear-gradient(135deg, rgba(217, 181, 109, 0.12) 0%, rgba(157, 80, 53, 0.08) 100%);
   border-color: var(--c-gold);
 }
 
@@ -245,24 +260,24 @@
   border-color: var(--c-saffron);
 }
 
-/* Speed Selector Menu & Popover */
+/* Speed Dropdown */
 .speed-dropdown {
   position: relative;
 }
 
 .speed-menu-popover {
   position: absolute;
-  bottom: calc(100% + 12px);
+  bottom: calc(100% + 10px);
   right: 0;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-prominent);
   border-radius: var(--radius-md);
   padding: 6px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   display: none;
   flex-direction: column;
-  gap: 3px;
-  min-width: 160px;
+  gap: 2px;
+  min-width: 150px;
   z-index: 120;
   animation: fadeIn 0.15s ease;
 }
@@ -272,9 +287,9 @@
 }
 
 .speed-opt-btn {
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  padding: 7px 12px;
+  border-radius: var(--radius-xs);
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
   display: flex;
@@ -297,7 +312,7 @@
 
 .btn-speed-toggle {
   font-weight: 700;
-  border-color: rgba(217, 181, 109, 0.4);
+  border-color: rgba(217, 181, 109, 0.35);
 }
 
 .btn-speed-toggle:hover {
@@ -305,33 +320,31 @@
   color: var(--c-saffron);
 }
 
-/* ==========================================================================
-   REPEAT / AKHAND PATH LOOP DROPDOWN & POPOVER
-   ========================================================================== */
+/* Repeat / Akhand Loop Dropdown */
 .repeat-dropdown {
   position: relative;
 }
 
 .btn-repeat-toggle.active-akhand {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.25) 100%);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 181, 109, 0.1) 100%);
   border-color: var(--c-gold);
   color: var(--c-gold-glow);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
 }
 
 .repeat-menu-popover {
   position: absolute;
-  bottom: calc(100% + 12px);
+  bottom: calc(100% + 10px);
   right: 0;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-prominent);
   border-radius: var(--radius-lg);
   padding: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+  box-shadow: var(--shadow-xl);
   display: none;
   flex-direction: column;
-  gap: 10px;
-  min-width: 250px;
+  gap: 8px;
+  min-width: 240px;
   z-index: 120;
   animation: fadeIn 0.15s ease;
   backdrop-filter: blur(24px);
@@ -344,7 +357,7 @@
 
 .repeat-popover-header {
   font-family: var(--font-devanagari);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--c-gold);
   border-bottom: 1px solid var(--border-subtle);
@@ -357,7 +370,7 @@
 .repeat-opts-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  gap: 5px;
 }
 
 .repeat-opt-btn {
@@ -376,41 +389,41 @@
 
 .repeat-opt-btn:hover {
   border-color: var(--c-gold);
-  background: var(--bg-surface-translucent);
+  background: var(--bg-surface-elevated);
 }
 
 .repeat-opt-btn.active {
-  background: rgba(245, 158, 11, 0.18);
+  background: rgba(245, 158, 11, 0.15);
   border-color: var(--c-saffron);
 }
 
 .repeat-opt-badge {
   font-family: var(--font-devanagari);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--c-saffron);
 }
 
 .repeat-opt-name {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .repeat-opt-desc {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--text-muted);
 }
 
 /* Akhand Infinite Button */
 .repeat-akhand-row {
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .repeat-akhand-btn {
   width: 100%;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 181, 109, 0.12) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 181, 109, 0.06) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: var(--radius-md);
   padding: 9px 12px;
   display: flex;
@@ -423,13 +436,13 @@
 
 .repeat-akhand-btn:hover,
 .repeat-akhand-btn.active {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.28) 0%, rgba(217, 181, 109, 0.28) 100%);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24) 0%, rgba(217, 181, 109, 0.14) 100%);
   border-color: var(--c-saffron);
-  box-shadow: 0 0 14px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
 }
 
 .akhand-infinity-icon {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 900;
   color: var(--c-saffron);
   line-height: 1;
@@ -437,25 +450,25 @@
 
 .akhand-btn-text strong {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--c-gold);
 }
 
 .akhand-btn-text small {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
 }
 
-/* Akhand Round Badge on Audio Track Info */
+/* Akhand Round Badge */
 .akhand-round-badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
   padding: 2px 7px;
   border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.18);
+  background: rgba(245, 158, 11, 0.15);
   border: 1px solid var(--c-saffron);
   color: var(--c-saffron);
   animation: pulseGold 2s infinite ease-in-out;
@@ -463,7 +476,7 @@
 }
 
 .akhand-round-badge.akhand-infinite {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.25) 100%);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(217, 181, 109, 0.12) 100%);
   border-color: var(--c-gold);
   color: var(--c-gold);
 }
@@ -476,20 +489,19 @@
 /* Responsive Audio Dock */
 @media (max-width: 768px) {
   .audio-dock-container {
-    bottom: 60px !important;
-    height: 60px;
+    bottom: 58px !important;
+    height: 56px;
     padding: 0 8px;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
   }
 
   .audio-track-info {
     min-width: 0;
-    max-width: 90px;
+    max-width: 80px;
   }
 
   .audio-track-title {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
 
   .audio-track-sub,
@@ -507,21 +519,17 @@
 
   .dock-pill-btn {
     padding: 3px 7px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    height: 26px;
   }
 
-  /* On mobile: keep Speed, Repeat/Akhand Loop, and Sync visible */
   .audio-dock-extras .btn-ambient-sound {
     display: none;
   }
 
-  .audio-dock-extras .btn-repeat-toggle {
-    display: inline-flex;
-  }
-
   .repeat-menu-popover {
     right: -30px;
-    min-width: 230px;
+    min-width: 220px;
   }
 
   .transport-btn-primary {
@@ -529,8 +537,17 @@
     height: 36px;
   }
 
+  .transport-btn-primary svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .transport-btn {
     width: 28px;
     height: 28px;
+  }
+
+  .audio-transport-controls {
+    gap: 8px;
   }
 }

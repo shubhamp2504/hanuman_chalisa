@@ -40,50 +40,65 @@
   --reader-scale: 1.0;
   --reader-lh: 1.9;
 
+  /* 8px Spacing System */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
   /* Elevation & Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
-  --shadow-gold: 0 0 25px rgba(217, 181, 109, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.18);
+  --shadow-gold: 0 0 24px rgba(217, 181, 109, 0.22), 0 4px 12px rgba(245, 158, 11, 0.12);
 
   /* Radii */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-xl: 30px;
-  --radius-full: 980px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
 
   /* Apple-grade Transitions */
   --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);
   --transition-normal: 250ms cubic-bezier(0.25, 1, 0.5, 1);
   --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --header-height: 64px;
-  --audio-dock-height: 76px;
+  --header-height: 60px;
+  --audio-dock-height: 72px;
   --max-content-width: 1140px;
   --reader-max-width: 800px;
 }
 
 /* ==========================================================================
    THEME 1: TEMPLE MIDNIGHT (Default Sanctum Sanctorum)
-   Warm stone sanctuary, glowing brass lamps, deep charcoal & antique gold
    ========================================================================== */
 [data-theme="temple"],
 :root {
   --bg-primary: #14100F;
-  --bg-secondary: #211612;
-  --bg-surface: #2A1D18;
-  --bg-surface-elevated: #36251E;
-  --bg-surface-translucent: rgba(33, 22, 18, 0.85);
-  --border-subtle: rgba(217, 181, 109, 0.18);
-  --border-prominent: rgba(217, 181, 109, 0.45);
+  --bg-secondary: #1E1410;
+  --bg-surface: #281C16;
+  --bg-surface-elevated: #34261E;
+  --bg-surface-translucent: rgba(28, 20, 16, 0.88);
+  --border-subtle: rgba(217, 181, 109, 0.16);
+  --border-prominent: rgba(217, 181, 109, 0.4);
   --border-glow: rgba(245, 158, 11, 0.6);
 
   --text-primary: #F5EBDD;
   --text-secondary: #D4C3B3;
-  --text-muted: #9E8C7F;
+  --text-muted: #A89686;
   --text-accent: #F59E0B;
   --text-gold: #D9B56D;
 
@@ -91,28 +106,28 @@
   --accent-gold: #D9B56D;
   --accent-terracotta: #9D5035;
 
-  --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(217, 181, 109, 0.08) 100%);
+  --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 181, 109, 0.08) 100%);
   --verse-highlight-border: #F59E0B;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.35) 0%, rgba(217, 181, 109, 0.1) 50%, transparent 75%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
 }
 
 /* ==========================================================================
    THEME 2: PARCHMENT DAY (Sunlit Temple / Elderly Friendly)
-   High contrast, warm ivory background, rich charcoal-brown text
    ========================================================================== */
 [data-theme="parchment"] {
   --bg-primary: #F7EFE4;
-  --bg-secondary: #EFE4D3;
+  --bg-secondary: #EDE2D1;
   --bg-surface: #FCF8F2;
   --bg-surface-elevated: #FFFFFF;
-  --bg-surface-translucent: rgba(252, 248, 242, 0.92);
+  --bg-surface-translucent: rgba(252, 248, 242, 0.94);
   --border-subtle: rgba(157, 80, 53, 0.2);
   --border-prominent: rgba(157, 80, 53, 0.45);
   --border-glow: #9D5035;
 
   --text-primary: #1C130E;
   --text-secondary: #3D2C22;
-  --text-muted: #664F42;
+  --text-muted: #6B5446;
   --text-accent: #B84E0C;
   --text-gold: #8C6517;
 
@@ -120,28 +135,28 @@
   --accent-gold: #966F1E;
   --accent-terracotta: #8C3E26;
 
-  --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(217, 181, 109, 0.14) 100%);
+  --verse-highlight-bg: linear-gradient(135deg, rgba(194, 94, 12, 0.18) 0%, rgba(217, 181, 109, 0.12) 100%);
   --verse-highlight-border: #C25E09;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.08) 50%, transparent 75%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(194, 94, 12, 0.1) 0%, transparent 60%);
 }
 
 /* ==========================================================================
    THEME 3: DEEP NOCTURNE (OLED Night)
-   Pure deep charcoal, minimal eye strain for quiet midnight recitation
    ========================================================================== */
 [data-theme="dark"] {
   --bg-primary: #0A0808;
-  --bg-secondary: #130E0D;
-  --bg-surface: #1B1513;
-  --bg-surface-elevated: #241D1A;
-  --bg-surface-translucent: rgba(19, 14, 13, 0.88);
+  --bg-secondary: #120D0C;
+  --bg-surface: #1A1411;
+  --bg-surface-elevated: #221B18;
+  --bg-surface-translucent: rgba(18, 13, 12, 0.92);
   --border-subtle: rgba(217, 181, 109, 0.12);
   --border-prominent: rgba(217, 181, 109, 0.3);
   --border-glow: #F59E0B;
 
   --text-primary: #EDE5DA;
   --text-secondary: #C0B2A3;
-  --text-muted: #7E7063;
+  --text-muted: #8A7C6F;
   --text-accent: #F59E0B;
   --text-gold: #D9B56D;
 
@@ -152,25 +167,25 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 181, 109, 0.05) 100%);
   --verse-highlight-border: #D97706;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.4) 0%, rgba(217, 181, 109, 0.12) 50%, transparent 75%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 60%);
 }
 
 /* ==========================================================================
-   THEME 4: SACRED OCHRE (Gerua / Earth & Holy Ash)
-   Warm earthy terracotta tones
+   THEME 4: SACRED OCHRE (Gerua)
    ========================================================================== */
 [data-theme="ochre"] {
   --bg-primary: #1C120C;
-  --bg-secondary: #2C1A12;
-  --bg-surface: #3B2319;
-  --bg-surface-elevated: #4A2D21;
-  --bg-surface-translucent: rgba(44, 26, 18, 0.88);
-  --border-subtle: rgba(245, 158, 11, 0.22);
-  --border-prominent: rgba(245, 158, 11, 0.5);
+  --bg-secondary: #2A1812;
+  --bg-surface: #382118;
+  --bg-surface-elevated: #462A20;
+  --bg-surface-translucent: rgba(42, 24, 18, 0.9);
+  --border-subtle: rgba(245, 158, 11, 0.2);
+  --border-prominent: rgba(245, 158, 11, 0.48);
   --border-glow: #F59E0B;
 
   --text-primary: #FCEFE3;
   --text-secondary: #E0C7B5;
-  --text-muted: #A88A75;
+  --text-muted: #B0937E;
   --text-accent: #FBBF24;
   --text-gold: #E5C37A;
 
@@ -181,6 +196,7 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(157, 80, 53, 0.12) 100%);
   --verse-highlight-border: #F59E0B;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.4) 0%, rgba(217, 181, 109, 0.15) 50%, transparent 75%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
 }
 
 /* Accessibility: High Contrast Mode */

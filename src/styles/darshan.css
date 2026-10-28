@@ -1,6 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — DARSHAN MODE
-   Immersive Fullscreen Temple Sanctum with Floating Petals & Ambient Glow
+   Immersive Fullscreen Temple Sanctum
    ========================================================================== */
 
 .darshan-overlay-view {
@@ -21,14 +21,14 @@
   display: flex;
 }
 
-/* Background Temple Backdrop */
+/* Background */
 .darshan-backdrop-layer {
   position: absolute;
   inset: 0;
   background-image: radial-gradient(circle at center, rgba(33, 22, 18, 0.4) 0%, rgba(10, 8, 8, 0.95) 100%), url('/assets/hanuman_darshan.jpg');
   background-size: cover;
   background-position: center;
-  filter: brightness(0.85) contrast(1.05);
+  filter: brightness(0.82) contrast(1.05);
   transform: scale(1.02);
   transition: transform 10s ease;
   z-index: 1;
@@ -38,7 +38,7 @@
   transform: scale(1.06);
 }
 
-/* Canvas Layer for Floating Petals and Diya Glow */
+/* Canvas */
 .darshan-petals-canvas {
   position: absolute;
   inset: 0;
@@ -48,7 +48,7 @@
   z-index: 2;
 }
 
-/* Top Discreet Exit Bar */
+/* Top Bar */
 .darshan-top-bar {
   position: relative;
   z-index: 10;
@@ -61,13 +61,13 @@
 
 .darshan-title-badge {
   font-family: var(--font-devanagari);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--c-gold-glow);
   background: rgba(20, 16, 15, 0.75);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--c-gold);
-  padding: 6px 18px;
+  padding: 6px 16px;
   border-radius: var(--radius-full);
   text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
 }
@@ -76,14 +76,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
   background: rgba(20, 16, 15, 0.75);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-prominent);
   color: #F5EBDD;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   transition: all var(--transition-fast);
 }
 
@@ -91,7 +91,6 @@
   background: var(--c-saffron);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
-  transform: scale(1.05);
 }
 
 .btn-exit-darshan svg {
@@ -100,61 +99,63 @@
   fill: currentColor;
 }
 
-/* Central Devotional Verse Display */
+/* Central Verse */
 .darshan-center-content {
   position: relative;
   z-index: 10;
   text-align: center;
-  max-width: 800px;
-  padding: 24px;
-  background: rgba(20, 16, 15, 0.65);
+  max-width: 780px;
+  padding: 22px;
+  background: rgba(20, 16, 15, 0.6);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(217, 181, 109, 0.4);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(217, 181, 109, 0.35);
   border-radius: var(--radius-lg);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(245, 158, 11, 0.15);
 }
 
 .darshan-verse-hindi {
   font-family: var(--font-devanagari);
-  font-size: clamp(1.4rem, 1.2rem + 1vw, 2.2rem);
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 2rem);
   font-weight: 800;
   color: #FFF4E3;
   line-height: 1.6;
-  margin-bottom: 12px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.4);
+  margin-bottom: 10px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 18px rgba(245, 158, 11, 0.35);
 }
 
 .darshan-verse-translit {
   font-family: var(--font-roman-verse);
-  font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.2rem);
+  font-size: clamp(0.9rem, 0.85rem + 0.3vw, 1.15rem);
   color: var(--c-gold-glow);
   font-style: italic;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .darshan-verse-eng {
-  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
+  font-size: clamp(0.88rem, 0.83rem + 0.2vw, 1rem);
   color: #E2D3C4;
   line-height: 1.5;
 }
 
-/* Minimal Bottom Controls in Darshan Mode */
+/* Bottom Controls */
 .darshan-bottom-bar {
   position: relative;
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(20, 16, 15, 0.75);
-  backdrop-filter: blur(10px);
-  padding: 10px 24px;
+  gap: 14px;
+  background: rgba(20, 16, 15, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 22px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-prominent);
 }
 
 .darshan-control-btn {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -166,11 +167,45 @@
 .darshan-control-btn:hover {
   background: var(--c-saffron);
   color: var(--c-charcoal);
-  transform: scale(1.1);
+  transform: scale(1.08);
+}
+
+.darshan-control-btn:active {
+  transform: scale(0.94);
 }
 
 .darshan-control-btn svg {
   width: 22px;
   height: 22px;
   fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .darshan-title-badge {
+    font-size: 0.84rem;
+    padding: 5px 12px;
+  }
+
+  .btn-exit-darshan {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .btn-exit-darshan span {
+    display: none;
+  }
+
+  .darshan-center-content {
+    padding: 16px 12px;
+  }
+
+  .darshan-bottom-bar {
+    gap: 8px;
+    padding: 8px 14px;
+  }
+
+  .darshan-control-btn {
+    width: 38px;
+    height: 38px;
+  }
 }
