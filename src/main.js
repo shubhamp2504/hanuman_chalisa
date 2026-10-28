@@ -848,7 +848,7 @@ class HanumanChalisaApp {
 
     if (shareBtn) {
       shareBtn.addEventListener('click', () => {
-        const text = encodeURIComponent(`🚩 जय श्री राम! मैंने आज श्री हनुमान चालीसा के ${lastCompletedRounds} पावन पाठ का अखंड संकल्प पूर्ण किया।\n\nआप भी संपूर्ण चालीसा पाठ, अखंड लूप एवं पावन दर्शन का लाभ लें:\nhttps://hanuman-chalisa-ten.vercel.app/`);
+        const text = encodeURIComponent(`🚩 जय श्री राम! मैंने आज श्री हनुमान चालीसा के ${lastCompletedRounds} पावन पाठ का अखंड संकल्प पूर्ण किया।\n\nआप भी संपूर्ण चालीसा पाठ, अखंड लूप एवं पावन दर्शन का लाभ लें:\nhttps://vibecodinghanumanchalisa.vercel.app/`);
         window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
       });
     }
