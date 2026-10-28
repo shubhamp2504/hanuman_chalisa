@@ -3,37 +3,18 @@
  * Caches core app shell, fonts, assets, and offline text.
  */
 
-const CACHE_NAME = 'hanuman-chalisa-v3';
+const CACHE_NAME = 'hanuman-chalisa-v4';
 
-const STATIC_ASSETS = [
+const PRECACHE_ASSETS = [
   '/',
-  'index.html',
   '/manifest.webmanifest',
-  '/favicon.svg',
-  '/assets/hanuman_darshan.jpg',
-  '/src/main.js',
-  '/src/content/chalisa-data.js',
-  '/src/content/wisdom-data.js',
-  '/src/services/storage-service.js',
-  '/src/services/audio-service.js',
-  '/src/components/verse-card.js',
-  '/src/components/temple-view.js',
-  '/src/components/audio-dock.js',
-  '/src/components/petals-canvas.js',
-  '/src/utils/icons.js',
-  '/src/styles/tokens.css',
-  '/src/styles/main.css',
-  '/src/styles/reader.css',
-  '/src/styles/audio.css',
-  '/src/styles/sadhana.css',
-  '/src/styles/wisdom.css',
-  '/src/styles/darshan.css'
+  '/favicon.svg'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+      return cache.addAll(PRECACHE_ASSETS);
     }).then(() => self.skipWaiting())
   );
 });
@@ -59,27 +40,50 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Cache-first strategy for app assets
+  // Network-first for navigation (HTML) so users always get fresh updates
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request).then((res) => res || caches.match('/')))
+    );
+    return;
+  }
+
+  // Cache-first for static assets (CSS, JS, Fonts, Images)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
       return fetch(event.request).then((networkResponse) => {
-        // Cache external fonts if requested
-        if (
-          event.request.url.includes('fonts.googleapis.com') ||
-          event.request.url.includes('fonts.gstatic.com')
-        ) {
+        if (!networkResponse || networkResponse.status !== 200) {
+          return networkResponse;
+        }
+
+        const url = event.request.url;
+        const shouldCache =
+          url.includes('fonts.googleapis.com') ||
+          url.includes('fonts.gstatic.com') ||
+          url.includes('/assets/') ||
+          url.endsWith('.css') ||
+          url.endsWith('.js') ||
+          url.endsWith('.svg') ||
+          url.endsWith('.jpg') ||
+          url.endsWith('.png');
+
+        if (shouldCache) {
           const clone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
+
         return networkResponse;
-      }).catch(() => {
-        // Fallback for html requests
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
       });
     })
   );

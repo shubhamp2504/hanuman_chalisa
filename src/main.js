@@ -1086,22 +1086,107 @@ class HanumanChalisaApp {
   }
 
   // =========================================================================
-  // NATIVE PWA INSTALL BANNER & PROMPTS
+  // UNIVERSAL MULTI-BROWSER ADAPTIVE PWA INSTALL SYSTEM
   // =========================================================================
   initPWAInstall() {
     let deferredInstallPrompt = null;
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    // Browser & Environment Detection
+    const ua = navigator.userAgent || '';
+    const isInApp = /WhatsApp|Instagram|FBAN|FBAV|Line|WeChat|MicroMessenger/i.test(ua);
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isIOSChrome = isIOS && /CriOS/i.test(ua);
+    const isIOSSafari = isIOS && !isIOSChrome && !isInApp && /Safari/i.test(ua);
 
     const banner = document.getElementById('pwa-install-banner');
     const headerBtn = document.getElementById('btn-header-install');
     const installActionBtn = document.getElementById('btn-pwa-install-action');
     const dismissBtn = document.getElementById('btn-pwa-dismiss');
-    const iosModal = document.getElementById('ios-install-modal');
-    const iosDoneBtn = document.getElementById('btn-ios-done');
-    const iosBackdrop = document.getElementById('ios-install-backdrop');
+    const guideModal = document.getElementById('ios-install-modal');
+    const guideDoneBtn = document.getElementById('btn-ios-done');
+    const guideBackdrop = document.getElementById('ios-install-backdrop');
+    const guideTitle = document.getElementById('pwa-guide-title');
+    const guideSubtitle = document.getElementById('pwa-guide-subtitle');
+    const guideStepsList = document.getElementById('pwa-guide-steps-list');
 
-    // If not in standalone app mode, make header button and banner accessible
+    // Populate instructional modal dynamically for the specific browser/device
+    const populateGuideModal = () => {
+      if (!guideStepsList) return;
+
+      if (isInApp) {
+        if (guideTitle) guideTitle.textContent = 'मुख्य ब्राउज़र में खोलकर इंस्टॉल करें';
+        if (guideSubtitle) guideSubtitle.textContent = 'ऐप स्थापित करने के लिए २ सरल कदम:';
+        guideStepsList.innerHTML = `
+          <div class="ios-step-item">
+            <span class="ios-step-num">१</span>
+            <div class="ios-step-text">
+              ऊपर दाएँ कोने में <strong>३-बिंदु ( ⋮ )</strong> या <strong>Share</strong> आइकन पर टैप करें।
+            </div>
+          </div>
+          <div class="ios-step-item">
+            <span class="ios-step-num">२</span>
+            <div class="ios-step-text">
+              <strong>"Open in Chrome"</strong> या <strong>"Open in Safari"</strong> चुनें। वहाँ केवल १ क्लिक में ऐप इंस्टॉल हो जाएगी।
+            </div>
+          </div>
+        `;
+      } else if (isIOSChrome) {
+        if (guideTitle) guideTitle.textContent = 'iPhone Chrome में ऐप कैसे जोड़ें?';
+        if (guideSubtitle) guideSubtitle.textContent = 'बिना ऐप स्टोर के सीधे होम स्क्रीन पर जोड़ें:';
+        guideStepsList.innerHTML = `
+          <div class="ios-step-item">
+            <span class="ios-step-num">१</span>
+            <div class="ios-step-text">
+              ऊपर सर्च बार (Address Bar) के दाएँ कोने में दिए गए <strong>Share आइकन ( <svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align: -2px;" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> )</strong> पर टैप करें।
+            </div>
+          </div>
+          <div class="ios-step-item">
+            <span class="ios-step-num">२</span>
+            <div class="ios-step-text">
+              नीचे स्क्रॉल करके <strong>"Add to Home Screen (होम स्क्रीन पर जोड़ें)"</strong> विकल्प चुनें।
+            </div>
+          </div>
+        `;
+      } else if (isIOS) {
+        if (guideTitle) guideTitle.textContent = 'iPhone पर ऐप कैसे जोड़ें?';
+        if (guideSubtitle) guideSubtitle.textContent = 'बिना ऐप स्टोर के सीधे होम स्क्रीन पर जोड़ें:';
+        guideStepsList.innerHTML = `
+          <div class="ios-step-item">
+            <span class="ios-step-num">१</span>
+            <div class="ios-step-text">
+              सफारी (Safari) में नीचे दिए गए <strong>Share बटन ( <svg viewBox="0 0 24 24" width="14" height="14" style="vertical-align: -2px;" fill="currentColor"><path d="M16 5l-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z"/></svg> )</strong> पर टैप करें।
+            </div>
+          </div>
+          <div class="ios-step-item">
+            <span class="ios-step-num">२</span>
+            <div class="ios-step-text">
+              नीचे स्क्रॉल करके <strong>"Add to Home Screen (होम स्क्रीन पर जोड़ें)"</strong> विकल्प चुनें।
+            </div>
+          </div>
+        `;
+      } else {
+        // Desktop or other browsers without deferredInstallPrompt
+        if (guideTitle) guideTitle.textContent = 'ब्राउज़र से ऐप कैसे इंस्टॉल करें?';
+        if (guideSubtitle) guideSubtitle.textContent = 'सीधे होम स्क्रीन अथवा डेस्कटॉप पर जोड़ें:';
+        guideStepsList.innerHTML = `
+          <div class="ios-step-item">
+            <span class="ios-step-num">१</span>
+            <div class="ios-step-text">
+              ब्राउज़र के ऊपर दाएँ कोने में <strong>३-बिंदु ( ⋮ )</strong> मेनू दबाएं।
+            </div>
+          </div>
+          <div class="ios-step-item">
+            <span class="ios-step-num">२</span>
+            <div class="ios-step-text">
+              <strong>"Install App (ऐप इंस्टॉल करें)"</strong> या <strong>"Add to Home Screen"</strong> विकल्प चुनें।
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    // If not in standalone mode, show buttons
     if (!isStandalone) {
       if (headerBtn) headerBtn.style.display = 'inline-flex';
 
@@ -1109,11 +1194,11 @@ class HanumanChalisaApp {
       if (!isDismissed && banner) {
         setTimeout(() => {
           banner.style.display = 'flex';
-        }, 2000);
+        }, 1500);
       }
     }
 
-    // Android & Chrome beforeinstallprompt
+    // Capture native beforeinstallprompt (Android Chrome, Edge, Desktop Chrome)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredInstallPrompt = e;
@@ -1121,17 +1206,31 @@ class HanumanChalisaApp {
     });
 
     const triggerInstall = async () => {
+      // 1. Direct native 1-click install if supported by browser
       if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        if (outcome === 'accepted') {
-          if (banner) banner.style.display = 'none';
-          if (headerBtn) headerBtn.style.display = 'none';
+        try {
+          deferredInstallPrompt.prompt();
+          const { outcome } = await deferredInstallPrompt.userChoice;
+          if (outcome === 'accepted') {
+            if (banner) banner.style.display = 'none';
+            if (headerBtn) headerBtn.style.display = 'none';
+          }
+          deferredInstallPrompt = null;
+        } catch (err) {
+          console.warn('Native install prompt failed, showing guide:', err);
+          populateGuideModal();
+          if (guideModal) {
+            guideModal.classList.add('open');
+            guideModal.setAttribute('aria-hidden', 'false');
+          }
         }
-        deferredInstallPrompt = null;
-      } else if (iosModal) {
-        iosModal.classList.add('open');
-        iosModal.setAttribute('aria-hidden', 'false');
+      } else {
+        // 2. Adaptive guide for iOS (Safari & Chrome) or in-app webview
+        populateGuideModal();
+        if (guideModal) {
+          guideModal.classList.add('open');
+          guideModal.setAttribute('aria-hidden', 'false');
+        }
       }
     };
 
@@ -1145,20 +1244,21 @@ class HanumanChalisaApp {
       });
     }
 
-    const closeIOS = () => {
-      if (iosModal) {
-        iosModal.classList.remove('open');
-        iosModal.setAttribute('aria-hidden', 'true');
+    const closeGuide = () => {
+      if (guideModal) {
+        guideModal.classList.remove('open');
+        guideModal.setAttribute('aria-hidden', 'true');
       }
     };
 
-    if (iosDoneBtn) iosDoneBtn.addEventListener('click', closeIOS);
-    if (iosBackdrop) iosBackdrop.addEventListener('click', closeIOS);
+    if (guideDoneBtn) guideDoneBtn.addEventListener('click', closeGuide);
+    if (guideBackdrop) guideBackdrop.addEventListener('click', closeGuide);
 
     window.addEventListener('appinstalled', () => {
       console.log('Hanuman Chalisa PWA successfully installed on home screen');
       if (banner) banner.style.display = 'none';
       if (headerBtn) headerBtn.style.display = 'none';
+      closeGuide();
       audioService.playTempleBell();
     });
   }
