@@ -1,6 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — THE LIVING TEMPLE
-   Design Tokens & Modern CSS Variable System
+   Next-Gen Design Tokens
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Martel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&family=Yatra+One&display=swap');
@@ -20,13 +20,13 @@
   --c-vermilion: #C83824;
   --c-sacred-red: #9E1B1B;
 
-  /* Typography Stacks */
+  /* Typography */
   --font-devanagari: 'Martel', 'Rozha One', 'Yatra One', 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', 'Mangal', serif;
   --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Cinzel', 'Martel', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-roman-verse: 'Cinzel', 'Martel', Georgia, serif;
 
-  /* Fluid Font Sizes */
+  /* Fluid Typography */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.85rem);
   --text-sm: clamp(0.85rem, 0.8rem + 0.3vw, 0.95rem);
   --text-base: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
@@ -36,7 +36,6 @@
   --text-3xl: clamp(2.1rem, 1.8rem + 1.5vw, 2.85rem);
   --text-4xl: clamp(2.6rem, 2.2rem + 2vw, 3.75rem);
 
-  /* Reader Scaling Multiplier */
   --reader-scale: 1.0;
   --reader-lh: 1.9;
 
@@ -47,19 +46,21 @@
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
-  --space-7: 28px;
   --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
   --space-20: 80px;
 
-  /* Elevation & Shadows */
+  /* Next-Gen Elevation System */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12);
   --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.18);
   --shadow-gold: 0 0 24px rgba(217, 181, 109, 0.22), 0 4px 12px rgba(245, 158, 11, 0.12);
+  --shadow-glow-saffron: 0 0 40px rgba(245, 158, 11, 0.25), 0 0 80px rgba(245, 158, 11, 0.1);
+  --shadow-glow-gold: 0 0 30px rgba(217, 181, 109, 0.2), 0 0 60px rgba(217, 181, 109, 0.08);
+  --shadow-float: 0 20px 60px -10px rgba(0, 0, 0, 0.4), 0 8px 24px -6px rgba(0, 0, 0, 0.2);
 
   /* Radii */
   --radius-xs: 6px;
@@ -67,23 +68,33 @@
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-xl: 28px;
+  --radius-2xl: 36px;
   --radius-full: 999px;
 
-  /* Apple-grade Transitions */
+  /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);
   --transition-normal: 250ms cubic-bezier(0.25, 1, 0.5, 1);
   --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-spring: 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
   --header-height: 60px;
   --audio-dock-height: 72px;
   --max-content-width: 1140px;
   --reader-max-width: 800px;
+
+  /* Ambient Effects (shared defaults, overridden per-theme) */
+  --ambient-orb-1: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+  --ambient-orb-2: radial-gradient(circle, rgba(217, 181, 109, 0.08) 0%, transparent 70%);
+  --noise-opacity: 0.015;
+  --glass-bg: rgba(40, 28, 22, 0.6);
+  --glass-border: rgba(217, 181, 109, 0.15);
+  --glass-blur: blur(20px) saturate(180%);
 }
 
 /* ==========================================================================
-   THEME 1: TEMPLE MIDNIGHT (Default Sanctum Sanctorum)
+   THEME 1: TEMPLE MIDNIGHT
    ========================================================================== */
 [data-theme="temple"],
 :root {
@@ -91,7 +102,7 @@
   --bg-secondary: #1E1410;
   --bg-surface: #281C16;
   --bg-surface-elevated: #34261E;
-  --bg-surface-translucent: rgba(28, 20, 16, 0.88);
+  --bg-surface-translucent: rgba(28, 20, 16, 0.85);
   --border-subtle: rgba(217, 181, 109, 0.16);
   --border-prominent: rgba(217, 181, 109, 0.4);
   --border-glow: rgba(245, 158, 11, 0.6);
@@ -109,18 +120,24 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(217, 181, 109, 0.08) 100%);
   --verse-highlight-border: #F59E0B;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.35) 0%, rgba(217, 181, 109, 0.1) 50%, transparent 75%);
-  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.15) 0%, transparent 65%);
+
+  --ambient-orb-1: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  --ambient-orb-2: radial-gradient(circle, rgba(157, 80, 53, 0.08) 0%, transparent 70%);
+  --glass-bg: rgba(40, 28, 22, 0.55);
+  --glass-border: rgba(217, 181, 109, 0.15);
+  --noise-opacity: 0.018;
 }
 
 /* ==========================================================================
-   THEME 2: PARCHMENT DAY (Sunlit Temple / Elderly Friendly)
+   THEME 2: PARCHMENT DAY
    ========================================================================== */
 [data-theme="parchment"] {
   --bg-primary: #F7EFE4;
   --bg-secondary: #EDE2D1;
   --bg-surface: #FCF8F2;
   --bg-surface-elevated: #FFFFFF;
-  --bg-surface-translucent: rgba(252, 248, 242, 0.94);
+  --bg-surface-translucent: rgba(252, 248, 242, 0.92);
   --border-subtle: rgba(157, 80, 53, 0.2);
   --border-prominent: rgba(157, 80, 53, 0.45);
   --border-glow: #9D5035;
@@ -138,18 +155,24 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(194, 94, 12, 0.18) 0%, rgba(217, 181, 109, 0.12) 100%);
   --verse-highlight-border: #C25E09;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.25) 0%, rgba(217, 181, 109, 0.08) 50%, transparent 75%);
-  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(194, 94, 12, 0.1) 0%, transparent 60%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(194, 94, 12, 0.12) 0%, transparent 65%);
+
+  --ambient-orb-1: radial-gradient(circle, rgba(194, 94, 12, 0.08) 0%, transparent 70%);
+  --ambient-orb-2: radial-gradient(circle, rgba(140, 101, 23, 0.06) 0%, transparent 70%);
+  --glass-bg: rgba(252, 248, 242, 0.7);
+  --glass-border: rgba(157, 80, 53, 0.2);
+  --noise-opacity: 0.01;
 }
 
 /* ==========================================================================
-   THEME 3: DEEP NOCTURNE (OLED Night)
+   THEME 3: DEEP NOCTURNE
    ========================================================================== */
 [data-theme="dark"] {
   --bg-primary: #0A0808;
   --bg-secondary: #120D0C;
   --bg-surface: #1A1411;
   --bg-surface-elevated: #221B18;
-  --bg-surface-translucent: rgba(18, 13, 12, 0.92);
+  --bg-surface-translucent: rgba(18, 13, 12, 0.9);
   --border-subtle: rgba(217, 181, 109, 0.12);
   --border-prominent: rgba(217, 181, 109, 0.3);
   --border-glow: #F59E0B;
@@ -167,18 +190,24 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 181, 109, 0.05) 100%);
   --verse-highlight-border: #D97706;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.4) 0%, rgba(217, 181, 109, 0.12) 50%, transparent 75%);
-  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 60%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 65%);
+
+  --ambient-orb-1: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+  --ambient-orb-2: radial-gradient(circle, rgba(217, 181, 109, 0.05) 0%, transparent 70%);
+  --glass-bg: rgba(26, 20, 17, 0.6);
+  --glass-border: rgba(217, 181, 109, 0.12);
+  --noise-opacity: 0.012;
 }
 
 /* ==========================================================================
-   THEME 4: SACRED OCHRE (Gerua)
+   THEME 4: SACRED OCHRE
    ========================================================================== */
 [data-theme="ochre"] {
   --bg-primary: #1C120C;
   --bg-secondary: #2A1812;
   --bg-surface: #382118;
   --bg-surface-elevated: #462A20;
-  --bg-surface-translucent: rgba(42, 24, 18, 0.9);
+  --bg-surface-translucent: rgba(42, 24, 18, 0.88);
   --border-subtle: rgba(245, 158, 11, 0.2);
   --border-prominent: rgba(245, 158, 11, 0.48);
   --border-glow: #F59E0B;
@@ -196,10 +225,16 @@
   --verse-highlight-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(157, 80, 53, 0.12) 100%);
   --verse-highlight-border: #F59E0B;
   --diya-glow-gradient: radial-gradient(circle at center, rgba(245, 158, 11, 0.4) 0%, rgba(217, 181, 109, 0.15) 50%, transparent 75%);
-  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
+  --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.14) 0%, transparent 65%);
+
+  --ambient-orb-1: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+  --ambient-orb-2: radial-gradient(circle, rgba(157, 80, 53, 0.1) 0%, transparent 70%);
+  --glass-bg: rgba(56, 33, 24, 0.55);
+  --glass-border: rgba(245, 158, 11, 0.18);
+  --noise-opacity: 0.015;
 }
 
-/* Accessibility: High Contrast Mode */
+/* Accessibility */
 @media (prefers-contrast: more) {
   :root {
     --border-subtle: rgba(217, 181, 109, 0.6);
@@ -208,7 +243,6 @@
   }
 }
 
-/* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

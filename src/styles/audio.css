@@ -1,5 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — THE LIVING RECITATION & AUDIO DOCK
+   Next-Gen Floating Glass Dock with Premium Transport
    ========================================================================== */
 
 .audio-dock-container {
@@ -8,11 +9,11 @@
   left: 0;
   right: 0;
   height: var(--audio-dock-height);
-  background: var(--bg-surface-translucent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid var(--border-subtle);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
   z-index: 80;
   display: flex;
   flex-direction: column;
@@ -21,7 +22,19 @@
   transition: transform var(--transition-normal);
 }
 
-/* Audio Scrubber Bar */
+/* Subtle top glow line */
+.audio-dock-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, var(--border-prominent) 50%, transparent 90%);
+  opacity: 0.4;
+}
+
+/* Audio Scrubber Bar — Enhanced */
 .audio-timeline-track {
   position: absolute;
   top: -3px;
@@ -44,6 +57,7 @@
   background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 100%);
   position: relative;
   transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
 }
 
 .audio-timeline-thumb {
@@ -56,7 +70,7 @@
   border-radius: 50%;
   background: #FFFFFF;
   border: 2px solid var(--c-saffron);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.35), 0 0 8px rgba(245, 158, 11, 0.3);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
@@ -101,7 +115,13 @@
 
 .audio-track-badge.playing {
   border-color: var(--c-saffron);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(245, 158, 11, 0.35); }
+  50% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.5); }
 }
 
 .audio-track-badge svg {
@@ -173,6 +193,7 @@
   fill: currentColor;
 }
 
+/* Primary Play Button — Next-Gen Glowing Orb */
 .transport-btn-primary {
   width: 46px;
   height: 46px;
@@ -182,13 +203,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 14px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 3px 14px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255,255,255,0.15);
   transition: all var(--transition-fast);
+  position: relative;
+}
+
+.transport-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-saffron), var(--c-gold));
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity var(--transition-fast);
+  z-index: -1;
 }
 
 .transport-btn-primary:hover {
-  transform: scale(1.06);
-  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.5);
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+.transport-btn-primary:hover::before {
+  opacity: 0.5;
 }
 
 .transport-btn-primary:active {
@@ -258,6 +296,7 @@
   background: linear-gradient(135deg, var(--c-gold) 0%, var(--c-saffron) 100%);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
 }
 
 /* Speed Dropdown */
@@ -269,11 +308,13 @@
   position: absolute;
   bottom: calc(100% + 10px);
   right: 0;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-prominent);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   padding: 6px;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-float);
   display: none;
   flex-direction: column;
   gap: 2px;
@@ -329,26 +370,26 @@
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 181, 109, 0.1) 100%);
   border-color: var(--c-gold);
   color: var(--c-gold-glow);
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
 }
 
 .repeat-menu-popover {
   position: absolute;
   bottom: calc(100% + 10px);
   right: 0;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-prominent);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 12px;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-float);
   display: none;
   flex-direction: column;
   gap: 8px;
   min-width: 240px;
   z-index: 120;
   animation: fadeIn 0.15s ease;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
 }
 
 .repeat-menu-popover.open {
@@ -390,11 +431,13 @@
 .repeat-opt-btn:hover {
   border-color: var(--c-gold);
   background: var(--bg-surface-elevated);
+  transform: translateY(-1px);
 }
 
 .repeat-opt-btn.active {
   background: rgba(245, 158, 11, 0.15);
   border-color: var(--c-saffron);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.15);
 }
 
 .repeat-opt-badge {
@@ -438,7 +481,7 @@
 .repeat-akhand-btn.active {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.24) 0%, rgba(217, 181, 109, 0.14) 100%);
   border-color: var(--c-saffron);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
 }
 
 .akhand-infinity-icon {

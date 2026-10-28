@@ -1,6 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — DARSHAN MODE
-   Immersive Fullscreen Temple Sanctum
+   Next-Gen Immersive Fullscreen Temple Sanctum
    ========================================================================== */
 
 .darshan-overlay-view {
@@ -19,23 +19,39 @@
 
 .darshan-overlay-view.active {
   display: flex;
+  animation: darshanEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Background */
+@keyframes darshanEnter {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Background — Cinematic with Ken Burns */
 .darshan-backdrop-layer {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle at center, rgba(33, 22, 18, 0.4) 0%, rgba(10, 8, 8, 0.95) 100%), url('/assets/hanuman_darshan.jpg');
+  background-image: radial-gradient(circle at center, rgba(33, 22, 18, 0.3) 0%, rgba(10, 8, 8, 0.95) 100%), url('/assets/hanuman_darshan.jpg');
   background-size: cover;
   background-position: center;
-  filter: brightness(0.82) contrast(1.05);
+  filter: brightness(0.78) contrast(1.08) saturate(1.1);
   transform: scale(1.02);
-  transition: transform 10s ease;
+  transition: transform 12s ease;
   z-index: 1;
 }
 
 .darshan-overlay-view.active .darshan-backdrop-layer {
-  transform: scale(1.06);
+  transform: scale(1.08);
+}
+
+/* Vignette overlay for depth */
+.darshan-overlay-view::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(8, 6, 5, 0.6) 100%);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Canvas */
@@ -45,7 +61,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Top Bar */
@@ -64,12 +80,14 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--c-gold-glow);
-  background: rgba(20, 16, 15, 0.75);
-  backdrop-filter: blur(10px);
+  background: rgba(20, 16, 15, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--c-gold);
   padding: 6px 16px;
   border-radius: var(--radius-full);
-  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.1);
 }
 
 .btn-exit-darshan {
@@ -78,8 +96,9 @@
   gap: 8px;
   padding: 8px 16px;
   border-radius: var(--radius-full);
-  background: rgba(20, 16, 15, 0.75);
-  backdrop-filter: blur(10px);
+  background: rgba(20, 16, 15, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-prominent);
   color: #F5EBDD;
   font-weight: 600;
@@ -91,6 +110,7 @@
   background: var(--c-saffron);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
 }
 
 .btn-exit-darshan svg {
@@ -99,19 +119,40 @@
   fill: currentColor;
 }
 
-/* Central Verse */
+/* Central Verse — Floating Glass Card with Glow */
 .darshan-center-content {
   position: relative;
   z-index: 10;
   text-align: center;
   max-width: 780px;
-  padding: 22px;
-  background: rgba(20, 16, 15, 0.6);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 28px;
+  background: rgba(20, 16, 15, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(217, 181, 109, 0.35);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 0 36px rgba(0, 0, 0, 0.55), 0 0 28px rgba(245, 158, 11, 0.15);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+  animation: verseFloat 6s ease-in-out infinite;
+}
+
+@keyframes verseFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Gradient border glow */
+.darshan-center-content::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-xl);
+  padding: 1px;
+  background: linear-gradient(135deg, var(--c-gold), transparent 40%, transparent 60%, var(--c-saffron));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .darshan-verse-hindi {
@@ -121,7 +162,7 @@
   color: #FFF4E3;
   line-height: 1.6;
   margin-bottom: 10px;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 18px rgba(245, 158, 11, 0.35);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8), 0 0 24px rgba(245, 158, 11, 0.4);
 }
 
 .darshan-verse-translit {
@@ -138,19 +179,20 @@
   line-height: 1.5;
 }
 
-/* Bottom Controls */
+/* Bottom Controls — Glass Pill */
 .darshan-bottom-bar {
   position: relative;
   z-index: 10;
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(20, 16, 15, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(20, 16, 15, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   padding: 10px 22px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-prominent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.08);
 }
 
 .darshan-control-btn {
@@ -167,7 +209,8 @@
 .darshan-control-btn:hover {
   background: var(--c-saffron);
   color: var(--c-charcoal);
-  transform: scale(1.08);
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
 }
 
 .darshan-control-btn:active {
@@ -196,7 +239,7 @@
   }
 
   .darshan-center-content {
-    padding: 16px 12px;
+    padding: 18px 14px;
   }
 
   .darshan-bottom-bar {

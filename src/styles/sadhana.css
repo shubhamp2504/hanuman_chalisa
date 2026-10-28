@@ -1,5 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — SANKALP & SADHANA
+   Next-Gen Glowing Japamala & Glass Devotional Cards
    ========================================================================== */
 
 .sadhana-container {
@@ -10,11 +11,11 @@
   gap: 32px;
 }
 
-/* Hero Card */
+/* Hero Card — Glass with Top Gradient Bar */
 .sadhana-hero-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: clamp(24px, 4vw, 36px);
   text-align: center;
   position: relative;
@@ -29,6 +30,24 @@
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 50%, var(--c-terracotta) 100%);
+}
+
+.sadhana-hero-card::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 60%;
+  background: var(--hero-glow);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sadhana-hero-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .sadhana-hero-title {
@@ -88,6 +107,7 @@
 .sankalp-pill:hover {
   border-color: var(--c-gold);
   color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .sankalp-pill.active {
@@ -95,16 +115,16 @@
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
   font-weight: 800;
-  box-shadow: 0 3px 12px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 3px 14px rgba(245, 158, 11, 0.35), var(--shadow-glow-saffron);
 }
 
 /* ==========================================================================
-   DIGITAL JAPAMALA
+   DIGITAL JAPAMALA — Glowing Sacred Bead
    ========================================================================== */
 .japamala-board {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 32px clamp(16px, 4vw, 36px);
   display: flex;
   flex-direction: column;
@@ -112,6 +132,27 @@
   text-align: center;
   position: relative;
   box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Ambient glow behind board */
+.japamala-board::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 50%;
+  background: var(--diya-glow-gradient);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.japamala-board > * {
+  position: relative;
+  z-index: 1;
 }
 
 .japamala-counter-display {
@@ -127,8 +168,19 @@
   font-weight: 800;
   color: var(--c-gold-glow);
   line-height: 1;
-  text-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+  text-shadow: 0 0 24px rgba(245, 158, 11, 0.4);
   font-variant-numeric: tabular-nums;
+  transition: transform 0.15s ease;
+}
+
+.japamala-number.tap-pulse {
+  animation: numberPulse 0.3s ease;
+}
+
+@keyframes numberPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); text-shadow: 0 0 32px rgba(245, 158, 11, 0.6); }
+  100% { transform: scale(1); }
 }
 
 .japamala-target {
@@ -137,7 +189,7 @@
   margin-top: 4px;
 }
 
-/* Tap Bead Button */
+/* Tap Bead Button — Next-Gen Glowing Orb */
 .japamala-tap-btn {
   width: 130px;
   height: 130px;
@@ -153,20 +205,37 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4), inset 0 -3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4), inset 0 -3px 8px rgba(0, 0, 0, 0.25), 0 0 40px rgba(245, 158, 11, 0.15);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
+  position: relative;
+}
+
+/* Outer glow ring */
+.japamala-tap-btn::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  animation: ringPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0; }
 }
 
 .japamala-tap-btn:hover {
-  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5), inset 0 -3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5), inset 0 -3px 8px rgba(0, 0, 0, 0.25), 0 0 60px rgba(245, 158, 11, 0.25);
 }
 
 .japamala-tap-btn:active {
   transform: scale(0.92);
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3), inset 0 -3px 8px rgba(0, 0, 0, 0.25);
 }
 
 .japamala-tap-btn svg {
@@ -182,7 +251,7 @@
   margin-top: 22px;
 }
 
-/* Progress Bar */
+/* Progress Bar — Enhanced */
 .japamala-progress-bar-wrap {
   width: min(320px, 90%);
   height: 6px;
@@ -197,6 +266,7 @@
   width: 0%;
   background: linear-gradient(90deg, var(--c-saffron) 0%, var(--c-gold) 100%);
   transition: width 0.2s ease;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
 }
 
 /* ==========================================================================
@@ -205,7 +275,7 @@
 .journal-section-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 28px clamp(16px, 4vw, 32px);
 }
 
@@ -241,7 +311,7 @@
 .journal-textarea:focus {
   outline: none;
   border-color: var(--c-gold);
-  box-shadow: 0 0 0 3px rgba(217, 181, 109, 0.15);
+  box-shadow: 0 0 0 3px rgba(217, 181, 109, 0.15), 0 0 16px rgba(217, 181, 109, 0.08);
 }
 
 .journal-textarea::placeholder {
@@ -266,7 +336,8 @@
 
 .journal-submit-btn:hover {
   background: var(--c-gold);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
 }
 
 .journal-entries-list {
@@ -284,6 +355,11 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  transition: all var(--transition-fast);
+}
+
+.journal-entry-item:hover {
+  border-color: var(--border-prominent);
 }
 
 .journal-entry-date {

@@ -1,6 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — WISDOM EXPLORER
-   Stories of the Ramayana, Spiritual Virtues & Cross-References
+   Next-Gen Glass Cards with Gradient Borders & Hover Glows
    ========================================================================== */
 
 .wisdom-container {
@@ -22,19 +22,44 @@
 .virtue-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient border glow on hover */
+.virtue-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: linear-gradient(135deg, var(--c-saffron), transparent 60%, var(--c-gold));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
 }
 
 .virtue-card:hover {
   background: var(--bg-surface-elevated);
-  border-color: var(--border-prominent);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.virtue-card:hover::before {
+  opacity: 1;
+}
+
+.virtue-card:hover .virtue-icon-badge {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
 }
 
 .virtue-icon-badge {
@@ -47,6 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all var(--transition-bounce);
 }
 
 .virtue-icon-badge svg {
@@ -69,7 +95,7 @@
   line-height: 1.45;
 }
 
-/* Stories Grid */
+/* Stories Grid — Cinematic Story Cards */
 .stories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
@@ -79,7 +105,7 @@
 .story-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -90,11 +116,47 @@
   overflow: hidden;
 }
 
+/* Top gradient accent */
+.story-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-saffron), var(--c-gold), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+/* Ambient glow */
+.story-card::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
 .story-card:hover {
   background: var(--bg-surface-elevated);
   border-color: var(--border-prominent);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-gold);
+  transform: translateY(-4px);
+}
+
+.story-card:hover::before {
+  opacity: 1;
+}
+
+.story-card:hover::after {
+  opacity: 1;
 }
 
 .story-card-header {
@@ -184,6 +246,7 @@
   background: var(--c-saffron);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
 }
 
 .btn-story-read-verse svg {
@@ -200,6 +263,7 @@
 
   .virtue-card {
     padding: 16px 14px;
+    border-radius: var(--radius-md);
   }
 
   .stories-grid {
@@ -209,5 +273,6 @@
 
   .story-card {
     padding: 18px 16px;
+    border-radius: var(--radius-lg);
   }
 }

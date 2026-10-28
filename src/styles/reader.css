@@ -1,6 +1,6 @@
 /* ==========================================================================
    HANUMAN CHALISA — THE LIVING CHALISA (READER)
-   Styles for Verse Cards, Recitation Highlighting, Index Drawer & Controls
+   Next-Gen Verse Cards, Immersive Manuscript, Cinematic Highlighting
    ========================================================================== */
 
 .reader-container {
@@ -9,15 +9,15 @@
   position: relative;
 }
 
-/* Reader Toolbar */
+/* Reader Toolbar — Floating Glass Bar */
 .reader-toolbar {
   position: sticky;
   top: var(--header-height);
   z-index: 40;
-  background: var(--bg-surface-translucent);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 8px 14px;
   margin-bottom: 24px;
@@ -26,7 +26,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-fast);
 }
 
@@ -70,6 +70,7 @@
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 181, 109, 0.1) 100%);
   border-color: var(--c-gold);
   color: var(--c-gold-glow);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
 }
 
 .reader-tool-btn svg {
@@ -128,10 +129,11 @@
   background: var(--c-saffron);
   color: var(--c-charcoal);
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 /* ==========================================================================
-   VERSE CARDS LIST
+   VERSE CARDS LIST — Elevated Glass Cards
    ========================================================================== */
 .verses-list {
   display: flex;
@@ -147,19 +149,36 @@
   position: relative;
   transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal), background var(--transition-normal);
   scroll-margin-top: calc(var(--header-height) + 70px);
+  overflow: hidden;
 }
 
 .verse-card:hover {
   border-color: var(--border-prominent);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
-/* Active Verse Living Recitation Glow */
+/* Active Verse Living Recitation Glow — Cinematic */
 .verse-card.active-recitation {
   background: var(--verse-highlight-bg);
   border-color: var(--verse-highlight-border);
-  box-shadow: var(--shadow-gold);
-  transform: scale(1.01);
+  box-shadow: var(--shadow-gold), var(--shadow-glow-saffron);
+  transform: scale(1.015);
+}
+
+.verse-card.active-recitation::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-saffron), var(--c-gold), var(--c-saffron), transparent);
+  animation: shimmerSweep 2s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0%, 100% { opacity: 0.6; transform: scaleX(0.9); }
+  50% { opacity: 1; transform: scaleX(1); }
 }
 
 .verse-card.active-recitation::before {
@@ -175,8 +194,9 @@
   letter-spacing: 0.06em;
   padding: 2px 10px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.4);
   animation: pulseLight 2s infinite ease-in-out;
+  z-index: 2;
 }
 
 @keyframes pulseLight {
@@ -210,10 +230,10 @@
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--c-charcoal);
-  background: var(--c-gold);
+  background: linear-gradient(135deg, var(--c-gold-glow), var(--c-gold));
   padding: 2px 10px;
   border-radius: var(--radius-full);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 6px rgba(217, 181, 109, 0.3);
 }
 
 .verse-type-tag {
@@ -245,6 +265,7 @@
 .verse-icon-btn:hover {
   background: var(--bg-surface-elevated);
   color: var(--c-saffron);
+  transform: scale(1.1);
 }
 
 .verse-icon-btn.bookmarked {
@@ -358,6 +379,12 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+  transition: all var(--transition-fast);
+}
+
+.word-meaning-chip:hover {
+  border-color: var(--border-prominent);
+  background: var(--bg-surface-elevated);
 }
 
 .chip-word {
@@ -418,6 +445,7 @@
   background: var(--c-saffron);
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
 }
 
 .btn-play-verse svg {
@@ -461,6 +489,7 @@
 .focused-nav-btn:hover:not(:disabled) {
   border-color: var(--c-saffron);
   color: var(--c-saffron);
+  transform: translateY(-1px);
 }
 
 .focused-nav-btn:disabled {
@@ -475,14 +504,14 @@
 }
 
 /* ==========================================================================
-   VERSE INDEX DRAWER
+   VERSE INDEX DRAWER — Glass Side Panel
    ========================================================================== */
 .index-drawer-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 150;
   opacity: 0;
   pointer-events: none;
@@ -500,9 +529,11 @@
   bottom: 0;
   right: 0;
   width: min(400px, 92vw);
-  background: var(--bg-surface-elevated);
-  border-left: 1px solid var(--border-prominent);
-  box-shadow: var(--shadow-xl);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-left: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-float);
   z-index: 160;
   transform: translateX(100%);
   transition: transform var(--transition-normal);
@@ -599,6 +630,7 @@
   border-color: var(--c-gold);
   color: var(--c-saffron);
   background: var(--bg-secondary);
+  transform: translateY(-1px);
 }
 
 .index-chip-btn.active {
@@ -606,6 +638,7 @@
   color: var(--c-charcoal);
   border-color: var(--c-saffron);
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 .index-chip-btn.bookmarked {
@@ -642,12 +675,13 @@ body.distraction-free .reader-toolbar {
 .temple-manuscript {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: clamp(24px, 5vw, 44px) clamp(16px, 4vw, 36px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
   position: relative;
   transition: all var(--transition-normal);
+  overflow: hidden;
 }
 
 .temple-manuscript::before {
@@ -656,10 +690,29 @@ body.distraction-free .reader-toolbar {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
+  width: 70%;
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--c-gold) 50%, transparent 100%);
-  opacity: 0.4;
+  opacity: 0.5;
+}
+
+/* Ambient glow at top of manuscript */
+.temple-manuscript::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 50%;
+  background: var(--hero-glow);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.temple-manuscript > * {
+  position: relative;
+  z-index: 1;
 }
 
 .temple-shloka-head {
@@ -674,7 +727,13 @@ body.distraction-free .reader-toolbar {
   color: var(--c-saffron);
   line-height: 1;
   margin-bottom: 6px;
-  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.35));
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.4));
+  animation: omPulse 4s ease-in-out infinite;
+}
+
+@keyframes omPulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.4)); }
+  50% { filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.6)); }
 }
 
 .temple-main-title {
@@ -754,7 +813,21 @@ body.distraction-free .reader-toolbar {
 .temple-couplet.active-temple-verse {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(217, 181, 109, 0.06) 100%);
   border-color: var(--c-saffron);
-  box-shadow: 0 2px 14px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 2px 16px rgba(245, 158, 11, 0.18), inset 0 0 20px rgba(245, 158, 11, 0.04);
+}
+
+/* Left accent bar for active couplet */
+.temple-couplet.active-temple-verse::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: linear-gradient(180deg, var(--c-saffron), var(--c-gold));
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 8px var(--c-saffron);
 }
 
 .temple-lines-wrap {
