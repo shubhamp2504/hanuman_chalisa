@@ -620,6 +620,12 @@ button:focus-visible {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.main-chalisa-app {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 24px clamp(16px, 4vw, 36px) 120px;
+}
+
 .page-view.active-view {
   display: block;
 }
@@ -1496,75 +1502,12 @@ button:focus-visible {
     display: none !important;
   }
 
-  .page-view {
-    padding: 14px 12px 160px;
+  .main-chalisa-app {
+    padding: 12px 10px 100px;
   }
 
   .mobile-bottom-nav {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 58px;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-top: 1px solid var(--glass-border);
-    z-index: 105;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 4px;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  .mobile-tab-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    flex: 1;
-    height: 100%;
-    color: var(--text-muted);
-    font-size: 0.68rem;
-    font-weight: 600;
-    font-family: var(--font-devanagari);
-    background: none;
-    border: none;
-    transition: all var(--transition-fast);
-    cursor: pointer;
-    position: relative;
-  }
-
-  .mobile-tab-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-    transition: transform var(--transition-bounce);
-  }
-
-  .mobile-tab-btn.active {
-    color: var(--c-saffron);
-  }
-
-  .mobile-tab-btn.active svg {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
-  }
-
-  .mobile-tab-btn.active::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
-    background: var(--c-saffron);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--c-saffron);
+    display: none !important;
   }
 
   .hero-threshold {

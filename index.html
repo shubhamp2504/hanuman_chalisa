@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>हनुमान चालीसा — The Living Temple | Shri Hanuman Chalisa</title>
-  <meta name="description" content="A premium, inclusive, immersive digital temple experience for reciting, listening to, and understanding the sacred Shri Hanuman Chalisa." />
+  <meta name="description" content="A serene, beautifully crafted digital sanctuary for reciting, listening to, and understanding the sacred Shri Hanuman Chalisa." />
   <meta name="theme-color" content="#211612" />
 
   <!-- PWA & Favicon -->
@@ -20,16 +20,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Martel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet" />
 
-  <!-- Core Styles -->
+  <!-- Core Styles (Simplified & Focused on Hanuman Chalisa) -->
   <link rel="stylesheet" href="/src/styles/main.css" />
   <link rel="stylesheet" href="/src/styles/reader.css" />
   <link rel="stylesheet" href="/src/styles/audio.css" />
-  <link rel="stylesheet" href="/src/styles/sadhana.css" />
-  <link rel="stylesheet" href="/src/styles/wisdom.css" />
-  <link rel="stylesheet" href="/src/styles/darshan.css" />
-  <meta property="og:image" content="https://bolt.new/static/og_default.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
 </head>
 <body>
 
@@ -51,14 +45,6 @@
       </div>
     </div>
 
-    <!-- Desktop Navigation Links -->
-    <nav class="desktop-nav" aria-label="Main Navigation">
-      <button type="button" class="nav-link active" data-nav="home">द्वार (Home)</button>
-      <button type="button" class="nav-link" data-nav="reader">पाठ (Read)</button>
-      <button type="button" class="nav-link" data-nav="sadhana">साधना (Sankalp)</button>
-      <button type="button" class="nav-link" data-nav="wisdom">ज्ञान (Wisdom)</button>
-    </nav>
-
     <!-- Header Actions -->
     <div class="header-actions">
       <!-- Credits & Copyright Button -->
@@ -72,12 +58,6 @@
         <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
       </button>
 
-      <!-- Darshan Mode Button -->
-      <button type="button" class="action-btn darshan-pulse-btn" id="btn-header-darshan" title="Enter Immersive Darshan Mode" aria-label="Darshan Mode">
-        <svg viewBox="0 0 24 24"><path d="M12 2c-.6 1.7-2 3.5-2 5 0 1.7 1.3 3 3 3s3-1.3 3-3c0-1.5-1.4-3.3-2-5h-2zm-8 12c0 4.4 3.6 8 8 8s8-3.6 8-8h-16zm2 2h12c-.5 2.8-3 5-6 5s-5.5-2.2-6-5z"/></svg>
-        <span>दर्शन (Darshan)</span>
-      </button>
-
       <!-- Install App Button (Header) -->
       <button type="button" class="action-btn btn-header-install" id="btn-header-install" title="Install App on Phone / Desktop (ऐप इंस्टॉल करें)" aria-label="Install App" style="display: none;">
         <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
@@ -87,11 +67,6 @@
       <!-- Settings Dropdown Toggle -->
       <button type="button" class="action-btn" id="btn-header-settings" title="Display & Theme Settings" aria-label="Settings" aria-expanded="false">
         <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-      </button>
-
-      <!-- Mobile Menu Toggle Button -->
-      <button type="button" class="action-btn mobile-menu-btn" id="btn-mobile-nav" title="Open Mobile Navigation" aria-label="Open Navigation">
-        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
       </button>
     </div>
   </header>
@@ -157,16 +132,6 @@
       </button>
     </div>
 
-    <div class="settings-group">
-      <span class="settings-label">भाषा प्राथमिकता (Language View)</span>
-      <div class="lang-pill-row">
-        <button type="button" class="lang-pill-btn active" data-lang-val="all">समस्त (All)</button>
-        <button type="button" class="lang-pill-btn" data-lang-val="hi">हिन्दी</button>
-        <button type="button" class="lang-pill-btn" data-lang-val="en">English</button>
-        <button type="button" class="lang-pill-btn" data-lang-val="translit">Roman</button>
-      </div>
-    </div>
-
     <div class="settings-group settings-credits-group">
       <button type="button" class="settings-credits-btn" id="btn-settings-credits">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M11.88 9.14c-1.39 0-2.3.93-2.3 2.86 0 1.95.91 2.86 2.3 2.86 1.05 0 1.83-.55 2.06-1.52h1.66c-.32 1.84-1.87 2.83-3.72 2.83-2.52 0-4.04-1.74-4.04-4.17 0-2.45 1.52-4.17 4.04-4.17 1.84 0 3.39.99 3.72 2.83h-1.66c-.23-.97-1.01-1.52-2.06-1.52zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
@@ -175,306 +140,94 @@
     </div>
   </div>
 
-  <!-- Main View Container -->
-  <main id="app-main">
+  <!-- Main Unified Container: 100% Focused on Shri Hanuman Chalisa -->
+  <main id="app-main" class="main-chalisa-app">
 
-    <!-- ====================================================================
-         VIEW 1: THE THRESHOLD (HOME)
-         ==================================================================== -->
-    <section class="page-view active-view" id="view-home" aria-label="The Threshold — Home">
-      
-      <!-- Hero Threshold (Apple-style Serene Simplicity) -->
-      <div class="hero-threshold">
-        <div class="hero-art-container">
-          <img src="/assets/hanuman_darshan.jpg" alt="Lord Hanuman in the sacred sanctum sanctorum" class="hero-art-img" loading="eager" />
-          <div class="hero-art-overlay">
-            <span class="hero-greeting-pill">॥ श्री हनुमते नमः ॥</span>
-          </div>
-        </div>
-
-        <div class="hero-text-content">
-          <span class="sacred-badge">
-            <span class="om-symbol">ॐ</span>
-            <span>गोस्वामी तुलसीदास कृत • अवधी भाषा • Public Domain</span>
-          </span>
-          <h1 class="hero-title">
-            श्री हनुमान चालीसा
-            <span class="hero-title-highlight">The Living Temple</span>
-          </h1>
-          <p class="hero-tagline-awadhi">
-            ॥ श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ॥
-          </p>
-          <p class="hero-subtitle">
-            A serene, beautifully crafted digital sanctuary. Recite certified Awadhi verses, listen to authentic soulful recitation, and explore timeless Ramayana wisdom.
-          </p>
-
-          <!-- Apple-style Primary Action Buttons -->
-          <div class="hero-actions-row">
-            <button type="button" class="apple-btn-primary" id="btn-hero-listen">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              <span>श्रवण करें (Listen Now)</span>
-            </button>
-
-            <button type="button" class="apple-btn-secondary" id="btn-hero-read">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-              <span>पाठ करें (Read Chalisa)</span>
-            </button>
-
-            <button type="button" class="apple-btn-ghost" id="btn-hero-understand">
-              <span>ज्ञान दर्शन (Wisdom) →</span>
-            </button>
-          </div>
+    <!-- Hero Threshold (Apple-style Serene Simplicity) -->
+    <section class="hero-threshold">
+      <div class="hero-art-container">
+        <img src="/assets/hanuman_darshan.jpg" alt="Lord Hanuman in the sacred sanctum sanctorum" class="hero-art-img" loading="eager" />
+        <div class="hero-art-overlay">
+          <span class="hero-greeting-pill">॥ श्री हनुमते नमः ॥</span>
         </div>
       </div>
 
-      <!-- Daily Verse Showcase Card -->
-      <div class="daily-verse-card" id="daily-verse-card">
-        <span class="daily-verse-badge">आज का पावन विचार • Verse of Reflection</span>
-        <div class="daily-verse-devanagari" id="daily-verse-text">
-          बुद्धिहीन तनु जानिके सुमिरौ पवन-कुमार ।<br />
-          बल बुधि बिद्या देहु मोहिं हरहु कलेस बिकार ॥
-        </div>
-        <div class="daily-verse-translit" id="daily-verse-translit">
-          Buddhi-Heena Tanu Janike, Sumirau Pawana-Kumara ।<br />
-          Bala Budhi Bidya Dehu Mohi, Harahu Kalesa Bikara ॥
-        </div>
-        <p class="daily-verse-meaning" id="daily-verse-meaning">
-          हे पवनपुत्र! मैं स्वयं को दुर्बल व अज्ञानी मानकर आपका ध्यान करता हूँ। मुझे बल, सद्बुद्धि और विद्या प्रदान कर मेरे समस्त दुःखों और विकारों को दूर कीजिए।
+      <div class="hero-text-content">
+        <span class="sacred-badge">
+          <span class="om-symbol">ॐ</span>
+          <span>गोस्वामी तुलसीदास कृत • अवधी भाषा • Public Domain</span>
+        </span>
+        <h1 class="hero-title">
+          श्री हनुमान चालीसा
+          <span class="hero-title-highlight">The Living Temple</span>
+        </h1>
+        <p class="hero-tagline-awadhi">
+          ॥ श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ॥
         </p>
-        <div class="daily-verse-actions">
-          <button type="button" class="btn-secondary" id="btn-daily-read-more">
-            <span>संपूर्ण चालीसा पढ़ें (Read Full Chalisa)</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        <p class="hero-subtitle">
+          शुद्ध एवं प्रामाणिक अवधी पाठ, सस्वर दिव्य श्रवण, एवं भावार्थ सहित। मंदिर व नित्य पाठ हेतु अत्यंत सरल, शांत व पवित्र अनुभव।
+        </p>
+
+        <!-- Direct Action Buttons -->
+        <div class="hero-actions-row">
+          <button type="button" class="apple-btn-primary" id="btn-hero-listen">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <span>सस्वर पाठ सुनें (Listen)</span>
+          </button>
+
+          <button type="button" class="apple-btn-secondary" id="btn-hero-read">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+            <span>पाठ पढ़ें (Read)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE LIVING CHALISA MANUSCRIPT -->
+    <section class="reader-container" id="chalisa-reading-section">
+      <!-- Reader Sticky Toolbar -->
+      <div class="reader-toolbar" role="toolbar" aria-label="Reader Toolbar">
+        <div class="reader-toolbar-left">
+          <button type="button" class="reader-tool-btn" id="btn-open-index" aria-label="Open Verse Index Drawer">
+            <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+            <span>सूची (Index)</span>
+          </button>
+
+          <!-- Toggle Hindi Meaning in Temple Mode -->
+          <button type="button" class="reader-tool-btn" id="btn-toggle-meaning" title="Toggle Meaning (अर्थ दिखाएं/छिपाएं)" aria-label="Toggle Meaning">
+            <span>📖 अर्थ</span>
+          </button>
+        </div>
+
+        <div class="reader-toolbar-right">
+          <!-- Quick Font Scale buttons -->
+          <div class="font-quick-btns" title="Change Text Size">
+            <button type="button" class="font-mini-btn" id="btn-reader-font-dec" title="Smaller Font">A-</button>
+            <button type="button" class="font-mini-btn" id="btn-reader-font-inc" title="Larger Font">A+</button>
+          </div>
+
+          <!-- Akhand Path Loop Button in Reader Toolbar -->
+          <button type="button" class="reader-tool-btn" id="btn-reader-akhand-loop" title="Akhand Path Loop & Sankalp (अखंड पाठ लूप)" aria-label="Akhand Path Loop">
+            <span id="reader-akhand-label">🚩 १ पाठ</span>
+          </button>
+
+          <!-- Reader Speed button -->
+          <button type="button" class="reader-tool-btn" id="btn-reader-speed-toggle" title="Change Recitation Speed" aria-label="Recitation Speed">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.28-10.43zM10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>
+            <span id="reader-speed-label">1.0x</span>
+          </button>
+
+          <!-- Distraction-free toggle -->
+          <button type="button" class="reader-tool-btn" id="btn-toggle-distraction-free" title="Distraction-Free Mode" aria-label="Toggle Distraction-Free Mode">
+            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+            <span>शांत</span>
           </button>
         </div>
       </div>
 
-      <!-- Three Pillars of The Living Temple -->
-      <div class="section-header-block">
-        <span class="section-tag">पवित्र अनुभव • Pure Experience</span>
-        <h2 class="section-main-heading">प्रत्येक साधक के लिए सुलभ</h2>
-        <p class="section-subtext">चाहे आप पहली बार पढ़ रहे हों या नित्य नियम से—यह मंदिर आपकी साधना को सरल, शांत और समृद्ध बनाता है।</p>
-      </div>
-
-      <div class="features-three-grid">
-        <div class="feature-pill-card" role="button" tabindex="0" data-nav="reader">
-          <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-          </div>
-          <h4>सजीव सस्वर पाठ • Living Recitation</h4>
-          <p>ऑडियो पाठ के साथ वर्तमान चौपाई स्वर्ण आभा में प्रकाशित होती है। ६-स्तरीय गति नियंत्रण (0.75x से 1.5x) व तंबूरा धुन सहित।</p>
-        </div>
-
-        <div class="feature-pill-card" role="button" tabindex="0" data-nav="sadhana">
-          <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </div>
-          <h4>निजी साधना • Japamala & Sankalp</h4>
-          <p>१०८ मनकों की शांत डिजिटल जपमाला, १ से १०८ पाठ का संकल्प, और पूर्णतः निजी ऑफ़लाइन चिंतन डायरी बिना किसी तनाव के।</p>
-        </div>
-
-        <div class="feature-pill-card" role="button" tabindex="0" data-nav="wisdom">
-          <div class="feature-icon-circle">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
-          </div>
-          <h4>ज्ञान अन्वेषण • Wisdom Explorer</h4>
-          <p>हनुमान जी के ५ दिव्य सद्गुण, ६ प्रेरक रामायण प्रसंग, और प्रत्येक चौपाई का शब्द-दर-शब्द प्रामाणिक अर्थ।</p>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ====================================================================
-         VIEW 2: THE LIVING CHALISA (READER)
-         ==================================================================== -->
-    <section class="page-view" id="view-reader" aria-label="The Living Chalisa — Reader">
-      <div class="reader-container">
-        
-        <!-- Reader Sticky Toolbar -->
-        <div class="reader-toolbar" role="toolbar" aria-label="Reader Toolbar">
-          <div class="reader-toolbar-left">
-            <button type="button" class="reader-tool-btn" id="btn-open-index" aria-label="Open Verse Index Drawer">
-              <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-              <span>सूची</span>
-            </button>
-
-            <!-- Mode Switch: Temple Single Page (Default) vs Detailed Cards vs Single Verse -->
-            <div class="mode-toggle-group" role="radiogroup" aria-label="Reading Mode">
-              <button type="button" class="mode-toggle-btn active" id="btn-mode-temple" role="radio" aria-checked="true" title="Complete Hanuman Chalisa on one single continuous page for temple chanting">
-                🛕 अखंड पाठ
-              </button>
-              <button type="button" class="mode-toggle-btn" id="btn-mode-cards" role="radio" aria-checked="false" title="Detailed Verse-by-verse Cards">
-                कार्ड
-              </button>
-              <button type="button" class="mode-toggle-btn" id="btn-mode-focused" role="radio" aria-checked="false" title="Focus Single Verse">
-                एकाग्र
-              </button>
-            </div>
-          </div>
-
-          <div class="reader-toolbar-right">
-            <!-- Toggle Hindi Meaning in Temple Mode -->
-            <button type="button" class="reader-tool-btn" id="btn-toggle-meaning" title="Toggle Meaning (अर्थ दिखाएं/छिपाएं)" aria-label="Toggle Meaning">
-              <span>📖 अर्थ</span>
-            </button>
-
-            <!-- Quick Font Scale buttons -->
-            <div class="font-quick-btns" title="Change Text Size">
-              <button type="button" class="font-mini-btn" id="btn-reader-font-dec" title="Smaller Font">A-</button>
-              <button type="button" class="font-mini-btn" id="btn-reader-font-inc" title="Larger Font">A+</button>
-            </div>
-
-            <!-- Akhand Path Loop Button in Reader Toolbar -->
-            <button type="button" class="reader-tool-btn" id="btn-reader-akhand-loop" title="Akhand Path Loop & Sankalp (अखंड पाठ लूप)" aria-label="Akhand Path Loop">
-              <span id="reader-akhand-label">🚩 १ पाठ</span>
-            </button>
-
-            <!-- Reader Speed button -->
-            <button type="button" class="reader-tool-btn" id="btn-reader-speed-toggle" title="Change Recitation Speed" aria-label="Recitation Speed">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.28-10.43zM10.59 15.41a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></svg>
-              <span id="reader-speed-label">1.0x</span>
-            </button>
-
-            <!-- Distraction-free toggle -->
-            <button type="button" class="reader-tool-btn" id="btn-toggle-distraction-free" title="Distraction-Free Mode (D)" aria-label="Toggle Distraction-Free Mode">
-              <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
-              <span>शांत</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 1. TEMPLE SINGLE-PAGE FULL CHALISA (Default Mode) -->
-        <div class="temple-single-container" id="temple-single-page-container">
-          <!-- Rendered dynamically by temple-view.js -->
-        </div>
-
-        <!-- 2. DETAILED VERSE-BY-VERSE CARDS (Hidden in Temple Mode) -->
-        <div class="verses-list" id="verses-list-container" style="display: none;">
-          <!-- Populated dynamically by JS -->
-        </div>
-
-        <!-- Focused Mode Single-Verse Container (Hidden by default) -->
-        <div class="focused-single-container" id="focused-single-container" style="display: none;">
-          <div id="focused-verse-target"></div>
-          <div class="focused-nav-bar">
-            <button type="button" class="focused-nav-btn" id="btn-focused-prev">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-              <span>पूर्व पद (Previous)</span>
-            </button>
-            <span id="focused-verse-indicator" style="font-weight: 700; color: var(--c-gold);">पद १ / ४३</span>
-            <button type="button" class="focused-nav-btn" id="btn-focused-next">
-              <span>अग्रिम पद (Next)</span>
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         VIEW 3: SANKALP & SADHANA (DEVOTIONAL PRACTICE)
-         ==================================================================== -->
-    <section class="page-view" id="view-sadhana" aria-label="Sadhana & Sankalp">
-      <div class="sadhana-container">
-        
-        <!-- Hero Card -->
-        <div class="sadhana-hero-card">
-          <h2 class="sadhana-hero-title">साधना एवं संकल्प (Personal Practice)</h2>
-          <p class="sadhana-hero-desc">
-            साधना मन की शुद्धि और आत्म-समर्पण की यात्रा है। यहाँ कोई होड़ नहीं है, कोई अंक-तालिका नहीं है। आप अपनी गति और श्रद्धा से पाठ संपन्न करें।
-          </p>
-
-          <!-- Sankalp Goal Selection -->
-          <div class="sankalp-selector-box">
-            <span class="sankalp-box-title">पाठ संकल्प संख्या (Recitation Goal)</span>
-            <div class="sankalp-pills-row" id="sankalp-pills-row">
-              <button type="button" class="sankalp-pill" data-count="1">१ पाठ (1x)</button>
-              <button type="button" class="sankalp-pill" data-count="3">३ पाठ (3x)</button>
-              <button type="button" class="sankalp-pill active" data-count="7">७ पाठ (7x)</button>
-              <button type="button" class="sankalp-pill" data-count="11">११ पाठ (11x)</button>
-              <button type="button" class="sankalp-pill" data-count="21">२१ पाठ (21x)</button>
-              <button type="button" class="sankalp-pill" data-count="108">१०८ पाठ (108x)</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Digital Japamala (108 Beads Counter) -->
-        <div class="japamala-board">
-          <div class="japamala-counter-display">
-            <span class="japamala-number" id="japamala-count-num">0</span>
-            <span class="japamala-target" id="japamala-target-label">लक्ष्य: १०८ मनके (Goal: 108 Beads)</span>
-          </div>
-
-          <button type="button" class="japamala-tap-btn" id="btn-japamala-tap" aria-label="Chant Bead Counter">
-            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            <span>जपें (Chant)</span>
-          </button>
-
-          <div class="japamala-progress-bar-wrap">
-            <div class="japamala-progress-fill" id="japamala-progress-fill"></div>
-          </div>
-
-          <div class="japamala-actions-row">
-            <button type="button" class="btn-secondary" id="btn-japamala-reset">
-              <span>पुनः प्रारंभ (Reset)</span>
-            </button>
-            <button type="button" class="btn-secondary" id="btn-japamala-sound">
-              <span>घंटी ध्वनि (Bell)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Private Devotional Reflections Journal -->
-        <div class="journal-section-card">
-          <h3>दैनिक भाव एवं चिंतन (Devotional Reflections)</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">
-            यह आपकी पूर्णतः निजी डायरी है। आपके विचार केवल आपके अपने उपकरण पर सुरक्षित रहते हैं।
-          </p>
-          <form class="journal-form" id="journal-form">
-            <textarea 
-              class="journal-textarea" 
-              id="journal-input" 
-              placeholder="आज के पाठ के उपरांत आपका भाव या प्रभु के समक्ष कोई प्रार्थना..." 
-              required
-            ></textarea>
-            <button type="submit" class="journal-submit-btn">
-              <span>भाव सहेजें (Save Reflection)</span>
-            </button>
-          </form>
-
-          <div class="journal-entries-list" id="journal-entries-list">
-            <!-- Entries loaded dynamically from IndexedDB -->
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         VIEW 4: WISDOM EXPLORER (MEANINGS, STORIES & VIRTUES)
-         ==================================================================== -->
-    <section class="page-view" id="view-wisdom" aria-label="Wisdom Explorer">
-      <div class="wisdom-container">
-        
-        <div class="section-header-block">
-          <span class="section-tag">रामायण प्रसंग एवं आध्यात्मिक रहस्य</span>
-          <h2 class="section-main-heading">ज्ञान एवं सद्गुण अन्वेषण</h2>
-          <p class="section-subtext">चालीसा की प्रत्येक चौपाई के पीछे छिपे आध्यात्मिक भाव, रामायण के प्रेरक प्रसंग और जीवन-मूल्यों को समझें।</p>
-        </div>
-
-        <!-- Five Core Virtues of Hanuman -->
-        <h3 style="font-family: var(--font-devanagari); font-size: 1.3rem; color: var(--text-gold);">हनुमान जी के पंच-सद्गुण (Five Divine Virtues)</h3>
-        <div class="virtues-grid" id="virtues-grid">
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- Ramayana Stories Grid -->
-        <h3 style="font-family: var(--font-devanagari); font-size: 1.3rem; color: var(--text-gold); margin-top: 16px;">पावन रामायण कथाएं (Sacred Episodes)</h3>
-        <div class="stories-grid" id="stories-grid">
-          <!-- Populated by JS -->
-        </div>
-
+      <!-- TEMPLE SINGLE-PAGE FULL CHALISA (Continuous Sacred Manuscript) -->
+      <div class="temple-single-container" id="temple-single-page-container">
+        <!-- Rendered dynamically by temple-view.js -->
       </div>
     </section>
 
@@ -516,52 +269,6 @@
       </div>
     </div>
   </aside>
-
-  <!-- ====================================================================
-       DARSHAN MODE (FULLSCREEN IMMERSIVE TEMPLE SANCTUM)
-       ==================================================================== -->
-  <div class="darshan-overlay-view" id="darshan-overlay" role="dialog" aria-modal="true" aria-label="Darshan Mode">
-    <div class="darshan-backdrop-layer"></div>
-    <canvas class="darshan-petals-canvas" id="darshan-petals-canvas"></canvas>
-
-    <!-- Top Bar -->
-    <div class="darshan-top-bar">
-      <span class="darshan-title-badge">॥ श्री हनुमते नमः ॥ दर्शन</span>
-      <button type="button" class="btn-exit-darshan" id="btn-exit-darshan" aria-label="Exit Darshan Mode">
-        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        <span>निकास (Exit)</span>
-      </button>
-    </div>
-
-    <!-- Center Devotional Verse -->
-    <div class="darshan-center-content">
-      <div class="darshan-verse-hindi" id="darshan-verse-hindi">
-        जय हनुमान ज्ञान गुन सागर ।<br />जय कपीस तिहुँ लोक उजागर ॥
-      </div>
-      <div class="darshan-verse-translit" id="darshan-verse-translit">
-        Jaya Hanumana Gyana Guna Sagara । Jaya Kapisa Tihun Loka Ujagara ॥
-      </div>
-      <div class="darshan-verse-eng" id="darshan-verse-eng">
-        Victory to Lord Hanuman, ocean of wisdom and virtues, whose light shines across the three worlds.
-      </div>
-    </div>
-
-    <!-- Minimal Bottom Bar -->
-    <div class="darshan-bottom-bar">
-      <button type="button" class="darshan-control-btn" id="btn-darshan-prev" title="Previous Verse" aria-label="Previous Verse">
-        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-      </button>
-      <button type="button" class="darshan-control-btn" id="btn-darshan-play" title="Play / Pause Recitation" aria-label="Play / Pause">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <button type="button" class="darshan-control-btn" id="btn-darshan-next" title="Next Verse" aria-label="Next Verse">
-        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-      </button>
-      <button type="button" class="darshan-control-btn" id="btn-darshan-bell" title="Ring Bell" aria-label="Ring Temple Bell">
-        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
-      </button>
-    </div>
-  </div>
 
   <!-- ====================================================================
        APPLE-STYLE LEGAL & ATTRIBUTION FOOTER (COPYRIGHT PREVENTION)
@@ -610,10 +317,10 @@
           <button type="button" class="footer-credits-trigger" id="btn-open-credits">आभार एवं सर्वाधिकार (Full Legal Credits & Rights)</button>
         </div>
         <div class="footer-nav-links">
-          <a href="#view-home" class="footer-link" data-nav="home">मुख्य पृष्ठ</a>
-          <a href="#view-reader" class="footer-link" data-nav="reader">चालीसा पाठ</a>
-          <a href="#view-sadhana" class="footer-link" data-nav="sadhana">साधना</a>
-          <a href="#view-wisdom" class="footer-link" data-nav="wisdom">ज्ञान दर्शन</a>
+          <a href="#app-main" class="footer-link">प्रारंभ (Top)</a>
+          <a href="#temple-dohas-opening" class="footer-link">दोहा</a>
+          <a href="#temple-chaupayis-list" class="footer-link">चौपाई</a>
+          <a href="#temple-dohas-closing" class="footer-link">समापन</a>
         </div>
       </div>
     </div>
@@ -712,7 +419,7 @@
   </div>
 
   <!-- ====================================================================
-       NATIVE PWA INSTALL BANNER & IOS INSTALL GUIDE
+       NATIVE PWA INSTALL BANNER & MULTI-BROWSER ADAPTIVE GUIDE
        ==================================================================== -->
   <aside class="pwa-install-banner" id="pwa-install-banner" aria-label="Install App" style="display: none;">
     <div class="pwa-banner-art">
@@ -754,28 +461,6 @@
       <button type="button" class="btn-ios-done" id="btn-ios-done">समझ गए (Done)</button>
     </div>
   </div>
-
-  <!-- ====================================================================
-       MOBILE BOTTOM TAB NAVIGATION (APPLE / IOS STYLE)
-       ==================================================================== -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile Navigation">
-    <button type="button" class="mobile-tab-btn active" data-nav="home" title="मुख्य पृष्ठ (Home)">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>मुख्य</span>
-    </button>
-    <button type="button" class="mobile-tab-btn" data-nav="reader" title="चालीसा पाठ (Reader)">
-      <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-      <span>चालीसा</span>
-    </button>
-    <button type="button" class="mobile-tab-btn" data-nav="sadhana" title="साधना एवं जपमाला (Sadhana)">
-      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      <span>साधना</span>
-    </button>
-    <button type="button" class="mobile-tab-btn" data-nav="wisdom" title="ज्ञान दर्शन (Wisdom)">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
-      <span>ज्ञान</span>
-    </button>
-  </nav>
 
   <!-- Main ES Module Script -->
   <script type="module" src="/src/main.js"></script>
