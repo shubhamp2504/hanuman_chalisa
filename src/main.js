@@ -14,6 +14,7 @@ class HanumanChalisaApp {
   constructor() {
     this.showMeaningInTemple = false;
     this.audioDock = null;
+    this.darshanVisible = storage.getDarshanVisible();
 
     this.init();
   }
@@ -311,6 +312,53 @@ class HanumanChalisaApp {
         document.body.classList.toggle('distraction-free');
         btnDistract.classList.toggle('active', document.body.classList.contains('distraction-free'));
       });
+    }
+
+    // Toggle Darshan Image (Collapsible Hero Art - default hidden for pure basic reading)
+    const toggleDarshan = () => {
+      const nextState = !this.darshanVisible;
+      storage.setDarshanVisible(nextState);
+      this.updateDarshanView(nextState);
+      if (nextState) {
+        const heroThreshold = document.getElementById('hero-threshold');
+        if (heroThreshold) {
+          heroThreshold.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    };
+
+    const btnDarshan = document.getElementById('btn-toggle-darshan');
+    if (btnDarshan) {
+      btnDarshan.addEventListener('click', toggleDarshan);
+    }
+
+    const btnSettingsDarshan = document.getElementById('btn-settings-darshan-toggle');
+    if (btnSettingsDarshan) {
+      btnSettingsDarshan.addEventListener('click', toggleDarshan);
+    }
+
+    // Set initial Darshan view state (default: collapsed/pure reading)
+    this.updateDarshanView(this.darshanVisible);
+  }
+
+  updateDarshanView(isVisible) {
+    this.darshanVisible = isVisible;
+    const heroThreshold = document.getElementById('hero-threshold');
+    const btnDarshan = document.getElementById('btn-toggle-darshan');
+    const btnSettingsDarshan = document.getElementById('btn-settings-darshan-toggle');
+
+    if (heroThreshold) {
+      heroThreshold.classList.toggle('open', isVisible);
+    }
+    if (btnDarshan) {
+      btnDarshan.classList.toggle('active', isVisible);
+    }
+    if (btnSettingsDarshan) {
+      btnSettingsDarshan.classList.toggle('active', isVisible);
+      const span = btnSettingsDarshan.querySelector('span');
+      if (span) {
+        span.textContent = isVisible ? '🖼️ दर्शन चित्र छिपाएं (Hide Darshan)' : '🖼️ दर्शन चित्र दिखाएं (Show Darshan)';
+      }
     }
   }
 

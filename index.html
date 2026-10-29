@@ -132,6 +132,13 @@
       </button>
     </div>
 
+    <div class="settings-group">
+      <span class="settings-label">दर्शन स्वरूप (Darshan View)</span>
+      <button type="button" class="speed-pill-btn" id="btn-settings-darshan-toggle" style="width: 100%;">
+        <span>🖼️ दर्शन चित्र दिखाएं / छिपाएं</span>
+      </button>
+    </div>
+
     <div class="settings-group settings-credits-group">
       <button type="button" class="settings-credits-btn" id="btn-settings-credits">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M11.88 9.14c-1.39 0-2.3.93-2.3 2.86 0 1.95.91 2.86 2.3 2.86 1.05 0 1.83-.55 2.06-1.52h1.66c-.32 1.84-1.87 2.83-3.72 2.83-2.52 0-4.04-1.74-4.04-4.17 0-2.45 1.52-4.17 4.04-4.17 1.84 0 3.39.99 3.72 2.83h-1.66c-.23-.97-1.01-1.52-2.06-1.52zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
@@ -143,8 +150,8 @@
   <!-- Main Unified Container: 100% Focused on Shri Hanuman Chalisa -->
   <main id="app-main" class="main-chalisa-app">
 
-    <!-- Hero Threshold (Apple-style Serene Simplicity) -->
-    <section class="hero-threshold">
+    <!-- Hero Threshold (Collapsible - Hidden by Default for Pure Basic Audio & Reading) -->
+    <section class="hero-threshold" id="hero-threshold">
       <div class="hero-art-container">
         <img src="/assets/hanuman_darshan.jpg" alt="Lord Hanuman in the sacred sanctum sanctorum" class="hero-art-img" loading="eager" />
         <div class="hero-art-overlay">
@@ -165,7 +172,7 @@
           ॥ श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ॥
         </p>
         <p class="hero-subtitle">
-          शुद्ध एवं प्रामाणिक अवधी पाठ, सस्वर दिव्य श्रवण, एवं भावार्थ सहित। मंदिर व नित्य पाठ हेतु अत्यंत सरल, शांत व पवित्र अनुभव।
+          शुद्ध एवं प्रामाणिक अवधी पाठ, सस्वर दिव्य श्रवण, एवं भावार्थ सहित।
         </p>
 
         <!-- Direct Action Buttons -->
@@ -196,6 +203,11 @@
           <!-- Toggle Hindi Meaning in Temple Mode -->
           <button type="button" class="reader-tool-btn" id="btn-toggle-meaning" title="Toggle Meaning (अर्थ दिखाएं/छिपाएं)" aria-label="Toggle Meaning">
             <span>📖 अर्थ</span>
+          </button>
+
+          <!-- Toggle Darshan Image -->
+          <button type="button" class="reader-tool-btn" id="btn-toggle-darshan" title="दर्शन चित्र (हनुमान जी का चित्र दिखाएं/छिपाएं)" aria-label="Toggle Darshan Image">
+            <span>🖼️ दर्शन</span>
           </button>
         </div>
 
